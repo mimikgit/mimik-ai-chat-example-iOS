@@ -1,0 +1,7 @@
+{
+  "expectedDownloadSize": 1800000000,
+  "object": "model",
+  "owned_by": "lmstudio-community",
+  "id": "lmstudio-community/gemma-1.1-2b-it-GGUF",
+  "url": "https://huggingface.co/lmstudio-community/gemma-1.1-2b-it-GGUF/resolve/main/gemma-1.1-2b-it-Q4_K_M.gguf?download=true"
+}

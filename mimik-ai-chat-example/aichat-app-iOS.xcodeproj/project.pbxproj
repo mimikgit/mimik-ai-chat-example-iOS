@@ -1,0 +1,489 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		310311732C2375C5000FBC94 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310311722C2375C5000FBC94 /* SheetView.swift */; };
+		311717B62C3C84C100065300 /* Developer-ID-Token in Resources */ = {isa = PBXBuildFile; fileRef = 311717B42C3C84C100065300 /* Developer-ID-Token */; };
+		311717B72C3C84C100065300 /* Developer-mimOE-License in Resources */ = {isa = PBXBuildFile; fileRef = 311717B52C3C84C100065300 /* Developer-mimOE-License */; };
+		311717B92C3C853B00065300 /* LoadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311717B82C3C853B00065300 /* LoadConfig.swift */; };
+		3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */; };
+		3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5282C22339A0081246C /* ContentView+MimOE.swift */; };
+		3147F18A2C938C9800E67B1D /* mimik-ai-use-case-config-url in Resources */ = {isa = PBXBuildFile; fileRef = 3147F1892C938C9800E67B1D /* mimik-ai-use-case-config-url */; };
+		316580192C9B824A001E89DB /* mimik-ai-use-case-api-key in Resources */ = {isa = PBXBuildFile; fileRef = 316580182C9B824A001E89DB /* mimik-ai-use-case-api-key */; };
+		317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */; };
+		317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A322C10CCF3006F5F5F /* ContentView.swift */; };
+		317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A342C10CCF4006F5F5F /* Assets.xcassets */; };
+		317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */; };
+		31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */; };
+		31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB42C519F840029E436 /* ContentView+AI.swift */; };
+		31FCAB6A2C90F9E0000FD458 /* AI-model-request.json in Resources */ = {isa = PBXBuildFile; fileRef = 31FCAB692C90F9E0000FD458 /* AI-model-request.json */; };
+		6FBEB6BAC77868B080A0BF3D /* Pods_AI_Chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4986FDC112D8DF18B536AA1 /* Pods_AI_Chat.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		310311722C2375C5000FBC94 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
+		311717B42C3C84C100065300 /* Developer-ID-Token */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Developer-ID-Token"; sourceTree = "<group>"; };
+		311717B52C3C84C100065300 /* Developer-mimOE-License */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Developer-mimOE-License"; sourceTree = "<group>"; };
+		311717B82C3C853B00065300 /* LoadConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfig.swift; sourceTree = "<group>"; };
+		3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderTextFieldModifier.swift; sourceTree = "<group>"; };
+		3124B5282C22339A0081246C /* ContentView+MimOE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentView+MimOE.swift"; sourceTree = "<group>"; };
+		3147F1892C938C9800E67B1D /* mimik-ai-use-case-config-url */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mimik-ai-use-case-config-url"; sourceTree = "<group>"; };
+		316580182C9B824A001E89DB /* mimik-ai-use-case-api-key */ = {isa = PBXFileReference; lastKnownFileType = text; path = "mimik-ai-use-case-api-key"; sourceTree = "<group>"; };
+		317F4A2D2C10CCF3006F5F5F /* AI-Chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AI-Chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aichat_app_iOSApp.swift; sourceTree = "<group>"; };
+		317F4A322C10CCF3006F5F5F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		317F4A342C10CCF4006F5F5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+UI-Labels.swift"; sourceTree = "<group>"; };
+		31C1EEB42C519F840029E436 /* ContentView+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+AI.swift"; sourceTree = "<group>"; };
+		31D383022C24BAEE002CE163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		31FCAB692C90F9E0000FD458 /* AI-model-request.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "AI-model-request.json"; sourceTree = "<group>"; };
+		D421876D42872A41DFB131E5 /* Pods-aichat-app-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aichat-app-iOS.debug.xcconfig"; path = "Target Support Files/Pods-aichat-app-iOS/Pods-aichat-app-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D4986FDC112D8DF18B536AA1 /* Pods_AI_Chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AI_Chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5F37ACB4AD053E2482C44A2 /* Pods-AI-Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat.release.xcconfig"; path = "Target Support Files/Pods-AI-Chat/Pods-AI-Chat.release.xcconfig"; sourceTree = "<group>"; };
+		FBB47A49D6C5268C7B3FB1EA /* Pods-AI-Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat.debug.xcconfig"; path = "Target Support Files/Pods-AI-Chat/Pods-AI-Chat.debug.xcconfig"; sourceTree = "<group>"; };
+		FEA04E5229F9EDA07324D0B7 /* Pods-aichat-app-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aichat-app-iOS.release.xcconfig"; path = "Target Support Files/Pods-aichat-app-iOS/Pods-aichat-app-iOS.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		317F4A2A2C10CCF3006F5F5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FBEB6BAC77868B080A0BF3D /* Pods_AI_Chat.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3147F18B2C9390F900E67B1D /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				311717B52C3C84C100065300 /* Developer-mimOE-License */,
+				311717B42C3C84C100065300 /* Developer-ID-Token */,
+				316580182C9B824A001E89DB /* mimik-ai-use-case-api-key */,
+				3147F1892C938C9800E67B1D /* mimik-ai-use-case-config-url */,
+				31FCAB692C90F9E0000FD458 /* AI-model-request.json */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		317F4A242C10CCF3006F5F5F = {
+			isa = PBXGroup;
+			children = (
+				317F4A2F2C10CCF3006F5F5F /* aichat-app-iOS */,
+				317F4A2E2C10CCF3006F5F5F /* Products */,
+				A77DC5292780AEF413278AC1 /* Pods */,
+				F9BDAEF3CF13135B6FE069BA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		317F4A2E2C10CCF3006F5F5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				317F4A2D2C10CCF3006F5F5F /* AI-Chat.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		317F4A2F2C10CCF3006F5F5F /* aichat-app-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				3147F18B2C9390F900E67B1D /* Config */,
+				311717B82C3C853B00065300 /* LoadConfig.swift */,
+				317F4A322C10CCF3006F5F5F /* ContentView.swift */,
+				31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */,
+				31C1EEB42C519F840029E436 /* ContentView+AI.swift */,
+				3124B5282C22339A0081246C /* ContentView+MimOE.swift */,
+				310311722C2375C5000FBC94 /* SheetView.swift */,
+				3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */,
+				317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */,
+				31D383022C24BAEE002CE163 /* Info.plist */,
+				317F4A342C10CCF4006F5F5F /* Assets.xcassets */,
+				317F4A362C10CCF4006F5F5F /* Preview Content */,
+			);
+			path = "aichat-app-iOS";
+			sourceTree = "<group>";
+		};
+		317F4A362C10CCF4006F5F5F /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A77DC5292780AEF413278AC1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D421876D42872A41DFB131E5 /* Pods-aichat-app-iOS.debug.xcconfig */,
+				FEA04E5229F9EDA07324D0B7 /* Pods-aichat-app-iOS.release.xcconfig */,
+				FBB47A49D6C5268C7B3FB1EA /* Pods-AI-Chat.debug.xcconfig */,
+				F5F37ACB4AD053E2482C44A2 /* Pods-AI-Chat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		F9BDAEF3CF13135B6FE069BA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D4986FDC112D8DF18B536AA1 /* Pods_AI_Chat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		317F4A2C2C10CCF3006F5F5F /* AI-Chat */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 317F4A3B2C10CCF4006F5F5F /* Build configuration list for PBXNativeTarget "AI-Chat" */;
+			buildPhases = (
+				20AD9291C73BBA1FB032BF49 /* [CP] Check Pods Manifest.lock */,
+				317F4A292C10CCF3006F5F5F /* Sources */,
+				317F4A2A2C10CCF3006F5F5F /* Frameworks */,
+				317F4A2B2C10CCF3006F5F5F /* Resources */,
+				9B229F1D46411A2AF811CB87 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AI-Chat";
+			productName = "aichat-app-iOS";
+			productReference = 317F4A2D2C10CCF3006F5F5F /* AI-Chat.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		317F4A252C10CCF3006F5F5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					317F4A2C2C10CCF3006F5F5F = {
+						CreatedOnToolsVersion = 15.3;
+					};
+				};
+			};
+			buildConfigurationList = 317F4A282C10CCF3006F5F5F /* Build configuration list for PBXProject "aichat-app-iOS" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 317F4A242C10CCF3006F5F5F;
+			productRefGroup = 317F4A2E2C10CCF3006F5F5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				317F4A2C2C10CCF3006F5F5F /* AI-Chat */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		317F4A2B2C10CCF3006F5F5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311717B72C3C84C100065300 /* Developer-mimOE-License in Resources */,
+				317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */,
+				3147F18A2C938C9800E67B1D /* mimik-ai-use-case-config-url in Resources */,
+				311717B62C3C84C100065300 /* Developer-ID-Token in Resources */,
+				316580192C9B824A001E89DB /* mimik-ai-use-case-api-key in Resources */,
+				31FCAB6A2C90F9E0000FD458 /* AI-model-request.json in Resources */,
+				317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		20AD9291C73BBA1FB032BF49 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AI-Chat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B229F1D46411A2AF811CB87 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AI-Chat/Pods-AI-Chat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-AI-Chat/Pods-AI-Chat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AI-Chat/Pods-AI-Chat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		317F4A292C10CCF3006F5F5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */,
+				31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */,
+				311717B92C3C853B00065300 /* LoadConfig.swift in Sources */,
+				317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */,
+				317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */,
+				3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */,
+				310311732C2375C5000FBC94 /* SheetView.swift in Sources */,
+				31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		317F4A392C10CCF4006F5F5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Debug;
+		};
+		317F4A3A2C10CCF4006F5F5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TVOS_DEPLOYMENT_TARGET = 17.0;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				XROS_DEPLOYMENT_TARGET = 1.1;
+			};
+			name = Release;
+		};
+		317F4A3C2C10CCF4006F5F5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FBB47A49D6C5268C7B3FB1EA /* Pods-AI-Chat.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"aichat-app-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = GL288K3PB5;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "aichat-app-iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mimik.ios-ai-chat";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		317F4A3D2C10CCF4006F5F5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F5F37ACB4AD053E2482C44A2 /* Pods-AI-Chat.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"aichat-app-iOS/Preview Content\"";
+				DEVELOPMENT_TEAM = GL288K3PB5;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "aichat-app-iOS/Info.plist";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.mimik.ios-ai-chat";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		317F4A282C10CCF3006F5F5F /* Build configuration list for PBXProject "aichat-app-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				317F4A392C10CCF4006F5F5F /* Debug */,
+				317F4A3A2C10CCF4006F5F5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		317F4A3B2C10CCF4006F5F5F /* Build configuration list for PBXNativeTarget "AI-Chat" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				317F4A3C2C10CCF4006F5F5F /* Debug */,
+				317F4A3D2C10CCF4006F5F5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 317F4A252C10CCF3006F5F5F /* Project object */;
+}
