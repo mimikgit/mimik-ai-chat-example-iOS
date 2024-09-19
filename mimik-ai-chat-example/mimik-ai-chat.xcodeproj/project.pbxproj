@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31020B4C2C9B8E4900FF3530 /* config-ai-model-request.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model-request.json */; };
+		31020B4C2C9B8E4900FF3530 /* config-ai-model-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model-download.json */; };
 		31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */ = {isa = PBXBuildFile; fileRef = 31020B482C9B8E4900FF3530 /* config-developer-id-token */; };
 		31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */; };
 		31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */ = {isa = PBXBuildFile; fileRef = 31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */; };
@@ -26,7 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31020B472C9B8E4900FF3530 /* config-ai-model-request.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model-request.json"; sourceTree = "<group>"; };
+		31020B472C9B8E4900FF3530 /* config-ai-model-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model-download.json"; sourceTree = "<group>"; };
 		31020B482C9B8E4900FF3530 /* config-developer-id-token */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-id-token"; sourceTree = "<group>"; };
 		31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-mimOE-license"; sourceTree = "<group>"; };
 		31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-api-key"; sourceTree = "<group>"; };
@@ -67,11 +67,11 @@
 		317F4A242C10CCF3006F5F5F = {
 			isa = PBXGroup;
 			children = (
-				31020B472C9B8E4900FF3530 /* config-ai-model-request.json */,
 				31020B482C9B8E4900FF3530 /* config-developer-id-token */,
 				31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */,
 				31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */,
 				31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */,
+				31020B472C9B8E4900FF3530 /* config-ai-model-download.json */,
 				317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */,
 				317F4A2E2C10CCF3006F5F5F /* Products */,
 				A77DC5292780AEF413278AC1 /* Pods */,
@@ -194,7 +194,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31020B4C2C9B8E4900FF3530 /* config-ai-model-request.json in Resources */,
+				31020B4C2C9B8E4900FF3530 /* config-ai-model-download.json in Resources */,
 				31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */,
 				31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */,
 				31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */,
