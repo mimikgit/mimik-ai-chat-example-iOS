@@ -26,12 +26,12 @@ struct LoadConfig: Decodable {
         
         // Loading the content of Developer-mimOE-License file as a String
         guard let file = Bundle.main.path(forResource: "config-developer-mimOE-license", ofType: nil), let license = try? String(contentsOfFile: file).replacingOccurrences(of: "\n", with: "") else {
-            print("mimOE (Edge) license error in the config-developer-mimOE-license file")
+            print("mimOE (edge) license error in the config-developer-mimOE-license file")
             return nil
         }
         
         guard !license.contains("REPLACE") else {
-            fatalError("Enter your own Developer mimOE (Edge) license in the config-developer-mimOE-license file. See: https://console.mimik.com")
+            fatalError("Enter your own Developer mimOE (edge) license in the config-developer-mimOE-license file. See: https://console.mimik.com")
         }
         
         return license
@@ -49,15 +49,14 @@ struct LoadConfig: Decodable {
             fatalError("Enter your own API key in the config-mimik-ai-use-case-api-key file")
         }
         
-        print("✅ mimik ai use case API key")
         return apiKey
     }
     
-    static func aiModelRequest() -> EdgeClient.AI.Model.CreateModelRequest? {
+    static func aiModelRequest(file: String) -> EdgeClient.AI.Model.CreateModelRequest? {
         
         // Loading the content of AI-Model-Request.json file as a EdgeClient.AI.Model.CreateModelRequest object
-        guard let file = Bundle.main.path(forResource: "config-ai-model-download", ofType: "json") else {
-            print("⚠️ AI model request error in the config-ai-model-download file")
+        guard let file = Bundle.main.path(forResource: file, ofType: "json") else {
+            print("⚠️ AI model request error")
             return nil
         }
         
@@ -67,7 +66,7 @@ struct LoadConfig: Decodable {
             let decodedData = try decoder.decode(EdgeClient.AI.Model.CreateModelRequest.self, from: data)
             return decodedData
         } catch {
-            print("⚠️ AI model request error in the config-ai-model-download file:", error.localizedDescription)
+            print("⚠️ AI model request error", error.localizedDescription)
             return nil
         }
     }

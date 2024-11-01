@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31020B4C2C9B8E4900FF3530 /* config-ai-model-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model-download.json */; };
+		31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */; };
 		31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */ = {isa = PBXBuildFile; fileRef = 31020B482C9B8E4900FF3530 /* config-developer-id-token */; };
 		31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */; };
 		31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */ = {isa = PBXBuildFile; fileRef = 31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */; };
@@ -16,17 +16,19 @@
 		311717B92C3C853B00065300 /* LoadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311717B82C3C853B00065300 /* LoadConfig.swift */; };
 		3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */; };
 		3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5282C22339A0081246C /* ContentView+MimOE.swift */; };
+		312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312851222CD2CDB800CDF527 /* SheetView+Presets.swift */; };
 		317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */; };
 		317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A322C10CCF3006F5F5F /* ContentView.swift */; };
 		317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A342C10CCF4006F5F5F /* Assets.xcassets */; };
 		317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */; };
+		3196205A2CD27C2D00ADE960 /* config-ai-model2-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 319620592CD27C2D00ADE960 /* config-ai-model2-download.json */; };
 		31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */; };
 		31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB42C519F840029E436 /* ContentView+AI.swift */; };
 		46EC628C4A2C7B8B9B4D2374 /* Pods_mimik_ai_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A79C6AD531E3E59E3691D4 /* Pods_mimik_ai_chat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		31020B472C9B8E4900FF3530 /* config-ai-model-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model-download.json"; sourceTree = "<group>"; };
+		31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model1-download.json"; sourceTree = "<group>"; };
 		31020B482C9B8E4900FF3530 /* config-developer-id-token */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-id-token"; sourceTree = "<group>"; };
 		31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-mimOE-license"; sourceTree = "<group>"; };
 		31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-api-key"; sourceTree = "<group>"; };
@@ -35,11 +37,13 @@
 		311717B82C3C853B00065300 /* LoadConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfig.swift; sourceTree = "<group>"; };
 		3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderTextFieldModifier.swift; sourceTree = "<group>"; };
 		3124B5282C22339A0081246C /* ContentView+MimOE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentView+MimOE.swift"; sourceTree = "<group>"; };
+		312851222CD2CDB800CDF527 /* SheetView+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetView+Presets.swift"; sourceTree = "<group>"; };
 		317F4A2D2C10CCF3006F5F5F /* mimik-ai-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mimik-ai-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aichat_app_iOSApp.swift; sourceTree = "<group>"; };
 		317F4A322C10CCF3006F5F5F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		317F4A342C10CCF4006F5F5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		319620592CD27C2D00ADE960 /* config-ai-model2-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model2-download.json"; sourceTree = "<group>"; };
 		31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+UI-Labels.swift"; sourceTree = "<group>"; };
 		31C1EEB42C519F840029E436 /* ContentView+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+AI.swift"; sourceTree = "<group>"; };
 		31D383022C24BAEE002CE163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,7 +75,8 @@
 				31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */,
 				31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */,
 				31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */,
-				31020B472C9B8E4900FF3530 /* config-ai-model-download.json */,
+				31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */,
+				319620592CD27C2D00ADE960 /* config-ai-model2-download.json */,
 				317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */,
 				317F4A2E2C10CCF3006F5F5F /* Products */,
 				A77DC5292780AEF413278AC1 /* Pods */,
@@ -96,6 +101,7 @@
 				31C1EEB42C519F840029E436 /* ContentView+AI.swift */,
 				3124B5282C22339A0081246C /* ContentView+MimOE.swift */,
 				310311722C2375C5000FBC94 /* SheetView.swift */,
+				312851222CD2CDB800CDF527 /* SheetView+Presets.swift */,
 				3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */,
 				317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */,
 				31D383022C24BAEE002CE163 /* Info.plist */,
@@ -194,7 +200,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31020B4C2C9B8E4900FF3530 /* config-ai-model-download.json in Resources */,
+				3196205A2CD27C2D00ADE960 /* config-ai-model2-download.json in Resources */,
+				31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */,
 				31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */,
 				31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */,
 				31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */,
@@ -256,6 +263,7 @@
 				3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */,
 				31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */,
 				311717B92C3C853B00065300 /* LoadConfig.swift in Sources */,
+				312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */,
 				317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */,
 				317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */,
 				3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */,

@@ -26,7 +26,7 @@ git clone https://github.com/mimikgit/mimik-ai-chat-example-iOS.git
 
 # Adding the mimik Client Library cocoapods
 
-The mimik Client Library comes in a form of [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore/releases) and [mimOE-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mimOE-SE-iOS-developer/releases) (or [mimOE-SE-iOS](https://github.com/mimikgit/cocoapod-mimOE-SE-iOS/releases/)) cocoapods that need to be made available to the application source code.
+The mimik Client Library comes in a form of [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore/releases) and [mimOE-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mimOE-SE-iOS-developer/releases) cocoapods that need to be made available to the application source code.
 
 We have setup these references in the Podfile file at the project level for you.
 
@@ -61,8 +61,6 @@ open config-developer-mimOE-license
 
 Go to the mimik Developer Portal and copy the Developer mimOE License from there. 
 
-Learn more about the process by reading this the [tutorial](https://devdocs.mimik.com/tutorials/02-index)
-
 Once copied, paste the mimOE License into the `config-developer-mimOE-license` file, replacing any existing content already there. Save and Close the file.
 
 **Step 5:** Continue by editing the `config-mimik-ai-use-case-api-key` file with:
@@ -75,13 +73,13 @@ This is your own API key value that will be used to secure the API calls within 
 
 Once you thought of one, paste your API key into the `config-mimik-ai-use-case-api-key` file, replacing any existing content already there. Save and Close the file.
 
-**Step 6:** Continue by noting the content of the `config-mimik-ai-use-case-url` and `config-ai-model-download.json` files with:
+**Step 6:** Continue by noting the content of the `config-mimik-ai-use-case-url` and `config-ai-model1-download.json` files with:
 
 ```
-open config-mimik-ai-use-case-url; open config-ai-model-download.json
+open config-mimik-ai-use-case-url; open config-ai-model1-download.json
 ```
 
-These two files have predefined values that you don't need to change (but you can, if you wish). Just take note of their content.
+These files have predefined values that you don't need to change (but you can, if you wish). Just take note of their content.
 
 
 **Step 7:** From the command line run the following command in your project directory to open Xcode.

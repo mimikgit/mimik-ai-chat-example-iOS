@@ -27,7 +27,7 @@ extension ContentView {
         
         print("✅ mimOE access token:", mimOEAccessToken)
         
-        if let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = useCaseDeployment?.useCase, case let .success(models) = await self.edgeClient.availableAIModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty {
+        if let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase, case let .success(models) = await self.edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty {
             await processAvailableAIModels()
             return .success(())
         }

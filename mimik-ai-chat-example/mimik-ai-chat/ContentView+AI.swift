@@ -17,7 +17,7 @@ extension ContentView {
             showError(text: "API key error")
             return .failure(NSError(domain: "API key error", code: 500))
         }
-        
+                
         switch await self.edgeClient.integrateAI(accessToken: mimOEAccessToken, apiKey: apiKey, configUrl: useCaseConfigUrl, model: model, downloadHandler: { download in
             
             guard case let .success(downloadProgress) = download else {
@@ -28,9 +28,16 @@ extension ContentView {
             }
             
             let percent = String(format: "%.2f", ceil( (downloadProgress.size / downloadProgress.totalSize) * 10_000) / 100)
-            let line = "Model download progress: " + "\(percent)％"
-            print("⚠️ " + line)
-            menuLabel = line
+            let line = "Model download progress: " + "\(percent)％ \nDon't lock your device.\nKeep this app open."
+            print("⚠️ Model download progress: " + percent)
+            
+            if line.contains("100.00") {
+                justDownloadedModelId = model?.id
+            }
+            else {
+                menuLabel = line
+                justDownloadedModelId = nil
+            }
             
         }, requestHandler: { request in
             activeStream = request
@@ -59,7 +66,7 @@ extension ContentView {
     /// Asks AI model a question and receives a stream of responses in the stream handler. Request handler provides a reference to the stream.
     func askAI(question: String) async -> Result<Any, NSError> {
                 
-        guard let selectedModelId = selectedModel?.id, let useCase = useCaseDeployment?.useCase, let apiKey = LoadConfig.mimikAIUseApiKey() else {
+        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = LoadConfig.mimikAIUseApiKey() else {
             print("⚠️ AI use case error")
             response = "Error"
             return .failure(NSError.init(domain: "Error", code: 500))
@@ -93,12 +100,13 @@ extension ContentView {
     /// Processes ready to use AI models residing locally on the user device.
     func processAvailableAIModels() async {
         
-        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = useCaseDeployment?.useCase, case let .success(models) = await edgeClient.availableAIModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), let firstModel = models.first else {
+        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase, case let .success(models) = await edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), let firstModel = models.first else {
             question = ""
             questionLabel = ""
             userInput = ""
             response = ""
-            responseLabel = ""
+            responseLabel1 = ""
+            responseLabel2 = ""
             menuLabel = ""
             return
         }
@@ -108,6 +116,16 @@ extension ContentView {
         if models.count == 1 {
             print("✅ Selecting the first and only downloaded AI model automatically.")
             selectActive(model: firstModel, automatic: true)
+        }
+        else if let justDownloadedModelId = justDownloadedModelId {
+            guard let model = downloadedModels.first(where: { $0.id == justDownloadedModelId }) else {
+                print("⚠️ Multiple (\(downloadedModels.count)) AI models downloaded. Unable to select one automatically.")
+                return
+            }
+            
+            print("✅ Selecting the just downloaded model \(justDownloadedModelId) automatically.")
+            selectActive(model: model, automatic: true)
+            showSwitchModel = true
         }
         else {
             print("⚠️ Multiple (\(downloadedModels.count)) AI models downloaded. Unable to select one automatically.")
@@ -122,8 +140,9 @@ extension ContentView {
             return
         }
         
-        let value = "\(automatic ? "automatically" : "user") selected"
-        responseLabel = "Response will be streamed from\n\(modelId))(\(value))"
+        let value = "\(automatic ? "automatically" : "user")"
+        responseLabel1 = "\(modelId)"
+        responseLabel2 = "(\(value) selected model)"
         questionLabel = "Question"
         menuLabel = ""
     }

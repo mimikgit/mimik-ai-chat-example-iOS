@@ -13,10 +13,34 @@ internal extension ContentView {
             return "hourglass"
         }
         else if downloadedModels.isEmpty {
-            return "square.and.arrow.down"
+            return "gear.badge"
         }
         else {
             return "gear"
+        }
+    }
+    
+    func downloadModelFont() -> Font {
+        if selectedModel != nil && downloadedModels.count >= 1 {
+            .title3
+        }
+        else {
+            .title
+        }
+    }
+    
+    func downloadModelColour() -> Color {
+        
+        if downloadedModels.count >= 1 {
+            if selectedModel != nil {
+                return .blue
+            }
+            else {
+                return .red
+            }
+        }
+        else {
+            return .red
         }
     }
     
@@ -29,7 +53,12 @@ internal extension ContentView {
             return "START HERE"
         }
         else {
-            return "Manage Download\(downloadedModels.count > 1 ? "s" : "")"
+            if selectedModel != nil {
+                return "MANAGE MODELS"
+            }
+            else {
+                return "SELECT A MODEL"
+            }
         }
     }
     

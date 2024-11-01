@@ -15,12 +15,14 @@ struct ContentView: View {
     @State internal var mimOEAccessToken: String = ""
     @State internal var activeStream: DataStreamRequest?
     @State internal var selectedModel: EdgeClient.AI.Model?
+    @State internal var justDownloadedModelId: String?
     @State internal var downloadedModels: [EdgeClient.AI.Model] = []
     
     // State
     @State internal var isWaiting: Bool = false
     @State internal var startupDone: Bool = false
     @State internal var showAddModel: Bool = false
+    @State internal var showSwitchModel: Bool = false
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
     
@@ -29,7 +31,8 @@ struct ContentView: View {
     @State internal var questionLabel: String = ""
     @State internal var userInput: String = ""
     @State internal var response: String = ""
-    @State internal var responseLabel: String = ""
+    @State internal var responseLabel1: String = ""
+    @State internal var responseLabel2: String = ""
     @State internal var menuLabel: String = ""
     
     // mimik Client Library
@@ -40,10 +43,10 @@ struct ContentView: View {
     }()
     
     // This is where we store the AI use case deployment information
-    internal var useCaseDeployment: EdgeClient.UseCase.Deployment? {
+    internal var deployedUseCase: EdgeClient.UseCase? {
         get {
             if let data = UserDefaults.standard.object(forKey: kAIUseCaseDeployment) as? Data,
-               let deployment = try? JSONDecoder().decode(EdgeClient.UseCase.Deployment.self, from: data) {
+               let deployment = try? JSONDecoder().decode(EdgeClient.UseCase.self, from: data) {
                 return deployment
             }
             
@@ -54,35 +57,54 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("**mimik AI Chat**").font(.title)
+            Text("**mimik ai chat**").font(.title)
                 .padding()
             
-            Text(questionLabel).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight)).frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
+            if selectedModel != nil {
+                Text(questionLabel).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight)).frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
 
-            Text(question).font(.title2.weight(.bold)).frame(maxWidth: .infinity, alignment: .leading)
-            
-            Text(responseLabel).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight)).frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
-            
-            ScrollView {
-                ScrollViewReader { value in
-                    Text(response).font(.title3.weight(.regular)).frame(maxWidth: .infinity, alignment: .leading)
+                Text(question).font(.title2.weight(.bold)).frame(maxWidth: .infinity, alignment: .leading)
+                
+                VStack(spacing: 5) {
+                    Text(responseLabel1).font(.title2.weight(downloadedModels.count >= 1 ? .bold : .ultraLight))
+                    Text(responseLabel2).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight))
+                }.frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
+                
+                ScrollView {
+                    ScrollViewReader { value in
+                        Text(response).font(.title3.weight(.regular)).frame(maxWidth: .infinity, alignment: .leading)
+                    }
                 }
+                .defaultScrollAnchor(.bottom)
             }
-            .defaultScrollAnchor(.bottom)
             
             VStack(spacing: 20) {
                                             
                 if startupDone {
-                    TextField("", text: $userInput, prompt: Text(userInputPrompt()).foregroundStyle(userInputStyle())).onSubmit {
-                        question = userInput
-                        userInput = ""
-                        response = ""
-                        Task {
-                            await askAI(question: question)
+                    
+                    if selectedModel != nil {
+                        TextField("", text: $userInput, prompt: Text(userInputPrompt()).foregroundStyle(userInputStyle())).onSubmit {
+                            question = userInput
+                            userInput = ""
+                            response = ""
+                            Task {
+                                menuLabel = ""                                
+                                let clock = ContinuousClock()
+                                
+                                let elapsed = await clock.measure {
+                                    guard case .success(_) = await askAI(question: question) else {
+                                        return
+                                    }
+                                }
+                                
+                                let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
+                                print("⏱️⏱️⏱️ Response stream completion time (min:sec): \(format)")
+                                menuLabel = "Response stream completion time (min:sec):\n\(format)"
+                            }
                         }
+                        .disabled(isWaiting)
+                        .textFieldModifier(borderColor: userInputColour(), lineWidth: downloadedModels.count >= 1 ? 3 : 1)
                     }
-                    .disabled(isWaiting)
-                    .textFieldModifier(borderColor: userInputColour(), lineWidth: downloadedModels.count >= 1 ? 3 : 1)
                     
                     VStack(spacing: 5) {
                         menuView()
@@ -96,6 +118,14 @@ struct ContentView: View {
             SheetView(modelId: selectedModel?.id ?? "", modelObject: selectedModel?.object?.rawValue ?? "", modelUrl: selectedModel?.url ?? "", modelOwnedBy: selectedModel?.ownedBy ?? "", modelExpectedDownloadSize: 0, owner: self)
                 .presentationDetents([.fraction(0.8), .large])
                 .presentationDragIndicator(.visible)
+        }
+        .alert("New Model Selected", isPresented: $showSwitchModel) {
+            Button("OK") {
+                print("ok action")
+                showSwitchModel = false
+            }
+        } message: {
+            Text("Please double check the automatic model selection, to make sure it's what you want")
         }
         .padding()
         .task {
@@ -122,7 +152,7 @@ struct ContentView: View {
                         _ = await resetMimOE()
                         _ = await startupProcedure()
                     }
-                }.disabled(selectedModel == nil)
+                }.disabled(downloadedModels.isEmpty)
                 
                 ForEach(downloadedModels, id: \.self) { model in
                     Button(model.id ?? "") {
@@ -136,8 +166,8 @@ struct ContentView: View {
                 
             } label: {
                 Label(downloadModelLabel(), systemImage: downloadModelIcon())
-            }.font(downloadedModels.count >= 1 ? .title3 : .title).frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(downloadedModels.count >= 1 ? .blue : .red)
+            }.font(downloadModelFont()).frame(maxWidth: .infinity, alignment: .center)
+                .foregroundColor(downloadModelColour())
 
             if activeStream != nil {
                 Button("Cancel Request", systemImage: "xmark", role: .destructive) {
