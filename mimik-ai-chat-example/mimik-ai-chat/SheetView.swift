@@ -30,22 +30,30 @@ struct SheetView: View {
             
             HStack(alignment: .top) {
                 
+                Spacer()
+                
                 Button("Cancel", role: .destructive) {
                     presentationMode.wrappedValue.dismiss()
                 }
                 
                 Spacer()
-                
+                                
                 Button {
-                    loadPreset1()
+                    loadPreset(number: 1)
                 } label: {
-                    Text("Default Settings")
+                    Text("gemma-v1.1-2b")
                 }
                 
                 Spacer()
                 
-                Button("Cancel", role: .destructive) {}
-                    .hidden()
+                Button {
+                    loadPreset(number: 2)
+                } label: {
+                    Text("gemma-v2-2b")
+                }
+                                                                
+                Spacer()
+
                 
             }.frame(maxWidth: .infinity, minHeight: 20)
                 .padding()
@@ -78,21 +86,30 @@ struct SheetView: View {
                 
                 Task {
                     presentationMode.wrappedValue.dismiss()
-                    guard let model = LoadConfig.aiModelRequest() else {
+                    guard let model = currentPreset() else {
                         return
                     }
                     
-                    guard let configUrl = LoadConfig.mimikAIUseCaseConfigUrl(), case let .success(change) = await owner.integrateAI(useCaseConfigUrl: configUrl, model: model) else {
-                        return
+                    owner.menuLabel = ""
+                    let clock = ContinuousClock()
+                    
+                    let elapsed = await clock.measure {
+                        guard let configUrl = LoadConfig.mimikAIUseCaseConfigUrl(), case let .success(change) = await owner.integrateAI(useCaseConfigUrl: configUrl, model: model) else {
+                            return
+                        }
+                        
+                        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = owner.deployedUseCase, case let .success(models) = await owner.edgeClient.aiModels(accessToken: owner.mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty else {
+                            return
+                        }
+                        
+                        if change {
+                            await owner.processAvailableAIModels()
+                        }
                     }
                     
-                    guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = owner.useCaseDeployment?.useCase, case let .success(models) = await owner.edgeClient.availableAIModels(accessToken: owner.mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty else {
-                        return
-                    }
-                    
-                    if change {
-                        await owner.processAvailableAIModels()
-                    }
+                    let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
+                    print("⏱️⏱️⏱️ Download completion time (min:sec): \(format)")
+                    owner.menuLabel = "Download completion time (min:sec):\n\(format)"
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 44)
@@ -103,20 +120,7 @@ struct SheetView: View {
         }
         .padding()
         .task {
-            loadPreset1()
+            loadPreset(number: 1)
         }
-    }
-    
-    private func loadPreset1() {
-        
-        guard let model = LoadConfig.aiModelRequest() else {
-            return
-        }
-        
-        modelId = model.id
-        modelObject = model.object
-        modelUrl = model.url
-        modelOwnedBy = model.ownedBy ?? ""
-        modelExpectedDownloadSize = model.expectedDownloadSize
     }
 }
