@@ -147,19 +147,38 @@ struct ContentView: View {
     func menuView() -> some View {
         VStack(spacing: 10) {
             Menu {
-                Button("Remove All Models", systemImage: "trash", role: .destructive) {
-                    Task {
-                        _ = await resetMimOE()
-                        _ = await startupProcedure()
-                    }
-                }.disabled(downloadedModels.isEmpty)
                 
-                ForEach(downloadedModels, id: \.self) { model in
-                    Button(model.id ?? "") {
-                        selectActive(model: model, automatic: false)
+                Menu("Remove") {
+                    ForEach(downloadedModels, id: \.self) { model in
+                        Button("Remove \(model.id ?? "NOT_AVAIALABLE")", systemImage: "trash", role: .destructive) {
+                            Task {
+                                _ = await deleteAIModel(id: model.id ?? "NOT_AVAIALABLE")
+                            }
+                        }.disabled(downloadedModels.isEmpty)
+                    }
+                    
+                    Button("Remove Everything", systemImage: "trash.fill", role: .destructive) {
+                        Task {
+                            guard case .success = await resetMimOE() else {
+                                print("Failed to reset mim OE")
+                                return                            }
+                            
+                            try? await Task.sleep(nanoseconds: 1_000_000_000)
+                            
+                            guard case .success = await startupProcedure() else {
+                                print("failed the mim OE start up procedure")
+                                return
+                            }
+                        }
                     }
                 }
                 
+                ForEach(downloadedModels, id: \.self) { model in
+                    Button("Select \(model.id ?? "")") {
+                        selectActive(model: model, automatic: false)
+                    }
+                }
+                                
                 Button("Add AI Model", systemImage: "plus") {
                     showAddModel = true
                 }

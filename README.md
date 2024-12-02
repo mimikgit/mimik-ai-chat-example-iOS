@@ -1,88 +1,102 @@
 # Objective
 
-The objective of this example is to demonstrate how mimik ai technology integrates into an iOS application, allowing you to download an AI language model onto your device, chat with it and even work when Offline.
+The goal of this example is to demonstrate how mimik AI technology integrates into an iOS application. It allows you to download an AI language model to your device, interact with it, and even use it offline.
 
+# Prerequisites
 
-# Technical Prerequisites
+You will need to attach a **real iOS device** to your development Mac and select it as the build target. This example will not work with the iOS simulator.
 
-Connect a **real iOS device** to your computer and select it as the target in  Xcode.
-
-|**NOTE:** <br/><br/>Working with the iOS Simulator and the mimik Client Libraries entails some special consideration. For more more information about iOS Simulator support see [this tutorial](https://devdocs.mimik.com/tutorials/12-index#workingwithaniossimulator).|
-|----------|
-
-# Example Application uses the mimik Client Library
-
-The mimik Client Library simplifies usage and provides straightforward interfaces to streamline mimOE startup, authorization, and microservice deployment at the edge.
 
 # Getting the Source Code
 
-The place to start is cloning the code from GitHub and loading it into Xcode.
+To begin, clone the code from GitHub and open it in Xcode.
 
-Execute the following command to clone the example code from GitHub:
+Execute the following command to clone the example code:
+
 
 ```
 git clone https://github.com/mimikgit/mimik-ai-chat-example-iOS.git
 ```
 
+
 # Adding the mimik Client Library cocoapods
 
-The mimik Client Library comes in a form of [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore/releases) and [mimOE-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mimOE-SE-iOS-developer/releases) cocoapods that need to be made available to the application source code.
+The mimik Client Library is available as two CocoaPods: [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore) and [mim-OE-ai-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mim-OE-ai-SE-iOS-developer). These CocoaPods need to be integrated into your application's source code.
 
-We have setup these references in the Podfile file at the project level for you.
+We have already set up these references in the `Podfile` at the project level for you.
 
-**Step 1**:** From the command line run the following command to get to the Xcode project directory.
+### Step 1: Navigate to the Xcode Project Directory
+
+From the command line, run the following command to navigate to the Xcode project directory:
 
 ```
-cd mimik-ai-chat-example-iOS/mimik-ai-chat-example/
+cd mimik-ai-chat-example-iOS/Source/
 ```
 
-**Step 2**:** From the command line run the following command (from inside the Xcode project directory).
+### Step 2: Install the CocoaPods
+
+From the command line, run the following command **inside the Xcode project directory**:
 
 ```
 pod install --repo-update
 ```
 
-**Step 3:** Start editing the `config-developer-id-token` file with:
+### Step 3: Edit the `config-developer-id-token` File
+
+To start editing the `config-developer-id-token` file, run the following command:
 
 ```
 open config-developer-id-token
 ```
 
-Go to the mimik Developer Portal and generate the Developer ID Token from an edge project. 
+Go to the [mimik Developer Console](https://console.mimik.com) and generate a Developer ID Token for an edge project you create.
 
-Once generated, copy the Developer ID Token and then paste it into the `config-developer-id-token` file, replacing any existing content already there. Save and Close the file.
+Once generated, copy the token and paste it into the `config-developer-id-token` file, replacing any existing content. Save and close the file.
 
 
-**Step 4:** Continue by editing the `config-developer-mimOE-license` file with:
+### Step 4: Edit the `config-developer-mim-OE-license` File
+
+Next, edit the `config-developer-mim-OE-license` file by running the following command:
+
 
 ```
-open config-developer-mimOE-license
+open config-developer-mim-OE-license
 ```
 
-Go to the mimik Developer Portal and copy the Developer mimOE License from there. 
+Go to the [mimik Developer Console](https://console.mimik.com) and copy your Developer mim OE (edge) License.
 
-Once copied, paste the mimOE License into the `config-developer-mimOE-license` file, replacing any existing content already there. Save and Close the file.
+For more details, you can read [this tutorial](https://devdocs.mimik.com/tutorials/01-submenu/01-submenu/02-index).
 
-**Step 5:** Continue by editing the `config-mimik-ai-use-case-api-key` file with:
+Once copied, paste the mim OE License into the `config-developer-mim-OE-license` file, replacing any existing content. Save and close the file.
+
+
+### Step 5: Edit the `config-mimik-ai-use-case-api-key` File
+
+Next, edit the `config-mimik-ai-use-case-api-key` file by running the following command:
 
 ```
 open config-mimik-ai-use-case-api-key
 ```
 
-This is your own API key value that will be used to secure the API calls within the mimik ai package.
+This is your own API key, which will be used to secure the API calls within the mimik ai package.
 
-Once you thought of one, paste your API key into the `config-mimik-ai-use-case-api-key` file, replacing any existing content already there. Save and Close the file.
+Once you have your API key, paste it into the `config-mimik-ai-use-case-api-key` file, replacing any existing content. Save and close the file.
 
-**Step 6:** Continue by noting the content of the `config-mimik-ai-use-case-url` and `config-ai-model1-download.json` files with:
+### Step 6: Review additional Files
+
+Next, review the contents of the `config-mimik-ai-use-case-url` and `config-ai-model1-download.json` files by running:
 
 ```
 open config-mimik-ai-use-case-url; open config-ai-model1-download.json
 ```
 
-These files have predefined values that you don't need to change (but you can, if you wish). Just take note of their content.
+These files contain predefined values that you don't need to change (though you can, if necessary). Simply take note of their content.
 
 
-**Step 7:** From the command line run the following command in your project directory to open Xcode.
+### Step 7: Open Xcode
+
+From the command line, run the following command in your project directory to open Xcode:
+
 
 ```
 open mimik-ai-chat.xcworkspace
@@ -90,60 +104,88 @@ open mimik-ai-chat.xcworkspace
 
 # Running the example on your iOS Device
 
-|**Connect a real iOS device** to your development Mac and **select it as the target** in Xcode. Preferrably a fast device capable of running the latest iOS version. The AI language models are complex and require a lot of CPU power to work. This example will not work with an iOS Simulator.|
+
+|**Connect a real iOS device** to your development Mac and **select it as the target** in Xcode. For optimal performance, use a fast device capable of running complex AI language models. This example will not work with the iOS Simulator.|
 |----------|
 
-Run the project in Xcode and follow the UI prompts on the iOS device to continue there.
+Run the project in Xcode and follow the on-screen prompts on the iOS device to continue.
+
+# Mac computers with Apple silicon
+
+With the transition from Intel to Apple Silicon architecture in Mac desktop computers, it is now possible to run most iOS applications, including this example [natively](https://developer.apple.com/videos/play/wwdc2020/10114/) on desktop Macs without requiring any changes. This includes the mim OE Runtime binary.
+
+The ability to run iPhone and iPad apps natively on Apple Silicon Macs opens up a whole new set of users. Apple has done much of the heavy lifting to make this seamless, so developers only need to make minimal adjustments.
+
+The good news is that Xcode provides excellent support for debugging, testing, and profiling iPhone and iPad apps natively on a Mac, just as if they were running in a simulator or on an actual iOS device.
+
+For more details, check out [Apple's documentation](https://developer.apple.com/documentation/apple-silicon/adapting-ios-code-to-run-in-the-macos-environment).
 
 
 # How to use the Example Application
 
-When run for the first time, the example application welcomes you with a `START HERE` button at the bottom. Tap it as shown below.
+When run for the first time, the example application welcomes you with a `START HERE` button. Tap it as shown below.
 
 ![01-screenshot](./images/01-screenshot.png)
 
 
 # Downloading AI language model
 
-A small menu for adding AI language models then opens with an `Add AI model` button. Tap it.
+
+A small menu will appear, featuring an `Add AI Model` button. Tap this button to proceed.
+
 
 ![02-screenshot](./images/02-screenshot.png)
 
 
-A new window sheet opens, showing the default values for a gemma-1.1-2b-it-GGUF AI language model from lmstudio-community. These predefined values are loaded from the `config-ai-model-request.json` file that you have inspected earlier. You can leave the defaults in and tap on the `START DOWNLOAD` button.
+A new window will open, displaying two default presets for the `gemma-v1.1-2b` and `gemma-v2-2b` AI language models from **lmstudio-community**. These presets are loaded from the `config-ai-model1-download.json` and `config-ai-model2-download.json` files, respectively. 
+
+You can start by selecting the less complex `gemma-v1.1-2b` model, then tap the `START DOWNLOAD` button at the bottom to begin the download.
+
 
 ![03-screenshot](./images/03-screenshot.png)
 
 
-**Wait until the language model download completes**. Depending on your device and internet speed it might take a **fair amount of time**. This is a 1.7GB file download. The download can be cancelled by tapping the `Cancel Request` button.
+**Wait for the language model download to complete**. The download may take a **significant amount of time** depending on your device and internet speed, as the file size is 1.8GB. 
+
+**Important:** Do not leave the app or lock your device while the download is in progress. If needed, you can cancel the download by tapping the `Cancel Request` button.
+
 
 ![04-screenshot](./images/04-screenshot.png)
 
 # Chatting with the AI language model
 
-**Once the AI language model download completes**, a new `Enter your question here` prompt appears. This is when the example application is ready for you to start asking the downloaded AI language model some questions.
+
+**Once the AI language model download is complete**, a new `Enter your question here` prompt will appear. At this point, the example application is ready for you to start asking questions to the downloaded AI language model.
 
 ![05-screenshot](./images/05-screenshot.png)
 
-
-Type in your question and the responses start streaming in the middle of the screen.
+Type your question, and the responses will begin streaming in the center of the screen.
 
 ![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png) ![08-screenshot](./images/08-screenshot.png)
 
-You can wait until the stream ends (indicated by the word `[Done]`) or cancel the stream by tapping on the `Cancel Request` button.
+
+You can either wait for the stream to finish (indicated by the word `[Done]`) or cancel it by tapping the `Cancel Request` button.
 
 # Managing downloads
 
-To remove the downloaded AI language model, tap on the `Manage Download` button and select `Remove All Models`.
+To **activate** a different downloaded AI language model, tap the **Manage Models** button and select the model you want by tapping on it.
 
-To select a different downloaded AI language model to chat to, tap on the `Manage Download` button and select the model by tapping on it. This is when you have more than one downloaded model.
+To **delete** a specific AI language model download, tap the **Manage Models** button, select **Remove**, and then choose the model you want to remove by tapping on it.
 
-![09-screenshot](./images/09-screenshot.png)
+To remove all downloaded AI language models and reset the mim OE storage, tap the **Manage Models** button, then **Remove**, and select **Remove Everything**.
+
+
+![09-screenshot](./images/09a-screenshot.png)
+![09-screenshot](./images/09b-screenshot.png)
 
 
 # Also works Offline
 
-Since the AI language model gets fully downloaded onto your device, the example application can chat with the model **even when the device's internet connection is disabled**. For example in an airplane mode. Of course, you'd have to had the AI language model downloaded, before going offline.
+
+Since the AI language model is fully downloaded to your device, the example application can continue to chat with the model **even when the device's internet connection is disabled**, such as in airplane mode. 
+
+However, you must ensure that the AI language model is downloaded before going offline.
+
 
 ![10-screenshot](./images/10-screenshot.png) ![11-screenshot](./images/11-screenshot.png) ![12-screenshot](./images/12-screenshot.png)
 
@@ -154,3 +196,14 @@ This example application is also available as a pre-configured download on Test 
 * Open and accept [this Test Flight link](https://testflight.apple.com/join/qoSKwIAE) on the iOS device you want the application to install on. 
 
 * Open the application once done installing through Test Flight.
+
+
+# Additional reading
+
+In order to get more out of this article, the reader could further familiarize themselves with the following concepts and techniques:
+
+- [Understanding the mimik Client Library for iOS](/key-concepts/10-index).
+- [Creating a Simple iOS Application that Uses an edge microservice](/tutorials/01-submenu/02-submenu/01-index).
+- [Integrating the mimik Client Library into an iOS project](/tutorials/01-submenu/02-submenu/02-index).
+- [Working with edge microservices in an iOS project](/tutorials/01-submenu/02-submenu/04-index).
+- [Working with AI language models in an iOS project](/tutorials/02-submenu/02-submenu/01-index).

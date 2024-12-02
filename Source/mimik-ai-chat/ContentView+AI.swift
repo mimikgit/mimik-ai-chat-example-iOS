@@ -74,7 +74,7 @@ extension ContentView {
              
         isWaiting = true
         
-        switch await edgeClient.askAI(modelId: selectedModelId, accessToken: mimOEAccessToken, apiKey: apiKey, question: question, useCase: useCase, streamHandler: { stream in
+        switch await edgeClient.askAIModel(id: selectedModelId, accessToken: mimOEAccessToken, apiKey: apiKey, question: question, useCase: useCase, streamHandler: { stream in
             
             switch stream {
             case .success(let result):
@@ -108,6 +108,8 @@ extension ContentView {
             responseLabel1 = ""
             responseLabel2 = ""
             menuLabel = ""
+            downloadedModels = []
+            selectedModel = nil
             return
         }
         
@@ -183,5 +185,27 @@ extension ContentView {
         isWaiting = false
         activeStream = nil
         print("⚠️ Error:", text)
+    }
+    
+    /// Deletes a downloaded AI languahe model.
+    func deleteAIModel(id: String) async -> Result<Void, NSError> {
+        
+        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase else {
+            print("⚠️ API key error")
+            showError(text: "API key error")
+            return .failure(NSError(domain: "API key error", code: 500))
+        }
+                
+        switch await edgeClient.deleteAIModel(id: id, accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase) {
+            
+        case .success:
+            menuLabel = "\(id) deleted"
+            await processAvailableAIModels()
+            return .success(())
+        case .failure(let error):
+            showError(text: error.localizedDescription)
+            await processAvailableAIModels()
+            return .failure(error)
+        }
     }
 }
