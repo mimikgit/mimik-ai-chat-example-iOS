@@ -10,12 +10,12 @@
 		31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */; };
 		31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */ = {isa = PBXBuildFile; fileRef = 31020B482C9B8E4900FF3530 /* config-developer-id-token */; };
 		31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */; };
-		31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */ = {isa = PBXBuildFile; fileRef = 31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */; };
+		31020B4F2C9B8E4900FF3530 /* config-developer-mim-OE-license in Resources */ = {isa = PBXBuildFile; fileRef = 31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */; };
 		31020B502C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */; };
 		310311732C2375C5000FBC94 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310311722C2375C5000FBC94 /* SheetView.swift */; };
 		311717B92C3C853B00065300 /* LoadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311717B82C3C853B00065300 /* LoadConfig.swift */; };
 		3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */; };
-		3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5282C22339A0081246C /* ContentView+MimOE.swift */; };
+		3124B5292C22339A0081246C /* ContentView+mim-OE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5282C22339A0081246C /* ContentView+mim-OE.swift */; };
 		312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312851222CD2CDB800CDF527 /* SheetView+Presets.swift */; };
 		317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */; };
 		317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A322C10CCF3006F5F5F /* ContentView.swift */; };
@@ -24,19 +24,18 @@
 		3196205A2CD27C2D00ADE960 /* config-ai-model2-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 319620592CD27C2D00ADE960 /* config-ai-model2-download.json */; };
 		31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */; };
 		31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB42C519F840029E436 /* ContentView+AI.swift */; };
-		46EC628C4A2C7B8B9B4D2374 /* Pods_mimik_ai_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A9A79C6AD531E3E59E3691D4 /* Pods_mimik_ai_chat.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model1-download.json"; sourceTree = "<group>"; };
 		31020B482C9B8E4900FF3530 /* config-developer-id-token */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-id-token"; sourceTree = "<group>"; };
-		31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-mimOE-license"; sourceTree = "<group>"; };
+		31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-mim-OE-license"; sourceTree = "<group>"; };
 		31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-api-key"; sourceTree = "<group>"; };
 		31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-url"; sourceTree = "<group>"; };
 		310311722C2375C5000FBC94 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
 		311717B82C3C853B00065300 /* LoadConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfig.swift; sourceTree = "<group>"; };
 		3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderTextFieldModifier.swift; sourceTree = "<group>"; };
-		3124B5282C22339A0081246C /* ContentView+MimOE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentView+MimOE.swift"; sourceTree = "<group>"; };
+		3124B5282C22339A0081246C /* ContentView+mim-OE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentView+mim-OE.swift"; sourceTree = "<group>"; };
 		312851222CD2CDB800CDF527 /* SheetView+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetView+Presets.swift"; sourceTree = "<group>"; };
 		317F4A2D2C10CCF3006F5F5F /* mimik-ai-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mimik-ai-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aichat_app_iOSApp.swift; sourceTree = "<group>"; };
@@ -47,13 +46,6 @@
 		31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+UI-Labels.swift"; sourceTree = "<group>"; };
 		31C1EEB42C519F840029E436 /* ContentView+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+AI.swift"; sourceTree = "<group>"; };
 		31D383022C24BAEE002CE163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B4C072B1F43722445722614 /* Pods-mimik-ai-chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.release.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.release.xcconfig"; sourceTree = "<group>"; };
-		A9A79C6AD531E3E59E3691D4 /* Pods_mimik_ai_chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mimik_ai_chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D421876D42872A41DFB131E5 /* Pods-aichat-app-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aichat-app-iOS.debug.xcconfig"; path = "Target Support Files/Pods-aichat-app-iOS/Pods-aichat-app-iOS.debug.xcconfig"; sourceTree = "<group>"; };
-		E12FF0CC18ECA9BBF6A5A8FE /* Pods-mimik-ai-chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.debug.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.debug.xcconfig"; sourceTree = "<group>"; };
-		F5F37ACB4AD053E2482C44A2 /* Pods-AI-Chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat.release.xcconfig"; path = "Target Support Files/Pods-AI-Chat/Pods-AI-Chat.release.xcconfig"; sourceTree = "<group>"; };
-		FBB47A49D6C5268C7B3FB1EA /* Pods-AI-Chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AI-Chat.debug.xcconfig"; path = "Target Support Files/Pods-AI-Chat/Pods-AI-Chat.debug.xcconfig"; sourceTree = "<group>"; };
-		FEA04E5229F9EDA07324D0B7 /* Pods-aichat-app-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-aichat-app-iOS.release.xcconfig"; path = "Target Support Files/Pods-aichat-app-iOS/Pods-aichat-app-iOS.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46EC628C4A2C7B8B9B4D2374 /* Pods_mimik_ai_chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,15 +63,13 @@
 			isa = PBXGroup;
 			children = (
 				31020B482C9B8E4900FF3530 /* config-developer-id-token */,
-				31020B492C9B8E4900FF3530 /* config-developer-mimOE-license */,
+				31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */,
 				31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */,
 				31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */,
 				31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */,
 				319620592CD27C2D00ADE960 /* config-ai-model2-download.json */,
 				317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */,
 				317F4A2E2C10CCF3006F5F5F /* Products */,
-				A77DC5292780AEF413278AC1 /* Pods */,
-				F9BDAEF3CF13135B6FE069BA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -95,13 +84,13 @@
 		317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */ = {
 			isa = PBXGroup;
 			children = (
-				311717B82C3C853B00065300 /* LoadConfig.swift */,
 				317F4A322C10CCF3006F5F5F /* ContentView.swift */,
-				31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */,
+				3124B5282C22339A0081246C /* ContentView+mim-OE.swift */,
 				31C1EEB42C519F840029E436 /* ContentView+AI.swift */,
-				3124B5282C22339A0081246C /* ContentView+MimOE.swift */,
+				31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */,
 				310311722C2375C5000FBC94 /* SheetView.swift */,
 				312851222CD2CDB800CDF527 /* SheetView+Presets.swift */,
+				311717B82C3C853B00065300 /* LoadConfig.swift */,
 				3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */,
 				317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */,
 				31D383022C24BAEE002CE163 /* Info.plist */,
@@ -119,27 +108,6 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		A77DC5292780AEF413278AC1 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D421876D42872A41DFB131E5 /* Pods-aichat-app-iOS.debug.xcconfig */,
-				FEA04E5229F9EDA07324D0B7 /* Pods-aichat-app-iOS.release.xcconfig */,
-				FBB47A49D6C5268C7B3FB1EA /* Pods-AI-Chat.debug.xcconfig */,
-				F5F37ACB4AD053E2482C44A2 /* Pods-AI-Chat.release.xcconfig */,
-				E12FF0CC18ECA9BBF6A5A8FE /* Pods-mimik-ai-chat.debug.xcconfig */,
-				5B4C072B1F43722445722614 /* Pods-mimik-ai-chat.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		F9BDAEF3CF13135B6FE069BA /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				A9A79C6AD531E3E59E3691D4 /* Pods_mimik_ai_chat.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,11 +115,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317F4A3B2C10CCF4006F5F5F /* Build configuration list for PBXNativeTarget "mimik-ai-chat" */;
 			buildPhases = (
-				20AD9291C73BBA1FB032BF49 /* [CP] Check Pods Manifest.lock */,
 				317F4A292C10CCF3006F5F5F /* Sources */,
 				317F4A2A2C10CCF3006F5F5F /* Frameworks */,
 				317F4A2B2C10CCF3006F5F5F /* Resources */,
-				9B229F1D46411A2AF811CB87 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -204,7 +170,7 @@
 				31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */,
 				31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */,
 				31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */,
-				31020B4F2C9B8E4900FF3530 /* config-developer-mimOE-license in Resources */,
+				31020B4F2C9B8E4900FF3530 /* config-developer-mim-OE-license in Resources */,
 				31020B502C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key in Resources */,
 				317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */,
 				317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */,
@@ -212,48 +178,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		20AD9291C73BBA1FB032BF49 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-mimik-ai-chat-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9B229F1D46411A2AF811CB87 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		317F4A292C10CCF3006F5F5F /* Sources */ = {
@@ -266,7 +190,7 @@
 				312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */,
 				317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */,
 				317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */,
-				3124B5292C22339A0081246C /* ContentView+MimOE.swift in Sources */,
+				3124B5292C22339A0081246C /* ContentView+mim-OE.swift in Sources */,
 				310311732C2375C5000FBC94 /* SheetView.swift in Sources */,
 				31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */,
 			);
@@ -336,6 +260,18 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				TVOS_DEPLOYMENT_TARGET = 17.0;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
 				XROS_DEPLOYMENT_TARGET = 1.1;
@@ -395,6 +331,18 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_STRICT_CONCURRENCY = minimal;
+				SWIFT_UPCOMING_FEATURE_CONCISE_MAGIC_FILE = YES;
+				SWIFT_UPCOMING_FEATURE_DEPRECATE_APPLICATION_MAIN = YES;
+				SWIFT_UPCOMING_FEATURE_DISABLE_OUTWARD_ACTOR_ISOLATION = YES;
+				SWIFT_UPCOMING_FEATURE_EXISTENTIAL_ANY = YES;
+				SWIFT_UPCOMING_FEATURE_FORWARD_TRAILING_CLOSURES = YES;
+				SWIFT_UPCOMING_FEATURE_GLOBAL_CONCURRENCY = YES;
+				SWIFT_UPCOMING_FEATURE_IMPLICIT_OPEN_EXISTENTIALS = YES;
+				SWIFT_UPCOMING_FEATURE_IMPORT_OBJC_FORWARD_DECLS = YES;
+				SWIFT_UPCOMING_FEATURE_INFER_SENDABLE_FROM_CAPTURES = YES;
+				SWIFT_UPCOMING_FEATURE_INTERNAL_IMPORTS_BY_DEFAULT = YES;
+				SWIFT_UPCOMING_FEATURE_ISOLATED_DEFAULT_VALUES = YES;
 				TVOS_DEPLOYMENT_TARGET = 17.0;
 				VALIDATE_PRODUCT = YES;
 				WATCHOS_DEPLOYMENT_TARGET = 10.0;
@@ -404,7 +352,6 @@
 		};
 		317F4A3C2C10CCF4006F5F5F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E12FF0CC18ECA9BBF6A5A8FE /* Pods-mimik-ai-chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -436,7 +383,6 @@
 		};
 		317F4A3D2C10CCF4006F5F5F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B4C072B1F43722445722614 /* Pods-mimik-ai-chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

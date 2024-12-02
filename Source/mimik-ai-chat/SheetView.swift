@@ -83,34 +83,7 @@ struct SheetView: View {
             }.padding()
             
             Button("START DOWNLOAD") {
-                
-                Task {
-                    presentationMode.wrappedValue.dismiss()
-                    guard let model = currentPreset() else {
-                        return
-                    }
-                    
-                    owner.menuLabel = ""
-                    let clock = ContinuousClock()
-                    
-                    let elapsed = await clock.measure {
-                        guard let configUrl = LoadConfig.mimikAIUseCaseConfigUrl(), case let .success(change) = await owner.integrateAI(useCaseConfigUrl: configUrl, model: model) else {
-                            return
-                        }
-                        
-                        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = owner.deployedUseCase, case let .success(models) = await owner.edgeClient.aiModels(accessToken: owner.mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty else {
-                            return
-                        }
-                        
-                        if change {
-                            await owner.processAvailableAIModels()
-                        }
-                    }
-                    
-                    let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
-                    print("⏱️⏱️⏱️ Download completion time (min:sec): \(format)")
-                    owner.menuLabel = "Download completion time (min:sec):\n\(format)"
-                }
+                downloadTask()                
             }
             .frame(maxWidth: .infinity, minHeight: 44)
             .foregroundColor(.white)
@@ -121,6 +94,40 @@ struct SheetView: View {
         .padding()
         .task {
             loadPreset(number: 1)
+        }
+    }
+    
+    func downloadTask() {
+        Task {
+            presentationMode.wrappedValue.dismiss()
+            guard let model = currentPreset() else {
+                return
+            }
+            
+            owner.menuLabel = ""
+            let clock = ContinuousClock()
+            var errorMessage: String = ""
+            
+            let elapsed = await clock.measure {
+                guard let configUrl = LoadConfig.mimikAIUseCaseConfigUrl(), case let .success(change) = await owner.integrateAI(useCaseConfigUrl: configUrl, model: model) else {
+                    errorMessage = "Download Error"
+                    return
+                }
+                
+                guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = owner.deployedUseCase, case let .success(models) = await owner.edgeClient.aiModels(accessToken: owner.mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty else {
+                    errorMessage = "Configuration Error"
+                    return
+                }
+                
+                if change {
+                    await owner.processAvailableAIModels()
+                }
+            }
+            
+            let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
+            print("⏱️⏱️⏱️ Download completion time (min:sec): \(format)")
+            
+            owner.menuLabel = errorMessage.isEmpty ? "Download completion time (min:sec):\n\(format)" : errorMessage
         }
     }
 }

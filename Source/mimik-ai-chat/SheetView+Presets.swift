@@ -21,19 +21,7 @@ extension SheetView {
     }
     
     private func filenameForModel(number: Int) -> String {
-        switch number {
-        case 1:
-            return "config-ai-model1-download"
-        case 2:
-            return "config-ai-model2-download"
-        case 3:
-            return "config-ai-model3-download"
-        case 4:
-            return "config-ai-model4-download"
-            
-        default:
-            return "config-ai-model1-download"
-        }
+        return "config-ai-model\(number)-download"
     }
     
     func loadPreset(number: Int) {

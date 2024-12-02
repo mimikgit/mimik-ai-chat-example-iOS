@@ -24,14 +24,14 @@ struct LoadConfig: Decodable {
 
     static func mimOELicense() -> String? {
         
-        // Loading the content of Developer-mimOE-License file as a String
-        guard let file = Bundle.main.path(forResource: "config-developer-mimOE-license", ofType: nil), let license = try? String(contentsOfFile: file).replacingOccurrences(of: "\n", with: "") else {
-            print("mimOE (edge) license error in the config-developer-mimOE-license file")
+        // Loading the content of a file as a String
+        guard let file = Bundle.main.path(forResource: "config-developer-mim-OE-license", ofType: nil), let license = try? String(contentsOfFile: file).replacingOccurrences(of: "\n", with: "") else {
+            print("mim OE (edge) license error in the config-developer-mim-OE-license file")
             return nil
         }
         
         guard !license.contains("REPLACE") else {
-            fatalError("Enter your own Developer mimOE (edge) license in the config-developer-mimOE-license file. See: https://console.mimik.com")
+            fatalError("Enter your own Developer mim OE (edge) license in the config-developer-mim-OE-license file. See: https://console.mimik.com")
         }
         
         return license
@@ -39,7 +39,7 @@ struct LoadConfig: Decodable {
     
     static func mimikAIUseApiKey() -> String? {
         
-        // Loading the content of Developer-ID-Token file as a String
+        // Loading the content of a file as a String
         guard let file = Bundle.main.path(forResource: "config-mimik-ai-use-case-api-key", ofType: nil), let apiKey = try? String(contentsOfFile: file).replacingOccurrences(of: "\n", with: "") else {
             print("⚠️ mimik ai use case API key error in the config-mimik-ai-use-case-api-key file")
             return nil
@@ -54,7 +54,7 @@ struct LoadConfig: Decodable {
     
     static func aiModelRequest(file: String) -> EdgeClient.AI.Model.CreateModelRequest? {
         
-        // Loading the content of AI-Model-Request.json file as a EdgeClient.AI.Model.CreateModelRequest object
+        // Loading the content of a file as a EdgeClient.AI.Model.CreateModelRequest object
         guard let file = Bundle.main.path(forResource: file, ofType: "json") else {
             print("⚠️ AI model request error")
             return nil
@@ -73,7 +73,7 @@ struct LoadConfig: Decodable {
     
     static func mimikAIUseCaseConfigUrl() -> String? {
         
-        // Loading the content of Developer-ID-Token file as a String
+        // Loading the content of a file as a String
         guard let file = Bundle.main.path(forResource: "config-mimik-ai-use-case-url", ofType: nil), let urlString = try? String(contentsOfFile: file).replacingOccurrences(of: "\n", with: "") else {
             print("⚠️ mimik ai use case config url error in the config-mimik-ai-use-case-url file")
             return nil
