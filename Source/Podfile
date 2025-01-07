@@ -5,7 +5,7 @@ source 'https://github.com/mimikgit/cocoapod-edge-specs.git'
 target 'mimik-ai-chat' do
   use_frameworks!
   inhibit_all_warnings!
-   pod 'EdgeCore'
+  pod 'EdgeCore'
   pod 'mim-OE-ai-SE-iOS-developer'
 end
 

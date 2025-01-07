@@ -145,7 +145,7 @@ You can start by selecting the less complex `gemma-v1.1-2b` model, then tap the 
 ![03-screenshot](./images/03-screenshot.png)
 
 
-**Wait for the language model download to complete**. The download may take a **significant amount of time** depending on your device and internet speed, as the file size is 1.8GB. 
+**Wait for the language model download to complete**. The download may take a **significant amount of time** depending on your device and internet speed, as the file size in this case is 1.8GB. 
 
 **Important:** Do not leave the app or lock your device while the download is in progress. If needed, you can cancel the download by tapping the `Cancel Request` button.
 
@@ -155,28 +155,42 @@ You can start by selecting the less complex `gemma-v1.1-2b` model, then tap the 
 # Chatting with the AI language model
 
 
-**Once the AI language model download is complete**, a new `Enter your question here` prompt will appear. At this point, the example application is ready for you to start asking questions to the downloaded AI language model.
+**Once the AI language model download is complete**, a new `Enter your question` prompt will appear. At this point, the example application is ready for you to start asking questions to the downloaded AI language model.
 
 ![05-screenshot](./images/05-screenshot.png)
 
 Type your question, and the responses will begin streaming in the center of the screen.
 
-![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png) ![08-screenshot](./images/08-screenshot.png)
-
+![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png)
 
 You can either wait for the stream to finish (indicated by the word `[Done]`) or cancel it by tapping the `Cancel Request` button.
 
+# Context aware
+
+**The application sends context from the previous answers** to the AI model, when asking any follow up questions.
+
+![08-screenshot](./images/08-screenshot.png)  ![09-screenshot](./images/09-screenshot.png)  
+
+
+Context gets used to combine the previous answers.
+
+![10-screenshot](./images/10-screenshot.png)  ![11-screenshot](./images/11-screenshot.png)
+
+
+Context can be cleared by tapping on the **Clear Context** button or copied to the system clipboard by tapping on the **Copy Context** button.
+
+
 # Managing downloads
 
-To **activate** a different downloaded AI language model, tap the **Manage Models** button and select the model you want by tapping on it.
+**To activate** a different AI language model, tap the bottom **Menu** button, then select the model you want by tapping on it.
 
-To **delete** a specific AI language model download, tap the **Manage Models** button, select **Remove**, and then choose the model you want to remove by tapping on it.
+**To delete** a specific downloaded AI language model, tap the **Menu** button, select **Remove**, and then choose the model you wish to delete by tapping on it.
 
-To remove all downloaded AI language models and reset the mim OE storage, tap the **Manage Models** button, then **Remove**, and select **Remove Everything**.
+**To remove** all downloaded AI language models and reset the storage in your device, tap the **Manage Models** button, select **Remove**, and then choose **Remove Everything**.
 
 
-![09-screenshot](./images/09a-screenshot.png)
-![09-screenshot](./images/09b-screenshot.png)
+![12-screenshot](./images/12-screenshot.png)
+![13-screenshot](./images/13-screenshot.png)
 
 
 # Also works Offline
@@ -186,8 +200,6 @@ Since the AI language model is fully downloaded to your device, the example appl
 
 However, you must ensure that the AI language model is downloaded before going offline.
 
-
-![10-screenshot](./images/10-screenshot.png) ![11-screenshot](./images/11-screenshot.png) ![12-screenshot](./images/12-screenshot.png)
 
 # Test Flight
 

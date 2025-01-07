@@ -16,7 +16,7 @@ extension SheetView {
             return nil
         }
         
-        let preset: EdgeClient.AI.Model.CreateModelRequest = EdgeClient.AI.Model.CreateModelRequest(id: modelId, object: modelObject, url: modelUrl, expectedDownloadSize: modelExpectedDownloadSize, ownedBy: modelOwnedBy)
+        let preset: EdgeClient.AI.Model.CreateModelRequest = EdgeClient.AI.Model.CreateModelRequest(id: modelId, object: modelObject, url: modelUrl, expectedDownloadSize: modelExpectedDownloadSize, ownedBy: modelOwnedBy, excludeFromBackup: modelExcludeFromBackup)
         return preset
     }
     
@@ -35,5 +35,6 @@ extension SheetView {
         modelUrl = model.url
         modelOwnedBy = model.ownedBy ?? ""
         modelExpectedDownloadSize = model.expectedDownloadSize
+        modelExcludeFromBackup = model.excludeFromBackup ?? true
     }
 }

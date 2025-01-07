@@ -14,12 +14,12 @@ extension ContentView {
     func startupProcedure() async -> Result<Void, NSError> {
         
         guard case .success = await startMimOE() else {
-            response = "mim OE startup error"
+            storedResponse = "mim OE startup error"
             return .failure(NSError(domain: "mim OE startup error", code: 500))
         }
         
         guard case let .success(token) = await authenticateMimOE() else {
-            response = "mim OE authentication error"
+            storedResponse = "mim OE authentication error"
             return .failure(NSError(domain: "mim OE authentication error", code: 500))
         }
         
@@ -33,7 +33,7 @@ extension ContentView {
         }
         else {
             print("⚠️ No AI models have been downloaded.")
-            menuLabel = ""
+            bottomMessage = ""
             return .success(())
         }
     }

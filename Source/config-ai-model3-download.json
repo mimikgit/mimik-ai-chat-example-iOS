@@ -1,0 +1,8 @@
+{
+    "expectedDownloadSize": 4520000000,
+    "object": "model",
+    "owned_by": "lmstudio-community",
+    "id": "lmstudio-community/Mistral-7B-v0.1",
+    "url": "https://huggingface.co/lmstudio-community/mathstral-7B-v0.1-GGUF/resolve/main/mathstral-7B-v0.1-Q4_K_M.gguf?download=true",
+    "excludeFromBackup": true
+}

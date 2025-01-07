@@ -1,7 +1,8 @@
 {
-  "expectedDownloadSize": 1920000000,
-  "object": "model",
-  "owned_by": "lmstudio-community",
-  "id": "lmstudio-community/gemma-2-2b-it-GGUF",
-  "url": "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q5_K_M.gguf"
+    "expectedDownloadSize": 1920000000,
+    "object": "model",
+    "owned_by": "lmstudio-community",
+    "id": "lmstudio-community/gemma-2-2b-it-GGUF",
+    "url": "https://huggingface.co/bartowski/gemma-2-2b-it-GGUF/resolve/main/gemma-2-2b-it-Q5_K_M.gguf",
+    "excludeFromBackup": true
 }

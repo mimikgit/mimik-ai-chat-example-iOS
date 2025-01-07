@@ -13,15 +13,17 @@ struct SheetView: View {
     @State internal var modelObject: String
     @State internal var modelUrl: String
     @State internal var modelOwnedBy: String
+    @State internal var modelExcludeFromBackup: Bool
     @State internal var modelExpectedDownloadSize: Int64
     @State internal var owner: ContentView
     
-    init(modelId: String, modelObject: String, modelUrl: String, modelOwnedBy: String, modelExpectedDownloadSize: Int64, owner: ContentView) {
+    init(modelId: String, modelObject: String, modelUrl: String, modelOwnedBy: String, modelExpectedDownloadSize: Int64, modelExcludeFromBackup: Bool, owner: ContentView) {
         self.modelId = modelId
         self.modelObject = modelObject
         self.modelUrl = modelUrl
         self.modelOwnedBy = modelOwnedBy
         self.modelExpectedDownloadSize = modelExpectedDownloadSize
+        self.modelExcludeFromBackup = modelExcludeFromBackup
         self.owner = owner
     }
     
@@ -41,7 +43,7 @@ struct SheetView: View {
                 Button {
                     loadPreset(number: 1)
                 } label: {
-                    Text("gemma-v1.1-2b")
+                    Text("Gemma-v1.1-2B")
                 }
                 
                 Spacer()
@@ -49,11 +51,28 @@ struct SheetView: View {
                 Button {
                     loadPreset(number: 2)
                 } label: {
-                    Text("gemma-v2-2b")
+                    Text("Gemma-v2-2B")
                 }
-                                                                
+                
                 Spacer()
-
+                
+                if (ProcessInfo.processInfo.isiOSAppOnMac) {
+                    Button {
+                        loadPreset(number: 3)
+                    } label: {
+                        Text("Mistral-7B-Mac").lineLimit(2, reservesSpace: true)
+                    }
+                             
+                    Spacer()
+                    
+                    Button {
+                        loadPreset(number: 4)
+                    } label: {
+                        Text("QwenCoder-3B-Mac").lineLimit(2, reservesSpace: true)
+                    }
+                    
+                    Spacer()
+                }
                 
             }.frame(maxWidth: .infinity, minHeight: 20)
                 .padding()
@@ -104,7 +123,7 @@ struct SheetView: View {
                 return
             }
             
-            owner.menuLabel = ""
+            owner.bottomMessage = ""
             let clock = ContinuousClock()
             var errorMessage: String = ""
             
@@ -127,7 +146,7 @@ struct SheetView: View {
             let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
             print("⏱️⏱️⏱️ Download completion time (min:sec): \(format)")
             
-            owner.menuLabel = errorMessage.isEmpty ? "Download completion time (min:sec):\n\(format)" : errorMessage
+            owner.bottomMessage = errorMessage.isEmpty ? "Download completed in: \(format)" : errorMessage
         }
     }
 }
