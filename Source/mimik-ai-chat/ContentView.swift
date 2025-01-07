@@ -14,9 +14,12 @@ struct ContentView: View {
     // AI
     @State internal var mimOEAccessToken: String = ""
     @State internal var activeStream: DataStreamRequest?
+    @State internal var activeNonStream: DataTask<Data>?
     @State internal var selectedModel: EdgeClient.AI.Model?
     @State internal var justDownloadedModelId: String?
     @State internal var downloadedModels: [EdgeClient.AI.Model] = []
+    @State internal var storedLiveContent: [EdgeClient.AI.Model.Message] = []
+    @State internal var storedCombinedContext: [EdgeClient.AI.Model.Message] = []
     
     // State
     @State internal var isWaiting: Bool = false
@@ -25,15 +28,15 @@ struct ContentView: View {
     @State internal var showSwitchModel: Bool = false
     @FocusState private var isFocused: Bool
     @Environment(\.scenePhase) var scenePhase
+    @State internal var streamResponse = true
     
     // UI
     @State internal var question: String = ""
-    @State internal var questionLabel: String = ""
     @State internal var userInput: String = ""
-    @State internal var response: String = ""
-    @State internal var responseLabel1: String = ""
-    @State internal var responseLabel2: String = ""
-    @State internal var menuLabel: String = ""
+    @State internal var storedResponse: String = ""
+    @State internal var newResponse: String = ""
+    @State internal var selectedModelId: String = ""
+    @State internal var bottomMessage: String = ""
     
     // mimik Client Library
     let edgeClient: EdgeClient = {
@@ -42,11 +45,23 @@ struct ContentView: View {
         return EdgeClient()
     }()
     
-    // This is where we store the AI use case deployment information
+    // This is where we store the AI use case deployment information.
     internal var deployedUseCase: EdgeClient.UseCase? {
         get {
+            let loadedVersion = LoadConfig.mimikAIUseCaseConfigUrl()
+            
             if let data = UserDefaults.standard.object(forKey: kAIUseCaseDeployment) as? Data,
-               let deployment = try? JSONDecoder().decode(EdgeClient.UseCase.self, from: data) {
+               let deployment = try? JSONDecoder().decode(EdgeClient.UseCase.self, from: data), let storedVersion = deployment.version {
+
+                // Checking against the current use case config url, removing stored info if outdated.
+                guard loadedVersion == storedVersion else {
+                    print("⚠️ Outdated stored mimik ai use case info found, removing.")
+                    UserDefaults.standard.removeObject(forKey: kAIUseCaseDeployment)
+                    UserDefaults.standard.synchronize()
+                    return nil
+                }
+            
+                print("✅ Stored mimik ai use case deployment info found")
                 return deployment
             }
             
@@ -57,65 +72,17 @@ struct ContentView: View {
     var body: some View {
         VStack(spacing: 20) {
             
-            Text("**mimik ai chat**").font(.title)
-                .padding()
+            topTitleStackView()
             
-            if selectedModel != nil {
-                Text(questionLabel).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight)).frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
-
-                Text(question).font(.title2.weight(.bold)).frame(maxWidth: .infinity, alignment: .leading)
-                
-                VStack(spacing: 5) {
-                    Text(responseLabel1).font(.title2.weight(downloadedModels.count >= 1 ? .bold : .ultraLight))
-                    Text(responseLabel2).font(.title2.weight(downloadedModels.count >= 1 ? .light : .ultraLight))
-                }.frame(maxWidth: .infinity, minHeight: 40).border(downloadedModels.count >= 1 ? Color.gray : Color.clear)
-                
-                ScrollView {
-                    ScrollViewReader { value in
-                        Text(response).font(.title3.weight(.regular)).frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                }
+            if selectedModel != nil && startupDone {
+                scrollTextView()
                 .defaultScrollAnchor(.bottom)
             }
             
-            VStack(spacing: 20) {
-                                            
-                if startupDone {
-                    
-                    if selectedModel != nil {
-                        TextField("", text: $userInput, prompt: Text(userInputPrompt()).foregroundStyle(userInputStyle())).onSubmit {
-                            question = userInput
-                            userInput = ""
-                            response = ""
-                            Task {
-                                menuLabel = ""                                
-                                let clock = ContinuousClock()
-                                
-                                let elapsed = await clock.measure {
-                                    guard case .success(_) = await askAI(question: question) else {
-                                        return
-                                    }
-                                }
-                                
-                                let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
-                                print("⏱️⏱️⏱️ Response stream completion time (min:sec): \(format)")
-                                menuLabel = "Response stream completion time (min:sec):\n\(format)"
-                            }
-                        }
-                        .disabled(isWaiting)
-                        .textFieldModifier(borderColor: userInputColour(), lineWidth: downloadedModels.count >= 1 ? 3 : 1)
-                    }
-                    
-                    VStack(spacing: 5) {
-                        menuView()
-                        Text(menuLabel).font(.title3.weight(.regular))
-                    }
-                }
-            }
-
+            bottomStackView()
         }
         .sheet(isPresented: $showAddModel) {
-            SheetView(modelId: selectedModel?.id ?? "", modelObject: selectedModel?.object?.rawValue ?? "", modelUrl: selectedModel?.url ?? "", modelOwnedBy: selectedModel?.ownedBy ?? "", modelExpectedDownloadSize: 0, owner: self)
+            SheetView(modelId: selectedModel?.id ?? "", modelObject: selectedModel?.object?.rawValue ?? "", modelUrl: selectedModel?.url ?? "", modelOwnedBy: selectedModel?.ownedBy ?? "", modelExpectedDownloadSize: 0, modelExcludeFromBackup: selectedModel?.excludeFromBackup ?? true, owner: self)
                 .presentationDetents([.fraction(0.8), .large])
                 .presentationDragIndicator(.visible)
         }
@@ -140,58 +107,195 @@ struct ContentView: View {
             if newPhase == .background {
                 // Application went to the background, cancelling active stream
                 activeStream?.cancel()
+                activeNonStream?.cancel()
+            }
+        }
+    }
+    
+    func scrollTextView() -> some View {
+        ScrollView {
+            ScrollViewReader { value in
+                Text(textToFlow()).font(.title3.weight(.regular)).frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(.green, lineWidth: 2)
+        )
+    }
+    
+    func textToFlow() -> String {
+        var text: String = ""
+        
+        for storedContext in storedLiveContent {
+            if let role = storedContext.role, let content = storedContext.content {
+                
+                if role == "user", text.isEmpty {
+                    text = text + "<user> \"" + content + "\"\n\n"
+                }
+                else if role == "user" {
+                    text = text + "\n\n<user> \"" + content + "\"\n\n"
+                }
+                else  {
+                    text = text + content
+                }
+            }
+        }
+        
+        return text
+    }
+    
+    func topTitleStackView() -> some View {
+        VStack(spacing: 0) {
+            Image("mimik-ai-logo-black")
+            Text("chat").font(.title)
+            
+            if !startupDone && selectedModel != nil {
+                Text("\nmodel warmup.\nplease wait.").fontDesign(.serif)
+            }
+            else if !startupDone {
+                Text("\nmimik ai startup.\nplease wait.").fontDesign(.serif)
+            }
+        }
+    }
+    
+    func bottomStackView() -> some View {
+        VStack(spacing: 20) {
+                                        
+            if startupDone {
+                
+                if selectedModel != nil {
+                    bottomUserInputView()
+                    .disabled(isWaiting)
+                    .textFieldModifier(borderColor: userInputColour(), lineWidth: downloadedModels.count >= 1 ? 2 : 1)
+                }
+                                
+                VStack(spacing: 5) {
+                    
+                    if selectedModel != nil && storedLiveContent.count > 0 {
+                        Button("Clear Context", systemImage: "trash", role: .destructive) {
+                            clearContext()
+                        }
+                        .font(manageModelsFont()).frame(maxWidth: .infinity, alignment: .trailing)
+                        .disabled(isWaiting)
+                        
+                        Button("Copy Context", systemImage: "document.on.document", role: .none) {
+                            UIPasteboard.general.string = textToFlow()
+                        }
+                        .font(manageModelsFont()).frame(maxWidth: .infinity, alignment: .trailing)
+                        .disabled(isWaiting)
+                    }
+                }
+                
+
+                HStack() {
+                    menuView()
+                }
+                .frame(maxWidth: .infinity, minHeight: 54)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(manageModelsBorderColour(), lineWidth: 2)
+                )
+            }
+            
+            if !bottomMessage.isEmpty {
+                Text(bottomMessage).fontDesign(.serif)
+            }
+        }
+    }
+    
+    func bottomUserInputView() -> some View {
+        
+        HStack {
+            TextField("", text: $userInput, prompt: Text(userInputPrompt()).foregroundStyle(userInputStyle())).onSubmit {
+                question = userInput
+                userInput = ""
+                storedResponse = ""
+                Task {
+                    bottomMessage = ""
+                    let clock = ContinuousClock()
+                    
+                    let elapsed = await clock.measure {
+                        
+                        if streamResponse {
+                            guard case .success(_) = await askAIStream(question: question) else {
+                                return
+                            }
+                        }
+                        else {
+                            guard case .success(_) = await askAIDirect(question: question) else {
+                                return
+                            }
+                        }
+                    }
+                    
+                    let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
+                    print("Response completion time (min:sec): \(format)")
+                    bottomMessage = streamResponse ? "Streamed response time: \(format)" : "Non-streamed response time: \(format)"
+                }
             }
         }
     }
     
     func menuView() -> some View {
         VStack(spacing: 10) {
-            Menu {
-                
-                Menu("Remove") {
-                    ForEach(downloadedModels, id: \.self) { model in
-                        Button("Remove \(model.id ?? "NOT_AVAIALABLE")", systemImage: "trash", role: .destructive) {
-                            Task {
-                                _ = await deleteAIModel(id: model.id ?? "NOT_AVAIALABLE")
-                            }
-                        }.disabled(downloadedModels.isEmpty)
-                    }
+            
+            if activeStream == nil && activeNonStream == nil {
+                Menu {
                     
-                    Button("Remove Everything", systemImage: "trash.fill", role: .destructive) {
-                        Task {
-                            guard case .success = await resetMimOE() else {
-                                print("Failed to reset mim OE")
-                                return                            }
-                            
-                            try? await Task.sleep(nanoseconds: 1_000_000_000)
-                            
-                            guard case .success = await startupProcedure() else {
-                                print("failed the mim OE start up procedure")
-                                return
+                    Menu("Remove") {
+                        ForEach(downloadedModels, id: \.self) { model in
+                            Button("Remove \(model.id ?? "NOT_AVAIALABLE")", systemImage: "trash", role: .destructive) {
+                                Task {
+                                    _ = await deleteAIModel(id: model.id ?? "NOT_AVAIALABLE")
+                                }
+                            }.disabled(downloadedModels.isEmpty)
+                        }
+                        
+                        Button("Remove Everything", systemImage: "trash.fill", role: .destructive) {
+                            Task {
+                                guard case .success = await resetMimOE() else {
+                                    print("Failed to reset mim OE")
+                                    return                            }
+                                
+                                try? await Task.sleep(nanoseconds: 1_000_000_000)
+                                
+                                guard case .success = await startupProcedure() else {
+                                    print("failed the mim OE start up procedure")
+                                    return
+                                }
                             }
                         }
                     }
-                }
-                
-                ForEach(downloadedModels, id: \.self) { model in
-                    Button("Select \(model.id ?? "")") {
-                        selectActive(model: model, automatic: false)
+                    
+                    ForEach(downloadedModels, id: \.self) { model in
+                        Button("Select \(model.id ?? "")") {
+                            Task {
+                                await selectActive(model: model, automatic: false)
+                            }
+                        }
                     }
-                }
-                                
-                Button("Add AI Model", systemImage: "plus") {
-                    showAddModel = true
-                }
-                
-            } label: {
-                Label(downloadModelLabel(), systemImage: downloadModelIcon())
-            }.font(downloadModelFont()).frame(maxWidth: .infinity, alignment: .center)
-                .foregroundColor(downloadModelColour())
-
-            if activeStream != nil {
+                                    
+                    Button("Add AI Model", systemImage: "plus") {
+                        showAddModel = true
+                    }
+                    
+                    Toggle(streamResponse ? "Streaming is ON" : "Streaming is OFF", isOn: $streamResponse)
+                        .toggleStyle(.button)
+                    
+                    Text("Version: \(LoadConfig.versionBuild())")
+                    Text("Token expires: \(LoadConfig.tokenExpiration())")
+                    
+                } label: {
+                    Label(manageModelsLabel(), systemImage: manageModelsIcon())
+                }.font(manageModelsFont()).frame(maxWidth: .infinity, alignment: .center)
+                    .foregroundColor(manageModelsColour())
+            }
+            else {
                 Button("Cancel Request", systemImage: "xmark", role: .destructive) {
                     activeStream?.cancel()
-                }.font(.system(size: 30))
+                    activeNonStream?.cancel()
+                }.font(manageModelsFont()).frame(maxWidth: .infinity, alignment: .center)
             }
         }
     }

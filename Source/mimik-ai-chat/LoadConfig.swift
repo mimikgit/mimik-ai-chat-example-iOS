@@ -82,4 +82,18 @@ struct LoadConfig: Decodable {
         print("✅ mimik ai use case config url:", urlString)
         return urlString
     }
+    
+    static func versionBuild() -> String {
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
+        let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")
+        let versionBuildString = "\(version ?? "") (\(build ?? ""))"
+        return versionBuildString
+    }
+    
+    static func tokenExpiration() -> String {
+        guard let token = LoadConfig.devIdToken(), let expiresIn = EdgeClient.Authorization.AccessToken.expiresIn(token: token) else {
+            return "Invalid Token"
+        }
+        return expiresIn.formatted()
+    }
 }

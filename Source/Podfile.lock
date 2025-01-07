@@ -1,14 +1,14 @@
 PODS:
   - Alamofire (5.10.2)
-  - AppAuth (1.7.5):
-    - AppAuth/Core (= 1.7.5)
-    - AppAuth/ExternalUserAgent (= 1.7.5)
-  - AppAuth/Core (1.7.5)
-  - AppAuth/ExternalUserAgent (1.7.5):
+  - AppAuth (1.7.6):
+    - AppAuth/Core (= 1.7.6)
+    - AppAuth/ExternalUserAgent (= 1.7.6)
+  - AppAuth/Core (1.7.6)
+  - AppAuth/ExternalUserAgent (1.7.6):
     - AppAuth/Core
-  - EdgeCore (5.8.0):
-    - Alamofire (~> 5.10.1)
-    - AppAuth (~> 1.7.5)
+  - EdgeCore (5.8.2):
+    - Alamofire (~> 5.10.2)
+    - AppAuth (~> 1.7.6)
     - JWTDecode (~> 3.2.0)
     - SwiftyJSON (~> 5.0.2)
   - JWTDecode (3.2.0)
@@ -32,12 +32,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
-  AppAuth: 501c04eda8a8d11f179dbe8637b7a91bb7e5d2fa
-  EdgeCore: 1efaa37caf67ca51ea44a8b0492863b012f3429e
+  AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
+  EdgeCore: cbd4d3d3712d91fec797f40bf1d6ad2e455459c7
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
   mim-OE-ai-SE-iOS-developer: 3bb253b855ee0eac77d67875a4edb03e4ab4913b
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
 
-PODFILE CHECKSUM: fce317999be96cb15f85e5a56e7c0165f960c784
+PODFILE CHECKSUM: 154bdc6cfef7d07fede1f542c72dcb7ea6e5e947
 
 COCOAPODS: 1.16.2
