@@ -60,7 +60,7 @@ struct SheetView: View {
                     Button {
                         loadPreset(number: 3)
                     } label: {
-                        Text("Mistral-7B-Mac").lineLimit(2, reservesSpace: true)
+                        Text("Llama-3.2-3B-Mac").lineLimit(2, reservesSpace: true)
                     }
                              
                     Spacer()
@@ -68,7 +68,7 @@ struct SheetView: View {
                     Button {
                         loadPreset(number: 4)
                     } label: {
-                        Text("QwenCoder-3B-Mac").lineLimit(2, reservesSpace: true)
+                        Text("Mistral-7B-Mac").lineLimit(2, reservesSpace: true)
                     }
                     
                     Spacer()

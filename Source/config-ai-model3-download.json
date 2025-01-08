@@ -1,8 +1,8 @@
 {
-    "expectedDownloadSize": 4520000000,
+    "expectedDownloadSize": 2420000000,
     "object": "model",
-    "owned_by": "lmstudio-community",
-    "id": "lmstudio-community/Mistral-7B-v0.1",
-    "url": "https://huggingface.co/lmstudio-community/mathstral-7B-v0.1-GGUF/resolve/main/mathstral-7B-v0.1-Q4_K_M.gguf?download=true",
+    "owned_by": "NousResearch",
+    "id": "NousResearch/Hermes-3-Llama-3.2-3B-GGUF",
+    "url": "https://huggingface.co/NousResearch/Hermes-3-Llama-3.2-3B-GGUF/resolve/main/Hermes-3-Llama-3.2-3B.Q4_K_M.gguf?download=true",
     "excludeFromBackup": true
 }
