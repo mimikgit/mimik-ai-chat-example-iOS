@@ -1,8 +1,8 @@
 {
-    "expectedDownloadSize": 2070000000,
+    "expectedDownloadSize": 4520000000,
     "object": "model",
-    "owned_by": "Qwen",
-    "id": "Qwen/Qwen2.5-Coder-3B-Instruct-GGUF",
-    "url": "https://huggingface.co/Qwen/Qwen2.5-Coder-3B-Instruct-GGUF/resolve/main/qwen2.5-coder-3b-instruct-q4_k_m.gguf?download=true",
+    "owned_by": "lmstudio-community",
+    "id": "lmstudio-community/Mistral-7B-v0.1",
+    "url": "https://huggingface.co/lmstudio-community/mathstral-7B-v0.1-GGUF/resolve/main/mathstral-7B-v0.1-Q4_K_M.gguf?download=true",
     "excludeFromBackup": true
 }
