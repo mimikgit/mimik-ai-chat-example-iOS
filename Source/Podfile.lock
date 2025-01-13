@@ -12,8 +12,8 @@ PODS:
     - JWTDecode (~> 3.2.0)
     - SwiftyJSON (~> 5.0.2)
   - JWTDecode (3.2.0)
-  - mim-OE-ai-SE-iOS-developer (5.8.0):
-    - EdgeCore (~> 5.8.0)
+  - mim-OE-ai-SE-iOS-developer (5.8.2):
+    - EdgeCore (~> 5.8.2)
   - SwiftyJSON (5.0.2)
 
 DEPENDENCIES:
@@ -35,9 +35,9 @@ SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   EdgeCore: cbd4d3d3712d91fec797f40bf1d6ad2e455459c7
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
-  mim-OE-ai-SE-iOS-developer: 3bb253b855ee0eac77d67875a4edb03e4ab4913b
+  mim-OE-ai-SE-iOS-developer: 609191f1064ef7402f65fb6a40580a1a24dd83e7
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
 
-PODFILE CHECKSUM: 154bdc6cfef7d07fede1f542c72dcb7ea6e5e947
+PODFILE CHECKSUM: c1a4f2680bdd816d0041f0ca7c9867c8966be89a
 
 COCOAPODS: 1.16.2

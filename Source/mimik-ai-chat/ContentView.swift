@@ -13,6 +13,7 @@ struct ContentView: View {
     
     // AI
     @State internal var mimOEAccessToken: String = ""
+    @State internal var mimOEVersion: String = ""
     @State internal var activeStream: DataStreamRequest?
     @State internal var activeNonStream: DataTask<Data>?
     @State internal var selectedModel: EdgeClient.AI.Model?
@@ -283,8 +284,8 @@ struct ContentView: View {
                     Toggle(streamResponse ? "Streaming is ON" : "Streaming is OFF", isOn: $streamResponse)
                         .toggleStyle(.button)
                     
-                    Text("Version: \(LoadConfig.versionBuild())")
-                    Text("Token expires: \(LoadConfig.tokenExpiration())")
+                    Text("App: \(LoadConfig.versionBuild()), mim OE: \(mimOEVersion)")
+                    Text("Token expires on: \(LoadConfig.tokenExpiration())")
                     
                 } label: {
                     Label(manageModelsLabel(), systemImage: manageModelsIcon())

@@ -18,14 +18,16 @@ extension ContentView {
             return .failure(NSError(domain: "mim OE startup error", code: 500))
         }
         
-        guard case let .success(token) = await authenticateMimOE() else {
+        guard case let .success(token) = await authenticateMimOE(), case let .success(version) = await mimOEInfo() else {
             storedResponse = "mim OE authentication error"
             return .failure(NSError(domain: "mim OE authentication error", code: 500))
         }
         
         mimOEAccessToken = token
+        mimOEVersion = version
         
         print("✅ mim OE access token:", mimOEAccessToken)
+        print("✅ mim OE version:", mimOEVersion)
         
         if let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase, case let .success(models) = await self.edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty {
             await processAvailableAIModels()
@@ -102,5 +104,16 @@ extension ContentView {
             print("⚠️ mim OE reset error", error.localizedDescription)
             return .failure(error)
         }
+    }
+    
+    func mimOEInfo() async -> Result<String, NSError> {
+
+        guard case let .success(info) = await self.edgeClient.edgeEngineInfo() else {
+            EdgeClient.Log.logError(function: #function, line: #line, items: "No edge engine info", module: .mimikAccess, marker: "⭐️⭐️⭐️")
+            return .failure(NSError(domain: "error", code: 500))
+        }
+
+        let version = info["version"]
+        return .success(version.stringValue)
     }
 }
