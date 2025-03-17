@@ -214,8 +214,8 @@ This example application is also available as a pre-configured download on Test 
 
 In order to get more out of this article, the reader could further familiarize themselves with the following concepts and techniques:
 
-- [Understanding the mimik Client Library for iOS](/key-concepts/10-index).
-- [Creating a Simple iOS Application that Uses an edge microservice](/tutorials/01-submenu/02-submenu/01-index).
-- [Integrating the mimik Client Library into an iOS project](/tutorials/01-submenu/02-submenu/02-index).
-- [Working with edge microservices in an iOS project](/tutorials/01-submenu/02-submenu/04-index).
-- [Working with AI language models in an iOS project](/tutorials/02-submenu/02-submenu/01-index).
+- [Understanding the mimik Client Library for iOS](https://devdocs.mimik.com/key-concepts/10-index).
+- [Creating a Simple iOS Application that Uses an edge microservice](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/01-index).
+- [Integrating the mimik Client Library into an iOS project](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/02-index).
+- [Working with edge microservices in an iOS project](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/04-index).
+- [Working with AI language models in an iOS project](https://devdocs.mimik.com/tutorials/02-submenu/02-submenu/01-index).
