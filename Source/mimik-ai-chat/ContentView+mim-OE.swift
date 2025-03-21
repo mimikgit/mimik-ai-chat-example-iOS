@@ -29,7 +29,7 @@ extension ContentView {
         print("✅ mim OE access token:", mimOEAccessToken)
         print("✅ mim OE version:", mimOEVersion)
         
-        if let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase, case let .success(models) = await self.edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty {
+        if let apiKey = ConfigManager.fetchConfig(for: .milmApiKey), let useCase = deployedUseCase, case let .success(models) = await self.edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), !models.isEmpty {
             await processAvailableAIModels()
             return .success(())
         }
@@ -43,7 +43,7 @@ extension ContentView {
     /// Starts mim OE.
     private func startMimOE() async -> Result<Void, NSError> {
         
-        guard let edgeLicense = LoadConfig.mimOELicense() else {
+        guard let edgeLicense = ConfigManager.fetchConfig(for: .mimOELicense) else {
             print("⚠️ mim OE license error")
             return .failure(NSError(domain: "mim OE license error", code: 500))
         }
@@ -67,7 +67,7 @@ extension ContentView {
     /// Authenticates mim OE using a developer id token, returns the access token from the result.
     private func authenticateMimOE() async -> Result<String, NSError> {
         
-        guard let developerIdToken = LoadConfig.devIdToken() else {
+        guard let developerIdToken = ConfigManager.fetchConfig(for: .devIdToken) else {
             print("⚠️ Developer id token error")
             return .failure(NSError(domain: "Developer id token error", code: 500))
         }
@@ -115,5 +115,23 @@ extension ContentView {
 
         let version = info["version"]
         return .success(version.stringValue)
+    }
+    
+    func removeEverything() async  {
+        Task {
+            guard case .success = await resetMimOE() else {
+                print("Failed to reset mim OE")
+                return                            }
+            
+            UserDefaults.standard.removeObject(forKey: kAIUseCaseDeployment)
+            UserDefaults.standard.synchronize()
+            
+            try? await Task.sleep(nanoseconds: 1_000_000_000)
+            
+            guard case .success = await startupProcedure() else {
+                print("failed the mim OE start up procedure")
+                return
+            }
+        }
     }
 }

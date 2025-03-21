@@ -1,0 +1,11 @@
+{
+    "expectedDownloadSize": 4400000000,
+    "object": "model",
+    "owned_by": "second-state",
+    "id": "second-state/Llava-v1.5-7B-GGUF",
+    "url": "http://localsource:60048/second-state/Llava-v1.5-7B-GGUF/llava-v1.5-7b-Q4_K_S.gguf",
+    "excludeFromBackup": true,
+    "kind" : "vlm",
+    "mmprojUrl": "http://localsource:60048/second-state/Llava-v1.5-7B-GGUF/llava-v1.5-7b-mmproj-model-f16.gguf",
+    "chatTemplateHint" : "vicuna"
+}

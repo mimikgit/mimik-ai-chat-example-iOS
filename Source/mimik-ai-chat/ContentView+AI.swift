@@ -10,15 +10,15 @@ import SwiftyJSON
 extension ContentView {
     
     /// Integrates mimik ai use case using a configuration url. Optionally, also downloads an AI model locally to the user device as part of the integration.
-    func integrateAI(useCaseConfigUrl: String, model: EdgeClient.AI.Model.CreateModelRequest?) async -> Result<Bool, NSError> {
+    func integrateAI(useCase: EdgeClient.UseCase, model: EdgeClient.AI.Model.CreateModelRequest?) async -> Result<Bool, NSError> {
         
-        guard let apiKey = LoadConfig.mimikAIUseApiKey() else {
+        guard let apiKey = ConfigManager.fetchConfig(for: .milmApiKey) else {
             print("⚠️ API key error")
             showError(text: "API key error")
             return .failure(NSError(domain: "API key error", code: 500))
         }
                 
-        switch await self.edgeClient.integrateAI(accessToken: mimOEAccessToken, apiKey: apiKey, configUrl: useCaseConfigUrl, model: model, downloadHandler: { download in
+        switch await self.edgeClient.integrateAI(accessToken: mimOEAccessToken, apiKey: apiKey, config: useCase, model: model, downloadHandler: { download in
             
             guard case let .success(downloadProgress) = download else {
                 print("⚠️ Model download error")
@@ -47,11 +47,15 @@ extension ContentView {
         case .success(let deployResult):
             activeStream = nil
             
-            // Storing use case deployment information in UserDefaults
-            if let encoded = try? JSONEncoder().encode(deployResult) {
-                UserDefaults.standard.set(encoded, forKey: kAIUseCaseDeployment)
-                UserDefaults.standard.synchronize()
+            guard let encoded = try? JSONEncoder().encode(deployResult) else {
+                let message = "⚠️ Integrate AI use case encoding error"
+                bottomMessage = message
+                return .failure(NSError(domain: message, code: 500))
             }
+            
+            // Storing use case deployment information in UserDefaults
+            UserDefaults.standard.set(encoded, forKey: kAIUseCaseDeployment)
+            UserDefaults.standard.synchronize()
             
             print("✅ Integrate AI use case success")
             return .success(true)
@@ -65,9 +69,9 @@ extension ContentView {
     }
 
     /// Asks AI model a question and receives a stream of responses in the stream handler. Request handler provides a reference to the stream.
-    func askAIStream(question: String) async -> Result<Any, NSError> {
+    func chatAIStream(question: String) async -> Result<Any, NSError> {
                 
-        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = LoadConfig.mimikAIUseApiKey() else {
+        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = ConfigManager.fetchConfig(for: .milmApiKey) else {
             print("⚠️ AI use case error")
             storedResponse = "Error"
             return .failure(NSError.init(domain: "Error", code: 500))
@@ -108,9 +112,9 @@ extension ContentView {
         }
     }
     
-    func askAIDirect(question: String) async -> Result<Any, NSError> {
+    func chatAIDirect(question: String) async -> Result<Any, NSError> {
                 
-        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = LoadConfig.mimikAIUseApiKey() else {
+        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = ConfigManager.fetchConfig(for: .milmApiKey) else {
             print("⚠️ AI use case error")
             storedResponse = "Error"
             return .failure(NSError.init(domain: "Error", code: 500))
@@ -128,17 +132,23 @@ extension ContentView {
             activeNonStream = request
         }) {
         case .success(let content):
-            guard let message = content.content else {
+            
+            guard let message = content.choices?.first?.message, let messageContent = message.content else {
                 print("⚠️", #function, #line, "empty content")
                 return .success("empty content")
             }
             
-            storedResponse = storedResponse + message
-            storeLiveContent(message: content)
-            storeCombinedContext(message: content)
+            storedResponse = storedResponse + messageContent
+            storeLiveContent(message: message)
+            storeCombinedContext(message: message)
             newResponse = ""
             isWaiting = false
             activeNonStream = nil
+            
+            if let usage = content.usage {
+                lastUsage = usage
+            }
+            
             return .success(content)
         case .failure(let error):
             showError(text: error.domain)
@@ -148,7 +158,7 @@ extension ContentView {
     
     func warmUpAI() async -> Result<Void, NSError> {
         
-        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = LoadConfig.mimikAIUseApiKey() else {
+        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = ConfigManager.fetchConfig(for: .milmApiKey) else {
             print("⚠️ AI use case error")
             storedResponse = "Error"
             return .failure(NSError.init(domain: "Error", code: 500))
@@ -167,12 +177,57 @@ extension ContentView {
         }
     }
     
+    func visualAIStream(question: String, image: UIImage) async -> Result<Any, NSError> {
+                
+        guard let selectedModelId = selectedModel?.id, let useCase = deployedUseCase, let apiKey = ConfigManager.fetchConfig(for: .milmApiKey) else {
+            print("⚠️ AI use case error")
+            storedResponse = "Error"
+            return .failure(NSError.init(domain: "Error", code: 500))
+        }
+        
+        isWaiting = true
+        
+        let message = EdgeClient.AI.Model.Message(role: "user", content: question)
+        storeLiveContent(message: message)
+        storeCombinedContext(message: message)
+        
+        let request = EdgeClient.AI.Model.ChatRequest(modelId: selectedModelId, accessToken: mimOEAccessToken, apiKey: apiKey, question: message, useCase: useCase, context: [], temperature: 0.1)
+        
+        let resizeImage = EdgeClient.ImageResizeOptions(size: CGSize.init(width: 500, height: 500), compressionQuality: 0.5, bytesLimit: 100_000)
+        
+        switch await edgeClient.visionAI(request: request, image: image, resizeImage: resizeImage, streamHandler: { stream in
+            
+            switch stream {
+            case .success(let result):
+                processIncomingData(stream: result)
+            case .failure(let error):
+                showError(text: error.domain)
+            }
+            
+        }, requestHandler: {
+            request in
+            activeStream = request
+        }) {
+        case .success(let completion):
+            print("✅", #function, #line)
+            storedResponse = storedResponse + newResponse
+            storeCombinedContext(message: EdgeClient.AI.Model.Message(role: "assistant", content: newResponse))
+            newResponse = ""
+            isWaiting = false
+            activeStream = nil
+            selectedImage = nil
+            selectedFileURL = nil
+            return .success(completion)
+        case .failure(let error):
+            showError(text: error.domain)
+            return .failure(error)
+        }
+    }
+    
     /// Processes ready to use AI models residing locally on the user device.
     func processAvailableAIModels() async {
         
-        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase, case let .success(models) = await edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), let firstModel = models.first else {
-            question = ""
-            userInput = ""
+        guard let apiKey = ConfigManager.fetchConfig(for: .milmApiKey), let useCase = deployedUseCase, case let .success(models) = await edgeClient.aiModels(accessToken: mimOEAccessToken, apiKey: apiKey, useCase: useCase), let firstModel = models.first else {
             storedResponse = ""
             newResponse = ""
             selectedModelId = ""
@@ -218,7 +273,6 @@ extension ContentView {
         selectedModelId = "\(modelId)"
         bottomMessage = ""
         clearContext()
-        _ = await warmUpAI()
     }
     
     /// Processes incoming AI model data, shows appropriate UI prompts based on the type.
@@ -242,8 +296,12 @@ extension ContentView {
             newResponse = "Model Loading, please wait"
         case .modelReady:
             newResponse = "Model Ready, please wait"
-        case .streamDone:
-            print("streamDone")
+        case .modelProcessing:
+            newResponse = "Model Processing, please wait"
+        case .streamDone(let usage):
+            if let usage = usage {
+                lastUsage = usage
+            }
         case .comment, .event, .id, .retry:
             print("other")
         case .error(let errorDomain, let statusCode):
@@ -254,6 +312,7 @@ extension ContentView {
     }
     
     fileprivate func storeLiveContent(message: EdgeClient.AI.Model.Message) {
+//        print(">>> ", message.content ?? "")
         storedLiveContent.append(message)
     }
     
@@ -273,6 +332,7 @@ extension ContentView {
         bottomMessage = ""
         activeStream?.cancel()
         activeNonStream?.cancel()
+        selectedImage=nil
     }
     
     /// Shows a user facing error in the UI.
@@ -288,7 +348,7 @@ extension ContentView {
     /// Deletes a downloaded AI languahe model.
     func deleteAIModel(id: String) async -> Result<Void, NSError> {
         
-        guard let apiKey = LoadConfig.mimikAIUseApiKey(), let useCase = deployedUseCase else {
+        guard let apiKey = ConfigManager.fetchConfig(for: .milmApiKey), let useCase = deployedUseCase else {
             print("⚠️ API key error")
             showError(text: "API key error")
             return .failure(NSError(domain: "API key error", code: 500))

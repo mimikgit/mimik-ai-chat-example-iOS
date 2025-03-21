@@ -2,7 +2,9 @@
     "expectedDownloadSize": 2420000000,
     "object": "model",
     "owned_by": "NousResearch",
-    "id": "NousResearch/Hermes-3-Llama-3.2-3B-GGUF",
-    "url": "https://huggingface.co/NousResearch/Hermes-3-Llama-3.2-3B-GGUF/resolve/main/Hermes-3-Llama-3.2-3B.Q4_K_M.gguf?download=true",
-    "excludeFromBackup": true
+    "id": "hugging-quants/Llama-3.2-3B-Instruct-Q8_0",
+    "url": "http://localsource:60048/hugging-quants/Llama-3.2-3B-Instruct-Q8_0-GGUF/llama-3.2-3b-instruct-q8_0.gguf",
+    "excludeFromBackup": true,
+    "kind" : "llm",
+    "chatTemplateHint" : "llama3"
 }

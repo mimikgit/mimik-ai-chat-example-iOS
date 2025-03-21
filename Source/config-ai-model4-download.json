@@ -2,7 +2,9 @@
     "expectedDownloadSize": 4520000000,
     "object": "model",
     "owned_by": "lmstudio-community",
-    "id": "lmstudio-community/Mistral-7B-v0.1",
-    "url": "https://huggingface.co/lmstudio-community/mathstral-7B-v0.1-GGUF/resolve/main/mathstral-7B-v0.1-Q4_K_M.gguf?download=true",
-    "excludeFromBackup": true
+    "id": "lmstudio-community/Mistral-7B-Instruct-v0.3-GGUF",
+    "url": "http://localsource:60048/lmstudio-community/Mistral-7B-Instruct-v0.3-GGUF/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf",
+    "excludeFromBackup": true,
+    "kind" : "llm",
+    "chatTemplateHint" : "mistral-v3"
 }

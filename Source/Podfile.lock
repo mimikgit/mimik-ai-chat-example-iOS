@@ -6,19 +6,19 @@ PODS:
   - AppAuth/Core (1.7.6)
   - AppAuth/ExternalUserAgent (1.7.6):
     - AppAuth/Core
-  - EdgeCore (5.8.2):
+  - EdgeCore (5.8.5):
     - Alamofire (~> 5.10.2)
     - AppAuth (~> 1.7.6)
     - JWTDecode (~> 3.2.0)
     - SwiftyJSON (~> 5.0.2)
   - JWTDecode (3.2.0)
-  - mim-OE-ai-SE-iOS-developer (5.8.2):
-    - EdgeCore (~> 5.8.2)
+  - mim-OE-ai-SE-iOS-developer (5.8.5):
+    - EdgeCore (~> 5.8.3)
   - SwiftyJSON (5.0.2)
 
 DEPENDENCIES:
-  - EdgeCore
-  - mim-OE-ai-SE-iOS-developer
+  - EdgeCore (from `/Users/rb/Code/cocoapods_github/cocoapod-EdgeCore`)
+  - mim-OE-ai-SE-iOS-developer (from `/Users/rb/Code/cocoapods_github/cocoapod-mim-OE-ai-SE-iOS-developer`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -26,18 +26,21 @@ SPEC REPOS:
     - AppAuth
     - JWTDecode
     - SwiftyJSON
-  https://github.com/mimikgit/cocoapod-edge-specs.git:
-    - EdgeCore
-    - mim-OE-ai-SE-iOS-developer
+
+EXTERNAL SOURCES:
+  EdgeCore:
+    :path: "/Users/rb/Code/cocoapods_github/cocoapod-EdgeCore"
+  mim-OE-ai-SE-iOS-developer:
+    :path: "/Users/rb/Code/cocoapods_github/cocoapod-mim-OE-ai-SE-iOS-developer"
 
 SPEC CHECKSUMS:
   Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
-  EdgeCore: cbd4d3d3712d91fec797f40bf1d6ad2e455459c7
+  EdgeCore: 13645914c09bca8524ec11d1fc590e327a45fe96
   JWTDecode: 7dae24cb9bf9b608eae61e5081029ec169bb5527
-  mim-OE-ai-SE-iOS-developer: 609191f1064ef7402f65fb6a40580a1a24dd83e7
+  mim-OE-ai-SE-iOS-developer: 97209ca52b1711364e43bff886da08d0310d1ac1
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
 
-PODFILE CHECKSUM: c1a4f2680bdd816d0041f0ca7c9867c8966be89a
+PODFILE CHECKSUM: 913499dbbfe55e98e9f7bdbdd0e0042cee83703e
 
 COCOAPODS: 1.16.2
