@@ -1,10 +1,14 @@
 # Objective
 
-The goal of this example is to demonstrate how mimik AI technology integrates into an iOS application. It allows you to download an AI language model to your device, interact with it, and even use it offline.
+The Agentix Playground example app showcases how mimik ai seamlessly integrates with iOS. It enables users to locally download an AI language model to their device, interact with it directly, and continue using it even when offline — offering powerful, private, on-device AI capabilities in a hybrid-edge cloud environment.
+
+When run on Apple Silicon Macs, the experience goes even further. Users can download and engage with Vision-Enabled Language Models, upload images, and receive intelligent, descriptive feedback — all within the same application.
 
 # Prerequisites
 
-You will need to attach a **real iOS device** to your development Mac and select it as the build target. This example will not work with the iOS simulator.
+To run this example, **developers must connect a physical iOS device** to their development Mac and set it as the build target. The iOS simulator is not supported.
+
+**For Vision-Enabled Models, an Apple Silicon Mac is required.**
 
 
 # Getting the Source Code
@@ -19,11 +23,17 @@ git clone https://github.com/mimikgit/mimik-ai-chat-example-iOS.git
 ```
 
 
-# Adding the mimik Client Library cocoapods
+# Adding the mimik Client Library pods
 
-The mimik Client Library is available as two CocoaPods: [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore) and [mim-OE-ai-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mim-OE-ai-SE-iOS-developer). These CocoaPods need to be integrated into your application's source code.
+The mimik Client Library is provided through two CocoaPods:
 
-We have already set up these references in the `Podfile` at the project level for you.
+- [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore)  
+- [mim-OE-ai-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mim-OE-ai-SE-iOS-developer)
+
+These CocoaPods need to be integrated into your application's source code.
+
+For your convenience, we've already added the necessary references to the project's `Podfile`.
+
 
 ### Step 1: Navigate to the Xcode Project Directory
 
@@ -63,7 +73,7 @@ Next, edit the `config-developer-mim-OE-license` file by running the following c
 open config-developer-mim-OE-license
 ```
 
-Go to the [mimik Developer Console](https://console.mimik.com) and copy your Developer mim OE (edge) License.
+Go to the [mimik Developer Console](https://console.mimik.com) and copy your Developer mim OE (Edge) License.
 
 For more details, you can read [this tutorial](https://devdocs.mimik.com/tutorials/01-submenu/01-submenu/02-index).
 
@@ -84,13 +94,13 @@ Once you have your API key, paste it into the `config-mimik-ai-use-case-api-key`
 
 ### Step 6: Review additional Files
 
-Next, review the contents of the `config-mimik-ai-use-case-url` and `config-ai-model1-download.json` files by running:
+Next, review the contents of the `config-ai-model4-download.json` and `config-ai-model5-download.json` files by running:
 
 ```
-open config-mimik-ai-use-case-url; open config-ai-model1-download.json
+open config-ai-model4-download.json; open config-ai-model5-download.json
 ```
 
-These files contain predefined values that you don't need to change (though you can, if necessary). Simply take note of their content.
+These two files contain predefined model download configuration values that you don't need to change (though you can, if you need to). Simply take note of their content.
 
 
 ### Step 7: Open Xcode
@@ -121,93 +131,121 @@ The good news is that Xcode provides excellent support for debugging, testing, a
 For more details, check out [Apple's documentation](https://developer.apple.com/documentation/apple-silicon/adapting-ios-code-to-run-in-the-macos-environment).
 
 
-# How to use the Example Application
+# Getting Started with the Example Application
 
-When run for the first time, the example application welcomes you with a `START HERE` button. Tap it as shown below.
+When you first launch the example application, you’ll be greeted with a `START HERE` button. Simply tap it to begin.
 
 ![01-screenshot](./images/01-screenshot.png)
 
+---
 
-# Downloading AI language model
+## Downloading an AI Language Model
 
-
-A small menu will appear, featuring an `Add AI Model` button. Tap this button to proceed.
-
+A small system menu will appear, featuring an `Add AI Model` button. Tap this to move forward.
 
 ![02-screenshot](./images/02-screenshot.png)
 
+You'll then see a new screen displaying two default presets:  
+- `gemma-v2-2b`  
+- `gemma-v1.1-2b`
 
-A new window will open, displaying two default presets for the `gemma-v1.1-2b` and `gemma-v2-2b` AI language models from **lmstudio-community**. These presets are loaded from the `config-ai-model1-download.json` and `config-ai-model2-download.json` files, respectively. 
+These are provided by the **lmstudio-community**, and are loaded from the `config-ai-model5-download.json` and `config-ai-model4-download.json` files.
 
-You can start by selecting the less complex `gemma-v1.1-2b` model, then tap the `START DOWNLOAD` button at the bottom to begin the download.
-
+We recommend starting with the more intelligent `gemma-v2-2b` model. Select it, then tap `START DOWNLOAD` at the bottom of the screen to begin downloading.
 
 ![03-screenshot](./images/03-screenshot.png)
 
+> **Note:** If you're using a Mac, you’ll have access to five different model options — including one Vision-Enabled model.
 
-**Wait for the language model download to complete**. The download may take a **significant amount of time** depending on your device and internet speed, as the file size in this case is 1.8GB. 
+---
 
-**Important:** Do not leave the app or lock your device while the download is in progress. If needed, you can cancel the download by tapping the `Cancel Request` button.
+## Download Progress and Tips
 
+The download may take **a significant amount of time** depending on your device and internet connection. A progress indicator will keep you updated on the status.
 
 ![04-screenshot](./images/04-screenshot.png)
 
-# Chatting with the AI language model
+**Important:**  
+- Do **not** exit the app or lock your device during the download.  
+- If needed, you can cancel the process at any time by tapping the `X` button.
 
 
-**Once the AI language model download is complete**, a new `Enter your question` prompt will appear. At this point, the example application is ready for you to start asking questions to the downloaded AI language model.
+# Chatting with the AI Language Model
+
+**Once the AI language model has finished downloading**, a `>` prompt will appear on the screen. This indicates that the example application is ready for you to start interacting with the AI.
 
 ![05-screenshot](./images/05-screenshot.png)
 
-Type your question, and the responses will begin streaming in the center of the screen.
+Simply type your question, and the AI will begin streaming its response in the center of the screen.
 
 ![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png)
 
-You can either wait for the stream to finish (indicated by the word `[Done]`) or cancel it by tapping the `Cancel Request` button.
+You can let the response finish naturally, or cancel it at any time by tapping the `X` button.
 
-# Context aware
+At the end of the response, you’ll also see a display showing token throughput performance — helpful for gauging processing speed.
 
-**The application sends context from the previous answers** to the AI model, when asking any follow up questions.
+---
 
-![08-screenshot](./images/08-screenshot.png)  ![09-screenshot](./images/09-screenshot.png)  
+## Context-Aware Responses (Language Models Only)
 
+The application automatically includes previous messages when sending follow-up questions to the AI model. This allows for **context-aware responses**, where the AI remembers and builds upon earlier interactions.
 
-Context gets used to combine the previous answers.
+![08-screenshot](./images/08-screenshot.png)  ![09-screenshot](./images/09-screenshot.png)
 
-![10-screenshot](./images/10-screenshot.png)  ![11-screenshot](./images/11-screenshot.png)
+You can manage the context easily:
 
+- Tap **Clear** to reset the conversation.
+- Tap **Copy** to save the current context to your clipboard.
 
-Context can be cleared by tapping on the **Clear Context** button or copied to the system clipboard by tapping on the **Copy Context** button.
+---
 
+## Vision-Enabled Language Models (Mac Only)
 
-# Managing downloads
+Support for Vision Language Models is currently **exclusive to Apple Silicon Macs**.
 
-**To activate** a different AI language model, tap the bottom **Menu** button, then select the model you want by tapping on it.
+When running the application on a supported Mac, you’ll have access to additional models — including a Vision Language Model. This enables a powerful new use case: uploading an image and asking the model to describe it.
 
-**To delete** a specific downloaded AI language model, tap the **Menu** button, select **Remove**, and then choose the model you wish to delete by tapping on it.
+> **Note:** Context-aware conversation features are only available for language models — not Vision models.
 
-**To remove** all downloaded AI language models and reset the storage in your device, tap the **Manage Models** button, select **Remove**, and then choose **Remove Everything**.
-
-
+![10-screenshot](./images/10-screenshot.png)  
+![11-screenshot](./images/11-screenshot.png)  
 ![12-screenshot](./images/12-screenshot.png)
-![13-screenshot](./images/13-screenshot.png)
 
 
-# Also works Offline
+# Managing AI Language Models
 
+You can manage your downloaded AI models directly from within the app:
 
-Since the AI language model is fully downloaded to your device, the example application can continue to chat with the model **even when the device's internet connection is disabled**, such as in airplane mode. 
+- **To switch to a different AI model**:  
+  Tap the **Gear** icon, then select the model you'd like to use.
 
-However, you must ensure that the AI language model is downloaded before going offline.
+- **To delete a specific downloaded model**:  
+  Tap the **Gear** icon, choose **Remove**, and then select the model you want to delete.
 
+- **To remove all models and reset storage**:  
+  Tap the **Gear** icon, go to **Remove**, and select **Remove Everything**.
 
-# Test Flight
+![13-screenshot](./images/13-screenshot.png)  ![14-screenshot](./images/14-screenshot.png)
 
-This example application is also available as a pre-configured download on Test Flight.
+---
 
-* Open and accept [this Test Flight link](https://testflight.apple.com/join/qoSKwIAE) on the iOS device you want the application to install on. 
+## Works Offline Too
 
-* Open the application once done installing through Test Flight.
+Once an AI language model is downloaded to your device, the application can function completely **offline** — even in airplane mode.  
+This makes it ideal for travel or environments with limited connectivity.
+
+> Just make sure the model is fully downloaded before going offline.
+
+---
+
+## Try It on TestFlight
+
+The example application is also available as a pre-configured download via TestFlight.
+
+1. On your iOS device, open and accept the invitation using this [TestFlight link](https://testflight.apple.com/join/qoSKwIAE).  
+2. Once installed, open the app directly from TestFlight and start exploring.
+
+---
 
 
 # Additional reading

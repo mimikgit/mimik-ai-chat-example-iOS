@@ -1,10 +1,11 @@
 {
-    "expectedDownloadSize": 1800000000,
+    "expectedDownloadSize": 4480000000,
     "object": "model",
-    "owned_by": "lmstudio-community",
-    "id": "lmstudio-community/gemma-1.1-2b-it-GGUF",
-    "url": "http://localsource:60048/lmstudio-community/gemma-1.1-2b-it-GGUF/gemma-1.1-2b-it-Q4_K_S.gguf",
+    "owned_by": "second-state",
+    "id": "second-state/Llava-v1.5-7B-GGUF",
+    "url": "https://huggingface.co/second-state/Llava-v1.5-7B-GGUF/resolve/main/llava-v1.5-7b-Q4_K_S.gguf?download=true",
     "excludeFromBackup": true,
-    "kind" : "llm",
-    "chatTemplateHint" : "gemma"
+    "kind" : "vlm",
+    "mmprojUrl": "https://huggingface.co/second-state/Llava-v1.5-7B-GGUF/resolve/main/llava-v1.5-7b-mmproj-model-f16.gguf?download=true",
+    "chatTemplateHint" : "vicuna"
 }

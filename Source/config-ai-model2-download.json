@@ -1,10 +1,10 @@
 {
-    "expectedDownloadSize": 1920000000,
+    "expectedDownloadSize": 4370000000,
     "object": "model",
     "owned_by": "lmstudio-community",
-    "id": "lmstudio-community/gemma-2-2b-it-GGUF",
-    "url": "http://localsource:60048/lmstudio-community/gemma-2-2b-it-GGUF/gemma-2-2b-it-Q4_K_M.gguf",
+    "id": "lmstudio-community/Mistral-7B-Instruct-v0.3-GGUF",
+    "url": "https://huggingface.co/lmstudio-community/Mistral-7B-Instruct-v0.3-GGUF/resolve/main/Mistral-7B-Instruct-v0.3-Q4_K_M.gguf?download=true",
     "excludeFromBackup": true,
     "kind" : "llm",
-    "chatTemplateHint" : "gemma"
+    "chatTemplateHint" : "mistral-v3"
 }
