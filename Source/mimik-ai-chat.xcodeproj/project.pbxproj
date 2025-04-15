@@ -7,53 +7,93 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */; };
+		2FFD7EDE9D508EB0EF51FAA0 /* Pods_mimik_ai_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3200C66C56030B18399AE5A /* Pods_mimik_ai_chat.framework */; };
+		31020B4C2C9B8E4900FF3530 /* config-ai-model5-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31020B472C9B8E4900FF3530 /* config-ai-model5-download.json */; };
 		31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */ = {isa = PBXBuildFile; fileRef = 31020B482C9B8E4900FF3530 /* config-developer-id-token */; };
-		31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */; };
 		31020B4F2C9B8E4900FF3530 /* config-developer-mim-OE-license in Resources */ = {isa = PBXBuildFile; fileRef = 31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */; };
 		31020B502C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key in Resources */ = {isa = PBXBuildFile; fileRef = 31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */; };
-		310311732C2375C5000FBC94 /* SheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310311722C2375C5000FBC94 /* SheetView.swift */; };
-		311717B92C3C853B00065300 /* LoadConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311717B82C3C853B00065300 /* LoadConfig.swift */; };
-		3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */; };
-		3124B5292C22339A0081246C /* ContentView+mim-OE.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5282C22339A0081246C /* ContentView+mim-OE.swift */; };
-		312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312851222CD2CDB800CDF527 /* SheetView+Presets.swift */; };
+		310311732C2375C5000FBC94 /* AddModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310311722C2375C5000FBC94 /* AddModelView.swift */; };
+		310F15722DA444EC00DDD8D1 /* ColourText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F15712DA444EC00DDD8D1 /* ColourText.swift */; };
+		310F15742DA4564100DDD8D1 /* ModelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F15732DA4564100DDD8D1 /* ModelButton.swift */; };
+		310F15762DA45CDF00DDD8D1 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F15752DA45CDF00DDD8D1 /* CustomTextField.swift */; };
+		310F15782DA468B700DDD8D1 /* LabeledTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 310F15772DA468B700DDD8D1 /* LabeledTextField.swift */; };
+		3117D93C2D8E0511009D329F /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D93B2D8E0511009D329F /* LoadingView.swift */; };
+		3117D93E2D8E052A009D329F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D93D2D8E052A009D329F /* Extensions.swift */; };
+		3117D9402D8E09F8009D329F /* TopTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D93F2D8E09F8009D329F /* TopTitleStackView.swift */; };
+		3117D9422D8E0D56009D329F /* ChatMessagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D9412D8E0D56009D329F /* ChatMessagesView.swift */; };
+		3117D9442D8E0D7E009D329F /* TypingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D9432D8E0D7E009D329F /* TypingIndicatorView.swift */; };
+		3117D9462D8E0D9C009D329F /* GradientMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3117D9452D8E0D9C009D329F /* GradientMessageView.swift */; };
+		31211A1D2D9DA7A400CEB964 /* ModelService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31211A1C2D9DA7A400CEB964 /* ModelService.swift */; };
+		31233BF62D9C515F0037E342 /* StateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31233BF52D9C515F0037E342 /* StateService.swift */; };
+		3124B5242C2203130081246C /* BorderTextFieldModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3124B5222C2203130081246C /* BorderTextFieldModifier.swift */; };
+		3132EACA2D88D5B100024720 /* FileTypeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3132EAC92D88D5B100024720 /* FileTypeCategory.swift */; };
+		314C52F62D665D4500249984 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 314C52F52D665D4500249984 /* ConfigService.swift */; };
+		31629A4D2D8A1B67004F8243 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31629A4C2D8A1B67004F8243 /* PhotoPicker.swift */; };
+		31629A512D8A2784004F8243 /* InputOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31629A502D8A2784004F8243 /* InputOptionsView.swift */; };
+		31629A532D8A2A28004F8243 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31629A522D8A2A28004F8243 /* MenuView.swift */; };
+		316764282D8B45ED004D7441 /* BottomStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316764272D8B45ED004D7441 /* BottomStackView.swift */; };
+		3167642A2D8B462A004D7441 /* BottomUserInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316764292D8B462A004D7441 /* BottomUserInputView.swift */; };
+		316EE3C12D91FEB600087316 /* MetallicText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316EE3C02D91FEB600087316 /* MetallicText.swift */; };
 		317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */; };
 		317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317F4A322C10CCF3006F5F5F /* ContentView.swift */; };
 		317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A342C10CCF4006F5F5F /* Assets.xcassets */; };
 		317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */; };
-		3196205A2CD27C2D00ADE960 /* config-ai-model2-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 319620592CD27C2D00ADE960 /* config-ai-model2-download.json */; };
+		3196205A2CD27C2D00ADE960 /* config-ai-model4-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 319620592CD27C2D00ADE960 /* config-ai-model4-download.json */; };
+		31A007052D91BFF800A88B0F /* CustomBackgroundModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A007042D91BFF800A88B0F /* CustomBackgroundModifier.swift */; };
+		31A008B92D91D7CE00A88B0F /* KeyboardAdaptiveModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A008B82D91D7CE00A88B0F /* KeyboardAdaptiveModifier.swift */; };
 		31A853402D2DAB8C00E6983D /* config-ai-model3-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31A8533E2D2DAB8C00E6983D /* config-ai-model3-download.json */; };
-		31A853412D2DAB8C00E6983D /* config-ai-model4-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31A8533F2D2DAB8C00E6983D /* config-ai-model4-download.json */; };
-		31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */; };
-		31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C1EEB42C519F840029E436 /* ContentView+AI.swift */; };
-		D294035A826B01278F13C4A6 /* Pods_mimik_ai_chat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E88110F7781F8160AEAE8E0 /* Pods_mimik_ai_chat.framework */; };
+		31A853412D2DAB8C00E6983D /* config-ai-model2-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31A8533F2D2DAB8C00E6983D /* config-ai-model2-download.json */; };
+		31D4A97A2D39BA0300639FA1 /* config-ai-model1-download.json in Resources */ = {isa = PBXBuildFile; fileRef = 31D4A9792D39BA0300639FA1 /* config-ai-model1-download.json */; };
+		31DA27132D834D8800540C89 /* milm-v1-1.9.1.tar in Resources */ = {isa = PBXBuildFile; fileRef = 31DA27122D834D8800540C89 /* milm-v1-1.9.1.tar */; };
+		31DA27EE2D834F0800540C89 /* mimik-ai-use-case-config.json in Resources */ = {isa = PBXBuildFile; fileRef = 31DA27ED2D834F0800540C89 /* mimik-ai-use-case-config.json */; };
+		31F8533F2D9C8D5C0020CFA5 /* EngineService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F8533E2D9C8D5C0020CFA5 /* EngineService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		020015356665127885DF41A1 /* Pods-mimik-ai-chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.debug.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.debug.xcconfig"; sourceTree = "<group>"; };
-		0E88110F7781F8160AEAE8E0 /* Pods_mimik_ai_chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mimik_ai_chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model1-download.json"; sourceTree = "<group>"; };
+		2EC9CE4FB60A4C85D64AB2D4 /* Pods-mimik-ai-chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.release.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.release.xcconfig"; sourceTree = "<group>"; };
+		31020B472C9B8E4900FF3530 /* config-ai-model5-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model5-download.json"; sourceTree = "<group>"; };
 		31020B482C9B8E4900FF3530 /* config-developer-id-token */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-id-token"; sourceTree = "<group>"; };
 		31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-developer-mim-OE-license"; sourceTree = "<group>"; };
 		31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-api-key"; sourceTree = "<group>"; };
-		31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */ = {isa = PBXFileReference; lastKnownFileType = text; path = "config-mimik-ai-use-case-url"; sourceTree = "<group>"; };
-		310311722C2375C5000FBC94 /* SheetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SheetView.swift; sourceTree = "<group>"; };
-		311717B82C3C853B00065300 /* LoadConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadConfig.swift; sourceTree = "<group>"; };
-		3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WhiteBorderTextFieldModifier.swift; sourceTree = "<group>"; };
-		3124B5282C22339A0081246C /* ContentView+mim-OE.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ContentView+mim-OE.swift"; sourceTree = "<group>"; };
-		312851222CD2CDB800CDF527 /* SheetView+Presets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SheetView+Presets.swift"; sourceTree = "<group>"; };
+		310311722C2375C5000FBC94 /* AddModelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddModelView.swift; sourceTree = "<group>"; };
+		310F15712DA444EC00DDD8D1 /* ColourText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColourText.swift; sourceTree = "<group>"; };
+		310F15732DA4564100DDD8D1 /* ModelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelButton.swift; sourceTree = "<group>"; };
+		310F15752DA45CDF00DDD8D1 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		310F15772DA468B700DDD8D1 /* LabeledTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabeledTextField.swift; sourceTree = "<group>"; };
+		3117D93B2D8E0511009D329F /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		3117D93D2D8E052A009D329F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		3117D93F2D8E09F8009D329F /* TopTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopTitleStackView.swift; sourceTree = "<group>"; };
+		3117D9412D8E0D56009D329F /* ChatMessagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessagesView.swift; sourceTree = "<group>"; };
+		3117D9432D8E0D7E009D329F /* TypingIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingIndicatorView.swift; sourceTree = "<group>"; };
+		3117D9452D8E0D9C009D329F /* GradientMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientMessageView.swift; sourceTree = "<group>"; };
+		31211A1C2D9DA7A400CEB964 /* ModelService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelService.swift; sourceTree = "<group>"; };
+		31233BF52D9C515F0037E342 /* StateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateService.swift; sourceTree = "<group>"; };
+		3124B5222C2203130081246C /* BorderTextFieldModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderTextFieldModifier.swift; sourceTree = "<group>"; };
+		3132EAC92D88D5B100024720 /* FileTypeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileTypeCategory.swift; sourceTree = "<group>"; };
+		314C52F52D665D4500249984 /* ConfigService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigService.swift; sourceTree = "<group>"; };
+		31629A4C2D8A1B67004F8243 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
+		31629A502D8A2784004F8243 /* InputOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputOptionsView.swift; sourceTree = "<group>"; };
+		31629A522D8A2A28004F8243 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		316764272D8B45ED004D7441 /* BottomStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomStackView.swift; sourceTree = "<group>"; };
+		316764292D8B462A004D7441 /* BottomUserInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomUserInputView.swift; sourceTree = "<group>"; };
+		316EE3C02D91FEB600087316 /* MetallicText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetallicText.swift; sourceTree = "<group>"; };
 		317F4A2D2C10CCF3006F5F5F /* mimik-ai-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "mimik-ai-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = aichat_app_iOSApp.swift; sourceTree = "<group>"; };
 		317F4A322C10CCF3006F5F5F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		317F4A342C10CCF4006F5F5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		317F4A372C10CCF4006F5F5F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		319620592CD27C2D00ADE960 /* config-ai-model2-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model2-download.json"; sourceTree = "<group>"; };
+		319620592CD27C2D00ADE960 /* config-ai-model4-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model4-download.json"; sourceTree = "<group>"; };
+		31A007042D91BFF800A88B0F /* CustomBackgroundModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBackgroundModifier.swift; sourceTree = "<group>"; };
+		31A008B82D91D7CE00A88B0F /* KeyboardAdaptiveModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptiveModifier.swift; sourceTree = "<group>"; };
 		31A8533E2D2DAB8C00E6983D /* config-ai-model3-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model3-download.json"; sourceTree = "<group>"; };
-		31A8533F2D2DAB8C00E6983D /* config-ai-model4-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model4-download.json"; sourceTree = "<group>"; };
-		31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+UI-Labels.swift"; sourceTree = "<group>"; };
-		31C1EEB42C519F840029E436 /* ContentView+AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContentView+AI.swift"; sourceTree = "<group>"; };
+		31A8533F2D2DAB8C00E6983D /* config-ai-model2-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model2-download.json"; sourceTree = "<group>"; };
 		31D383022C24BAEE002CE163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		51186A6B5C51E7603B413676 /* Pods-mimik-ai-chat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.release.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.release.xcconfig"; sourceTree = "<group>"; };
+		31D4A9792D39BA0300639FA1 /* config-ai-model1-download.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "config-ai-model1-download.json"; sourceTree = "<group>"; };
+		31DA27122D834D8800540C89 /* milm-v1-1.9.1.tar */ = {isa = PBXFileReference; lastKnownFileType = archive.tar; path = "milm-v1-1.9.1.tar"; sourceTree = "<group>"; };
+		31DA27ED2D834F0800540C89 /* mimik-ai-use-case-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "mimik-ai-use-case-config.json"; sourceTree = "<group>"; };
+		31F8533E2D9C8D5C0020CFA5 /* EngineService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineService.swift; sourceTree = "<group>"; };
+		F3200C66C56030B18399AE5A /* Pods_mimik_ai_chat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_mimik_ai_chat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F432E0B252645A488998B5BD /* Pods-mimik-ai-chat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-mimik-ai-chat.debug.xcconfig"; path = "Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D294035A826B01278F13C4A6 /* Pods_mimik_ai_chat.framework in Frameworks */,
+				2FFD7EDE9D508EB0EF51FAA0 /* Pods_mimik_ai_chat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,35 +111,29 @@
 		02809D8826C20386B7115CC8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				020015356665127885DF41A1 /* Pods-mimik-ai-chat.debug.xcconfig */,
-				51186A6B5C51E7603B413676 /* Pods-mimik-ai-chat.release.xcconfig */,
+				F432E0B252645A488998B5BD /* Pods-mimik-ai-chat.debug.xcconfig */,
+				2EC9CE4FB60A4C85D64AB2D4 /* Pods-mimik-ai-chat.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		1F81F25038BBA581DCDE93E6 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				0E88110F7781F8160AEAE8E0 /* Pods_mimik_ai_chat.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		317F4A242C10CCF3006F5F5F = {
 			isa = PBXGroup;
 			children = (
+				31DA27122D834D8800540C89 /* milm-v1-1.9.1.tar */,
 				31020B482C9B8E4900FF3530 /* config-developer-id-token */,
 				31020B492C9B8E4900FF3530 /* config-developer-mim-OE-license */,
 				31020B4A2C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key */,
-				31020B4B2C9B8E4900FF3530 /* config-mimik-ai-use-case-url */,
-				31020B472C9B8E4900FF3530 /* config-ai-model1-download.json */,
-				319620592CD27C2D00ADE960 /* config-ai-model2-download.json */,
+				31DA27ED2D834F0800540C89 /* mimik-ai-use-case-config.json */,
+				31D4A9792D39BA0300639FA1 /* config-ai-model1-download.json */,
+				31A8533F2D2DAB8C00E6983D /* config-ai-model2-download.json */,
 				31A8533E2D2DAB8C00E6983D /* config-ai-model3-download.json */,
-				31A8533F2D2DAB8C00E6983D /* config-ai-model4-download.json */,
+				319620592CD27C2D00ADE960 /* config-ai-model4-download.json */,
+				31020B472C9B8E4900FF3530 /* config-ai-model5-download.json */,
 				317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */,
 				317F4A2E2C10CCF3006F5F5F /* Products */,
 				02809D8826C20386B7115CC8 /* Pods */,
-				1F81F25038BBA581DCDE93E6 /* Frameworks */,
+				6EEF3406EA44A1C65FDD2661 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,15 +148,11 @@
 		317F4A2F2C10CCF3006F5F5F /* mimik-ai-chat */ = {
 			isa = PBXGroup;
 			children = (
-				317F4A322C10CCF3006F5F5F /* ContentView.swift */,
-				3124B5282C22339A0081246C /* ContentView+mim-OE.swift */,
-				31C1EEB42C519F840029E436 /* ContentView+AI.swift */,
-				31C1EEB22C519EA00029E436 /* ContentView+UI-Labels.swift */,
-				310311722C2375C5000FBC94 /* SheetView.swift */,
-				312851222CD2CDB800CDF527 /* SheetView+Presets.swift */,
-				311717B82C3C853B00065300 /* LoadConfig.swift */,
-				3124B5222C2203130081246C /* WhiteBorderTextFieldModifier.swift */,
 				317F4A302C10CCF3006F5F5F /* aichat_app_iOSApp.swift */,
+				31F8E9512DA048AF005D6C41 /* Services */,
+				31F8E94F2DA04848005D6C41 /* Views */,
+				31F8E9522DA04965005D6C41 /* ViewModifiers */,
+				31F8E9532DA04A58005D6C41 /* Misc */,
 				31D383022C24BAEE002CE163 /* Info.plist */,
 				317F4A342C10CCF4006F5F5F /* Assets.xcassets */,
 				317F4A362C10CCF4006F5F5F /* Preview Content */,
@@ -138,6 +168,68 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		31F8E94F2DA04848005D6C41 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				317F4A322C10CCF3006F5F5F /* ContentView.swift */,
+				3117D93F2D8E09F8009D329F /* TopTitleStackView.swift */,
+				31629A522D8A2A28004F8243 /* MenuView.swift */,
+				310311722C2375C5000FBC94 /* AddModelView.swift */,
+				310F15732DA4564100DDD8D1 /* ModelButton.swift */,
+				310F15752DA45CDF00DDD8D1 /* CustomTextField.swift */,
+				316764272D8B45ED004D7441 /* BottomStackView.swift */,
+				310F15772DA468B700DDD8D1 /* LabeledTextField.swift */,
+				316764292D8B462A004D7441 /* BottomUserInputView.swift */,
+				31629A502D8A2784004F8243 /* InputOptionsView.swift */,
+				3117D9412D8E0D56009D329F /* ChatMessagesView.swift */,
+				3117D9452D8E0D9C009D329F /* GradientMessageView.swift */,
+				3117D9432D8E0D7E009D329F /* TypingIndicatorView.swift */,
+				316EE3C02D91FEB600087316 /* MetallicText.swift */,
+				310F15712DA444EC00DDD8D1 /* ColourText.swift */,
+				31629A4C2D8A1B67004F8243 /* PhotoPicker.swift */,
+				3117D93B2D8E0511009D329F /* LoadingView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		31F8E9512DA048AF005D6C41 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				31F8533E2D9C8D5C0020CFA5 /* EngineService.swift */,
+				314C52F52D665D4500249984 /* ConfigService.swift */,
+				31211A1C2D9DA7A400CEB964 /* ModelService.swift */,
+				31233BF52D9C515F0037E342 /* StateService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		31F8E9522DA04965005D6C41 /* ViewModifiers */ = {
+			isa = PBXGroup;
+			children = (
+				31A008B82D91D7CE00A88B0F /* KeyboardAdaptiveModifier.swift */,
+				3124B5222C2203130081246C /* BorderTextFieldModifier.swift */,
+				31A007042D91BFF800A88B0F /* CustomBackgroundModifier.swift */,
+			);
+			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		31F8E9532DA04A58005D6C41 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				3132EAC92D88D5B100024720 /* FileTypeCategory.swift */,
+				3117D93D2D8E052A009D329F /* Extensions.swift */,
+			);
+			path = Misc;
+			sourceTree = "<group>";
+		};
+		6EEF3406EA44A1C65FDD2661 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F3200C66C56030B18399AE5A /* Pods_mimik_ai_chat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -145,11 +237,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 317F4A3B2C10CCF4006F5F5F /* Build configuration list for PBXNativeTarget "mimik-ai-chat" */;
 			buildPhases = (
-				DC656945EB2697F127C87BE4 /* [CP] Check Pods Manifest.lock */,
+				B8AD6AB08F96D993E3C3A9FE /* [CP] Check Pods Manifest.lock */,
 				317F4A292C10CCF3006F5F5F /* Sources */,
 				317F4A2A2C10CCF3006F5F5F /* Frameworks */,
 				317F4A2B2C10CCF3006F5F5F /* Resources */,
-				AC0B4E1BF3F979BF22D32A45 /* [CP] Embed Pods Frameworks */,
+				E00F7B3E9E87EF66D808C77D /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -198,14 +290,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3196205A2CD27C2D00ADE960 /* config-ai-model2-download.json in Resources */,
-				31020B4C2C9B8E4900FF3530 /* config-ai-model1-download.json in Resources */,
+				3196205A2CD27C2D00ADE960 /* config-ai-model4-download.json in Resources */,
+				31DA27132D834D8800540C89 /* milm-v1-1.9.1.tar in Resources */,
+				31020B4C2C9B8E4900FF3530 /* config-ai-model5-download.json in Resources */,
 				31020B4D2C9B8E4900FF3530 /* config-developer-id-token in Resources */,
 				31A853402D2DAB8C00E6983D /* config-ai-model3-download.json in Resources */,
-				31A853412D2DAB8C00E6983D /* config-ai-model4-download.json in Resources */,
-				31020B4E2C9B8E4900FF3530 /* config-mimik-ai-use-case-url in Resources */,
+				31DA27EE2D834F0800540C89 /* mimik-ai-use-case-config.json in Resources */,
+				31A853412D2DAB8C00E6983D /* config-ai-model2-download.json in Resources */,
 				31020B4F2C9B8E4900FF3530 /* config-developer-mim-OE-license in Resources */,
 				31020B502C9B8E4900FF3530 /* config-mimik-ai-use-case-api-key in Resources */,
+				31D4A97A2D39BA0300639FA1 /* config-ai-model1-download.json in Resources */,
 				317F4A382C10CCF4006F5F5F /* Preview Assets.xcassets in Resources */,
 				317F4A352C10CCF4006F5F5F /* Assets.xcassets in Resources */,
 			);
@@ -214,24 +308,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		AC0B4E1BF3F979BF22D32A45 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DC656945EB2697F127C87BE4 /* [CP] Check Pods Manifest.lock */ = {
+		B8AD6AB08F96D993E3C3A9FE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +330,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E00F7B3E9E87EF66D808C77D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-mimik-ai-chat/Pods-mimik-ai-chat-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -260,15 +354,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3124B5242C2203130081246C /* WhiteBorderTextFieldModifier.swift in Sources */,
-				31C1EEB52C519F840029E436 /* ContentView+AI.swift in Sources */,
-				311717B92C3C853B00065300 /* LoadConfig.swift in Sources */,
-				312851232CD2CDBB00CDF527 /* SheetView+Presets.swift in Sources */,
+				3124B5242C2203130081246C /* BorderTextFieldModifier.swift in Sources */,
 				317F4A332C10CCF3006F5F5F /* ContentView.swift in Sources */,
+				31233BF62D9C515F0037E342 /* StateService.swift in Sources */,
+				310F15782DA468B700DDD8D1 /* LabeledTextField.swift in Sources */,
+				3132EACA2D88D5B100024720 /* FileTypeCategory.swift in Sources */,
+				3117D9462D8E0D9C009D329F /* GradientMessageView.swift in Sources */,
 				317F4A312C10CCF3006F5F5F /* aichat_app_iOSApp.swift in Sources */,
-				3124B5292C22339A0081246C /* ContentView+mim-OE.swift in Sources */,
-				310311732C2375C5000FBC94 /* SheetView.swift in Sources */,
-				31C1EEB32C519EA00029E436 /* ContentView+UI-Labels.swift in Sources */,
+				3117D93C2D8E0511009D329F /* LoadingView.swift in Sources */,
+				31629A532D8A2A28004F8243 /* MenuView.swift in Sources */,
+				310F15762DA45CDF00DDD8D1 /* CustomTextField.swift in Sources */,
+				3117D9402D8E09F8009D329F /* TopTitleStackView.swift in Sources */,
+				3117D9442D8E0D7E009D329F /* TypingIndicatorView.swift in Sources */,
+				31629A512D8A2784004F8243 /* InputOptionsView.swift in Sources */,
+				310F15742DA4564100DDD8D1 /* ModelButton.swift in Sources */,
+				3117D9422D8E0D56009D329F /* ChatMessagesView.swift in Sources */,
+				310F15722DA444EC00DDD8D1 /* ColourText.swift in Sources */,
+				316EE3C12D91FEB600087316 /* MetallicText.swift in Sources */,
+				31F8533F2D9C8D5C0020CFA5 /* EngineService.swift in Sources */,
+				31A008B92D91D7CE00A88B0F /* KeyboardAdaptiveModifier.swift in Sources */,
+				31211A1D2D9DA7A400CEB964 /* ModelService.swift in Sources */,
+				310311732C2375C5000FBC94 /* AddModelView.swift in Sources */,
+				3117D93E2D8E052A009D329F /* Extensions.swift in Sources */,
+				31629A4D2D8A1B67004F8243 /* PhotoPicker.swift in Sources */,
+				314C52F62D665D4500249984 /* ConfigService.swift in Sources */,
+				31A007052D91BFF800A88B0F /* CustomBackgroundModifier.swift in Sources */,
+				316764282D8B45ED004D7441 /* BottomStackView.swift in Sources */,
+				3167642A2D8B462A004D7441 /* BottomUserInputView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +540,7 @@
 		};
 		317F4A3C2C10CCF4006F5F5F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 020015356665127885DF41A1 /* Pods-mimik-ai-chat.debug.xcconfig */;
+			baseConfigurationReference = F432E0B252645A488998B5BD /* Pods-mimik-ai-chat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -445,6 +557,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -460,7 +573,7 @@
 		};
 		317F4A3D2C10CCF4006F5F5F /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 51186A6B5C51E7603B413676 /* Pods-mimik-ai-chat.release.xcconfig */;
+			baseConfigurationReference = 2EC9CE4FB60A4C85D64AB2D4 /* Pods-mimik-ai-chat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -477,6 +590,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -1,0 +1,65 @@
+{
+  "name": "mimik ai use case",
+  "version": "2025031402",
+  "features": [
+    {
+      "signature": "aiModels",
+      "endpoint": "/models",
+      "service": "milm-v1",
+      "httpMethod": "GET",
+      "description": "Lists available AI models"
+    },
+    {
+      "signature": "downloadAIModel",
+      "endpoint": "/models",
+      "service": "milm-v1",
+      "httpMethod": "POST",
+      "description": "Downloading AI models"
+    },
+    {
+      "signature": "deleteAIModel",
+      "endpoint": "/models",
+      "service": "milm-v1",
+      "httpMethod": "DELETE",
+      "description": "Deletes a downloaded AI models"
+    },
+    {
+      "signature": "askAIModel",
+      "endpoint": "/chat/completions",
+      "service": "milm-v1",
+      "httpMethod": "POST",
+      "description": "Posting AI chat questions"
+    },
+    {
+      "signature": "chatAIModel",
+      "endpoint": "/chat/completions",
+      "service": "milm-v1",
+      "httpMethod": "POST",
+      "description": "Posting AI chat questions"
+    }
+  ],
+  "microservices": [
+    {
+      "name": "milm-v1",
+      "version": "1.9.1",
+      "tarUrl": "http://foo/milm-v1-1.9.1.tar",
+      "shouldDeploy": true,
+      "deploymentOrder": 1,
+      "environment": {
+        "dynamicEnvValues": [
+          {
+            "name": "API_KEY"
+          }
+        ],
+        "staticEnvValues": [
+          {
+            "name": "MCM.API_ALIAS",
+            "value": "true"
+          }
+        ],
+        "name": "milm-v1",
+        "basePath": "/milm/v1"
+      }
+    }
+  ]
+}
