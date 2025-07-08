@@ -1,259 +1,290 @@
 # Objective
 
-The Agentix Playground example app showcases how mimik ai seamlessly integrates with iOS. It enables users to locally download an AI language model to their device, interact with it directly, and continue using it even when offline — offering powerful, private, on-device AI capabilities in a hybrid-edge cloud environment.
+The **Agentix Playground** is a sample iOS app that showcases how to integrate **mimik AI** into your iOS projects. It lets you locally download and run an AI language model directly on-device, enabling powerful, private, offline-capable AI in a hybrid edge-cloud architecture.
 
-When run on Apple Silicon Macs, the experience goes even further. Users can download and engage with Vision-Enabled Language Models, upload images, and receive intelligent, descriptive feedback — all within the same application.
+As an added option, it also supports validating assistant prompts via **Google Gemini**, using an online API.
+
+When running on **Apple Silicon Macs**, the app unlocks additional capabilities, such as interacting with **Vision-Enabled Language Models**. You can upload images and receive intelligent feedback — all within the same Swift-based codebase.
+
+Built on **EdgeClient.AI.ServiceInterface** from the **mimik Client Library**, a unified abstraction layer that simplifies working with AI models across device, edge, and cloud—while supporting streaming responses and real-time model discovery.
+
 
 # Prerequisites
 
-To run this example, **developers must connect a physical iOS device** to their development Mac and set it as the build target. The iOS simulator is not supported.
+Before you begin:
 
-**For Vision-Enabled Models, an Apple Silicon Mac is required.**
+- You **must use a physical iOS device** connected to your Mac.  
+  > The iOS simulator is **not supported** due to native dependencies.
+  
+- Alternatively, you can run the app directly on an **Apple Silicon Mac**.
 
+> ⚠️ Vision-Enabled Model features require Apple Silicon (M1/M2/M3) Macs.
 
-# Getting the Source Code
+# Get the Code
 
-To begin, clone the code from GitHub and open it in Xcode.
+Clone the sample project from GitHub and open it in Xcode:
 
-Execute the following command to clone the example code:
-
-
-```
+```bash
 git clone https://github.com/mimikgit/mimik-ai-chat-example-iOS.git
 ```
 
+# Install Dependencies with CocoaPods
 
-# Adding the mimik Client Library pods
-
-The mimik Client Library is provided through two CocoaPods:
+This project uses two custom CocoaPods from mimik:
 
 - [EdgeCore](https://github.com/mimikgit/cocoapod-EdgeCore)  
 - [mim-OE-ai-SE-iOS-developer](https://github.com/mimikgit/cocoapod-mim-OE-ai-SE-iOS-developer)
 
-These CocoaPods need to be integrated into your application's source code.
+These pods are already listed in the `Podfile`, so you just need to install them.
 
-For your convenience, we've already added the necessary references to the project's `Podfile`.
+## Step 1: Navigate to the Source Directory
 
-
-### Step 1: Navigate to the Xcode Project Directory
-
-From the command line, run the following command to navigate to the Xcode project directory:
-
-```
+```bash
 cd mimik-ai-chat-example-iOS/Source/
 ```
 
-### Step 2: Install the CocoaPods
+## Step 2: Install Pods
 
-From the command line, run the following command **inside the Xcode project directory**:
-
-```
+```bash
 pod install --repo-update
 ```
 
-### Step 3: Edit the `config-developer-id-token` File
+# Configure Runtime Credentials
 
-To start editing the `config-developer-id-token` file, run the following command:
+The app relies on a few configuration files for runtime credentials and model setup.
 
-```
+## Step 3: Developer ID Token
+
+Open the token file:
+
+```bash
 open config-developer-id-token
 ```
 
-Go to the [mimik Developer Console](https://console.mimik.com) and generate a Developer ID Token for an edge project you create.
+Go to the [mimik Developer Console](https://console.mimik.com), create a new edge project, and generate a **Developer ID Token**.  
+Paste it into the file and save.  
+➡️ [View Tutorial](https://devdocs.mimik.com/tutorials/01-submenu/01-submenu/02-index)
 
-Once generated, copy the token and paste it into the `config-developer-id-token` file, replacing any existing content. Save and close the file.
+## Step 4: mim OE License
 
+Open the license file:
 
-### Step 4: Edit the `config-developer-mim-OE-license` File
-
-Next, edit the `config-developer-mim-OE-license` file by running the following command:
-
-
-```
+```bash
 open config-developer-mim-OE-license
 ```
 
-Go to the [mimik Developer Console](https://console.mimik.com) and copy your Developer mim OE (Edge) License.
+From the [Developer Console](https://console.mimik.com), copy your **mim OE (Edge) License** and paste it into this file. Save and close.
 
-For more details, you can read [this tutorial](https://devdocs.mimik.com/tutorials/01-submenu/01-submenu/02-index).
+## Step 5: Developer API Key
 
-Once copied, paste the mim OE License into the `config-developer-mim-OE-license` file, replacing any existing content. Save and close the file.
+Open the API key file:
 
-
-### Step 5: Edit the `config-mimik-ai-use-case-api-key` File
-
-Next, edit the `config-mimik-ai-use-case-api-key` file by running the following command:
-
-```
+```bash
 open config-mimik-ai-use-case-api-key
 ```
 
-This is your own API key, which will be used to secure the API calls within the mimik ai package.
+Paste your API key here — this secures your API calls within the app. Save and close.
 
-Once you have your API key, paste it into the `config-mimik-ai-use-case-api-key` file, replacing any existing content. Save and close the file.
+## Step 6: Review AI Model Configs
 
-### Step 6: Review additional Files
+You can inspect the model configuration files by running:
 
-Next, review the contents of the `config-ai-model4-download.json` and `config-ai-model5-download.json` files by running:
-
-```
+```bash
 open config-ai-model4-download.json; open config-ai-model5-download.json
 ```
 
-These two files contain predefined model download configuration values that you don't need to change (though you can, if you need to). Simply take note of their content.
+These contain predefined URLs and settings for downloading AI models. You don’t need to modify them unless you're customizing models.
 
+# Launch in Xcode
 
-### Step 7: Open Xcode
+To open the workspace in Xcode:
 
-From the command line, run the following command in your project directory to open Xcode:
-
-
-```
+```bash
 open mimik-ai-chat.xcworkspace
 ```
 
-# Running the example on your iOS Device
+From here, select your physical iOS device or your Apple Silicon Mac as the run target, then **Build & Run** the project.
+
+You're now ready to explore on-device AI with mimik in a real-world iOS app!
 
 
-|**Connect a real iOS device** to your development Mac and **select it as the target** in Xcode. For optimal performance, use a fast device capable of running complex AI language models. This example will not work with the iOS Simulator.|
+# Running the Example on a Real iOS Device
+
+|**Connect a real iOS device** to your Mac and **select it as the target** in Xcode. For best results, use a device capable of handling complex AI models. The iOS Simulator is **not supported**.|
 |----------|
 
-Run the project in Xcode and follow the on-screen prompts on the iOS device to continue.
+Once connected, run the project from Xcode and follow the on-device prompts to proceed.
 
-# Mac computers with Apple silicon
+# Running on Apple Silicon Macs
 
-With the transition from Intel to Apple Silicon architecture in Mac desktop computers, it is now possible to run most iOS applications, including this example [natively](https://developer.apple.com/videos/play/wwdc2020/10114/) on desktop Macs without requiring any changes. This includes the mim OE Runtime binary.
+With Apple's transition to Apple Silicon, you can now run iOS apps — including this example — **natively on macOS** directly. This also includes native support for the mim OE Runtime binary.
 
-The ability to run iPhone and iPad apps natively on Apple Silicon Macs opens up a whole new set of users. Apple has done much of the heavy lifting to make this seamless, so developers only need to make minimal adjustments.
+Running on Mac provides full debugging, profiling, and testing capabilities in Xcode, just like an iOS device.
 
-The good news is that Xcode provides excellent support for debugging, testing, and profiling iPhone and iPad apps natively on a Mac, just as if they were running in a simulator or on an actual iOS device.
+> 📚 Learn more: [Adapting iOS code for macOS (Apple Silicon)](https://developer.apple.com/documentation/apple-silicon/adapting-ios-code-to-run-in-the-macos-environment)
 
-For more details, check out [Apple's documentation](https://developer.apple.com/documentation/apple-silicon/adapting-ios-code-to-run-in-the-macos-environment).
+# Getting Started with the Example App
 
-
-# Getting Started with the Example Application
-
-When you first launch the example application, you’ll be greeted with a `START HERE` button. Simply tap it to begin.
+After launching the app, tap the `START HERE` button to begin.
 
 ![01-screenshot](./images/01-screenshot.png)
 
 ---
 
-## Downloading an AI Language Model
+## Step 1: Download an AI Language Model
 
-A small system menu will appear, featuring an `Add AI Model` button. Tap this to move forward.
+Tap the `Add AI Model` button in the system menu.
 
 ![02-screenshot](./images/02-screenshot.png)
 
-You'll then see a new screen displaying two default presets:  
-- `gemma-v2-2b`  
+You’ll see two default model presets:
+
+- `gemma-v2-2b` (recommended)
 - `gemma-v1.1-2b`
 
-These are provided by the **lmstudio-community**, and are loaded from the `config-ai-model5-download.json` and `config-ai-model4-download.json` files.
+These are downloaded based on configurations in:
 
-We recommend starting with the more intelligent `gemma-v2-2b` model. Select it, then tap `START DOWNLOAD` at the bottom of the screen to begin downloading.
+- `config-ai-model5-download.json`
+- `config-ai-model4-download.json`
+
+Select `gemma-v2-2b`, then tap `START DOWNLOAD`.
 
 ![03-screenshot](./images/03-screenshot.png)
 
-> **Note:** If you're using a Mac, you’ll have access to five different model options — including one Vision-Enabled model.
+> 💡 On Apple Silicon Macs, you’ll see **five model options**, including one Vision-Enabled model.
 
 ---
 
-## Download Progress and Tips
+## Step 2: Monitor Download Progress
 
-The download may take **a significant amount of time** depending on your device and internet connection. A progress indicator will keep you updated on the status.
+Download time varies based on your connection and device speed. A progress indicator will keep you updated.
 
 ![04-screenshot](./images/04-screenshot.png)
 
-**Important:**  
-- Do **not** exit the app or lock your device during the download.  
-- If needed, you can cancel the process at any time by tapping the `X` button.
-
-
-# Chatting with the AI Language Model
-
-**Once the AI language model has finished downloading**, a `>` prompt will appear on the screen. This indicates that the example application is ready for you to start interacting with the AI.
-
-![05-screenshot](./images/05-screenshot.png)
-
-Simply type your question, and the AI will begin streaming its response in the center of the screen.
-
-![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png)
-
-You can let the response finish naturally, or cancel it at any time by tapping the `X` button.
-
-At the end of the response, you’ll also see a display showing token throughput performance — helpful for gauging processing speed.
+### Tips:
+- Keep the app open and the device awake.
+- You can cancel the download at any time using the `X` button.
 
 ---
 
-## Context-Aware Responses (Language Models Only)
+# Interacting with the AI Language Model
 
-The application automatically includes previous messages when sending follow-up questions to the AI model. This allows for **context-aware responses**, where the AI remembers and builds upon earlier interactions.
+Once downloaded, a `>` prompt appears — indicating you're ready to chat with the AI.
+
+![05-screenshot](./images/05-screenshot.png)
+
+Type your question, and the AI will stream its response in real time.
+
+![06-screenshot](./images/06-screenshot.png) ![07-screenshot](./images/07-screenshot.png)
+
+- Tap `X` to cancel a response mid-stream.
+- At the end, the app will display token throughput — helpful for performance insight.
+
+---
+
+## Context-Aware Conversations
+
+The app includes previous interactions in follow-up prompts, allowing for **context-aware responses**.
 
 ![08-screenshot](./images/08-screenshot.png)  ![09-screenshot](./images/09-screenshot.png)
 
-You can manage the context easily:
+You can manage the conversation easily:
 
-- Tap **Clear** to reset the conversation.
-- Tap **Copy** to save the current context to your clipboard.
+- **Clear** to reset the context.
+- **Copy** to save the conversation to your clipboard.
 
 ---
 
 ## Vision-Enabled Language Models (Mac Only)
 
-Support for Vision Language Models is currently **exclusive to Apple Silicon Macs**.
+On Apple Silicon Macs, you’ll have access to a Vision Language Model. This allows you to upload images and receive descriptive feedback.
 
-When running the application on a supported Mac, you’ll have access to additional models — including a Vision Language Model. This enables a powerful new use case: uploading an image and asking the model to describe it.
-
-> **Note:** Context-aware conversation features are only available for language models — not Vision models.
+> ❗ Vision models currently do **not** support context-aware chat.
 
 ![10-screenshot](./images/10-screenshot.png)  
 ![11-screenshot](./images/11-screenshot.png)  
 ![12-screenshot](./images/12-screenshot.png)
 
 
-# Managing AI Language Models
+---
 
-You can manage your downloaded AI models directly from within the app:
+## Google Gemini Prompt Validation (Mac Only)
 
-- **To switch to a different AI model**:  
-  Tap the **Gear** icon, then select the model you'd like to use.
+### Overview
 
-- **To delete a specific downloaded model**:  
-  Tap the **Gear** icon, choose **Remove**, and then select the model you want to delete.
+Enable real-time response verification by sending on-device model outputs to Google Gemini for cross-checking—ideal for testing accuracy and consistency in hybrid AI workflows.
 
-- **To remove all models and reset storage**:  
-  Tap the **Gear** icon, go to **Remove**, and select **Remove Everything**.
+### How to Activate
 
-![13-screenshot](./images/13-screenshot.png)  ![14-screenshot](./images/14-screenshot.png)
+1. In the app, go to **Online Validation** and activate **Google Gemini**.
+2. When prompted, enter your **Google Gemini Developer API Key**.
+3. Tap **Connect** to activate the service.
+
+### Notes
+
+- Currently, **Google Gemini** is the only supported online validation backend.
+- You must provide your **own Google Gemini API key**.
+- **Contextual follow-up prompts** are supported only during on-device sessions and are **disabled** when online validation is active.
+- Online services **do not return tokens-per-second** performance metrics at this time.
+
+
+![13-screenshot](./images/13-screenshot.png)  
+![14-screenshot](./images/14-screenshot.png)  
+![15-screenshot](./images/15-screenshot.png)
+![16-screenshot](./images/16-screenshot.png)
+![17-screenshot](./images/17-screenshot.png)
+![18-screenshot](./images/18-screenshot.png)
 
 ---
 
-## Works Offline Too
+# Models
 
-Once an AI language model is downloaded to your device, the application can function completely **offline** — even in airplane mode.  
-This makes it ideal for travel or environments with limited connectivity.
+## Manage Downloaded Models
 
-> Just make sure the model is fully downloaded before going offline.
+Use the in-app settings (tap the left **Gear icon**) to manage your downloaded AI models:
+
+- **Add a model**: Tap **Add New Model** to browse and download a new AI model.
+- **Switch models**: Tap **Select**, then choose the model you want to use.
+- **Delete a model**: Tap **Remove**, then select the model you want to delete.
+- **Clear all models**: Tap **Remove Everything** to delete all downloaded models and reset the app.
+
+![30-screenshot](./images/30-screenshot.png)  
+![31-screenshot](./images/31-screenshot.png)
+
+## View Available Models
+
+To see a list of available models—either stored on your device or provided by active online services—tap the **List Models** button in the **Models** section at the bottom of the screen.
+
+![35-screenshot](./images/35-screenshot.png)  
+![36-screenshot](./images/36-screenshot.png)
+
 
 ---
 
-## Try It on TestFlight
+## Works Fully Offline
 
-The example application is also available as a pre-configured download via TestFlight.
+Once a model is downloaded, the app works **entirely offline** — no internet required, even in airplane mode.
 
-1. On your iOS device, open and accept the invitation using this [TestFlight link](https://testflight.apple.com/join/qoSKwIAE).  
-2. Once installed, open the app directly from TestFlight and start exploring.
+> Just be sure the model download has completed beforehand.
 
 ---
 
 
-# Additional reading
+## Try It with TestFlight
 
-In order to get more out of this article, the reader could further familiarize themselves with the following concepts and techniques:
+Want to test without building it yourself? Install the app using TestFlight:
 
-- [Understanding the mimik Client Library for iOS](/key-concepts/10-index).
-- [Creating a Simple iOS Application that Uses an edge microservice](/tutorials/01-submenu/02-submenu/01-index).
-- [Integrating the mimik Client Library into an iOS project](/tutorials/01-submenu/02-submenu/02-index).
-- [Working with edge microservices in an iOS project](/tutorials/01-submenu/02-submenu/04-index).
-- [Working with AI language models in an iOS project](/tutorials/02-submenu/02-submenu/01-index).
+1. Open this [TestFlight link](https://testflight.apple.com/join/qoSKwIAE) on your iOS device.
+2. Accept the invitation and launch the app.
+
+---
+
+# Additional Resources
+
+Explore more iOS + mimik AI development concepts here:
+
+- [Understanding the mimik Client Library for iOS](/key-concepts/10-index)
+- [Creating a Simple iOS App Using an Edge Microservice](/tutorials/01-submenu/02-submenu/01-index)
+- [Integrating mimik Client Library into iOS Projects](/tutorials/01-submenu/02-submenu/02-index)
+- [Working with Edge Microservices in iOS](/tutorials/01-submenu/02-submenu/04-index)
+- [AI Language Models in iOS Projects](/tutorials/02-submenu/02-submenu/01-index)

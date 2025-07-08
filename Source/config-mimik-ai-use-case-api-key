@@ -1,2 +1,2 @@
-<REPLACE ALL content of this file with...>
-<API key of your choice for securing communications with the microservice API. (it's essentially a password)>
+< IMPORTANT: Replace the ENTIRE contents of this file with your chosen API key.
+This key secures communication with the microservice API — it functions like a password. >

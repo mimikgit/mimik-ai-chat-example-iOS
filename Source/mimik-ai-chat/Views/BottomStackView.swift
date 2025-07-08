@@ -11,7 +11,7 @@ import SwiftUI
 
 struct BottomChatView: View {
     
-    @EnvironmentObject var appState: StateService
+    @EnvironmentObject var appState: AppState
     
     @State private var userInput: String = ""
     @State private var question: String = ""
@@ -23,7 +23,7 @@ struct BottomChatView: View {
         VStack(spacing: 20) {
             if !appState.downloadedModels.isEmpty {
                 if appState.selectedModel != nil {
-                    BottomChatInputView(userInput: $userInput, question: $question, showImagePicker: $showImagePicker, showFileImporter: $showFileImporter)
+                    BottomChatInputView(userInput: $userInput, prompt: $question, showImagePicker: $showImagePicker, showFileImporter: $showFileImporter)
                         .textFieldModifier(borderColor: userInputColour(), lineWidth: appState.downloadedModels.count >= 1 ? 2 : 1)
                         .fileImporter(
                             isPresented: $showFileImporter,

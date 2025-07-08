@@ -12,11 +12,10 @@ import SwiftyJSON
 
 struct AddModelView: View {
         
-    @EnvironmentObject var appState: StateService
+    @EnvironmentObject var appState: AppState
     @EnvironmentObject var engineService: EngineService
     @EnvironmentObject var modelService: ModelService
     @Environment(\.presentationMode) private var presentationMode
-    @State private var keyboardHeight: CGFloat = 0
     
     @State private var modModel: AddModelView.ModifiedModel = .init(id: "", object: "", url: "", mmprojUrl: "", chatHint: "", ownedBy: "", kind: "", excludeFromBackup: true, expectedDownloadSize: 0)
     
@@ -79,9 +78,6 @@ struct AddModelView: View {
                     .padding([.leading, .trailing], DeviceType.isTablet ? 40 : 20)
             }
         }
-        .keyboardHeight($keyboardHeight)
-        .animation(.easeInOut(duration: 1), value: 0)
-        .offset(y: -keyboardHeight)
         .task {
             loadPreset(decodedModel: ConfigService.modelPresets().first)
         }

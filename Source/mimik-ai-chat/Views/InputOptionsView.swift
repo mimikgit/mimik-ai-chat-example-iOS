@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InputOptionsView: View {
     
-    @EnvironmentObject private var appState: StateService
+    @EnvironmentObject private var appState: AppState
     
     @Binding var showImagePicker: Bool
     @Binding var showInputOptions: Bool

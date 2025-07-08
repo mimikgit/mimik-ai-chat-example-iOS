@@ -10,7 +10,7 @@ import EdgeCore
 
 struct ModelButton: View {
     
-    @EnvironmentObject var appState: StateService
+    @EnvironmentObject var appState: AppState
     
     var buttonText: String
     var backgroundColor: Color

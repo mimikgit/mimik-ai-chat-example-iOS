@@ -10,7 +10,7 @@ import EdgeCore
 
 struct ChatMessagesView: View {
     
-    @EnvironmentObject private var appState: StateService
+    @EnvironmentObject private var appState: AppState
     @State private var position = ScrollPosition(edge: .top)
     
     var body: some View {
@@ -33,7 +33,7 @@ struct ChatMessagesView: View {
                             }
                         }
 
-                        text(message: appState.postedMessages[index])
+                        performanceText(message: appState.postedMessages[index])
                     }
                 }
             }
@@ -50,11 +50,47 @@ struct ChatMessagesView: View {
         }
     }
     
-    private func text(message: EdgeClient.AI.Model.Message) -> some View {
-        Text(Date().formattedTodayDate())
-            .foregroundColor(.gray)
-            .frame(maxWidth: .infinity, alignment: message.isUserType ? .trailing : .leading)
-            .padding(.horizontal, 16)
+    private func performanceText(message: EdgeClient.AI.Model.Message) -> some View {
+
+        let hAlignment: HorizontalAlignment = message.isUserType ? .trailing : .leading
+        let frameAlignment: Alignment = message.isUserType ? .trailing : .leading
+        
+        let usageLine: String? = {
+            guard let usage = appState.tokenUsage[message.modelId ?? "unknown"] else {
+                return ""
+            }
+            
+            var line = ""
+            if let tokenPerSecond = usage.tokenPerSecond,
+               tokenPerSecond.rounded(.awayFromZero) != 0
+            {
+                let perf = Int(tokenPerSecond.rounded(.awayFromZero))
+                line += "Performance: \(perf) tokens/sec. "
+            }
+            
+            line +=
+            "Tokens: \(usage.totalTokens ?? 0) " +
+            "(prompt: \(usage.promptTokens ?? 0) + " +
+            "completion: \(usage.completionTokens ?? 0))"
+            
+            return line
+        }()
+        
+        return VStack(alignment: hAlignment, spacing: 4) {
+            Text(Date().formattedTodayDate())
+            
+            if message.isAiType, let modelId = message.modelId {
+                Text(modelId)
+                
+                if let line = usageLine {
+                    Text(line)
+                }
+            }
+        }
+        .font(.callout)
+        .foregroundColor(.gray)
+        .frame(maxWidth: .infinity, alignment: frameAlignment)
+        .padding(.horizontal, 16)
     }
     
     private func aiMessage(message: EdgeClient.AI.Model.Message) -> some View {

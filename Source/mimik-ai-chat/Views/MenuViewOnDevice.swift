@@ -1,5 +1,5 @@
 //
-//  MenuView.swift
+//  MenuViewOnDevice.swift
 //  mimik-ai-chat
 //
 //  Created by rb on 2025-03-18.
@@ -9,9 +9,10 @@ import Alamofire
 import EdgeCore
 import SwiftUI
 
-struct MenuView: View {
+struct MenuViewOnDevice: View {
 
-    @EnvironmentObject var appState: StateService
+    @EnvironmentObject var appState: AppState
+    @EnvironmentObject var authState: AuthState
     @EnvironmentObject var engineService: EngineService
     @EnvironmentObject var modelService: ModelService
     
@@ -21,15 +22,36 @@ struct MenuView: View {
     var body: some View {
         VStack(spacing: 10) {
             Menu {
+                Button("Add New Model", systemImage: "plus") {
+                    if DeviceType.isTablet {
+                        showAddModelTablet = true
+                    }
+                    else {
+                        showAddModelPhone = true
+                    }
+                }
+                
+                ForEach(appState.downloadedModels, id: \.self) { model in
+                    Button("Select \(model.kind == .vlm ? "<vision>" : "") \(model.id ?? "")") {
+                        Task {
+                            appState.generalMessage = "Please Wait..."
+                            await modelService.selectActive(model: model, automatic: false)
+                            appState.generalMessage = "Active model changed to <\(model.id ?? "")>"
+                            try await Task.sleep(nanoseconds: 5_000_000_000)
+                            modelService.resetGeneralMessage()
+                        }
+                    }
+                }
+                
                 Menu("Remove") {
                     ForEach(appState.downloadedModels, id: \.self) { model in
                         
-                        Button("Remove \(model.kind == .vlm ? "(vlm)" : "(llm)") \(model.id ?? "")", systemImage: "trash", role: .destructive) {
+                        Button("Remove \(model.kind == .vlm ? "<vision>" : "") \(model.id ?? "")", systemImage: "trash", role: .destructive) {
                             Task {
                                 try await modelService.deleteAIModel(id: model.id ?? "N/A")
                                 appState.generalMessage = "<\(model.id ?? "")> model removed."
                                 try await Task.sleep(nanoseconds: 2_000_000_000)
-                                appState.resetGeneralMessage()
+                                modelService.resetGeneralMessage()
                             }
                         }.disabled(appState.downloadedModels.isEmpty)
                     }
@@ -38,29 +60,10 @@ struct MenuView: View {
                         Task {
                             appState.generalMessage = "Please Wait..."
                             try await engineService.removeEverything()
+                            
                             appState.stateReset()
+                            authState.deleteAllTokens()
                         }
-                    }
-                }
-                
-                ForEach(appState.downloadedModels, id: \.self) { model in
-                    Button("Select \(model.kind == .vlm ? "(vlm)" : "(llm)") \(model.id ?? "")") {
-                        Task {
-                            appState.generalMessage = "Please Wait..."
-                            await modelService.selectActive(model: model, automatic: false)
-                            appState.generalMessage = "Active model changed to <\(model.id ?? "")>"
-                            try await Task.sleep(nanoseconds: 5_000_000_000)
-                            appState.resetGeneralMessage()
-                        }
-                    }
-                }
-                                
-                Button("Add AI Model", systemImage: "plus") {
-                    if DeviceType.isTablet {
-                        showAddModelTablet = true
-                    }
-                    else {
-                        showAddModelPhone = true
                     }
                 }
                 
@@ -70,13 +73,13 @@ struct MenuView: View {
             } label: {
                 VStack {
                     if appState.selectedModel != nil {
-                        MetallicText(text: appState.selectedModel?.kind == .vlm ? "vlm" : "llm", fontSize: DeviceType.isTablet ? 20 : 14, color: .gold, icon: DeviceType.isTablet ? nil: "gear.badge", iconPosition: .after)
+                        MetallicText(text: "On Device", fontSize: DeviceType.isTablet ? 28 : 12, color: .silver)
+                        MetallicText(text: appState.selectedModel?.kind == .vlm ? "vision Prompt" : "Prompt", fontSize: DeviceType.isTablet ? 28 : 12, color: .amethyst)
                     }
-                    MetallicText(text: manageModelsLabel(), fontSize: DeviceType.isTablet ? 32 : 20, color: .gold, icon: DeviceType.isTablet ? "gear.badge" : nil, iconPosition: .after)
+                    MetallicText(text: infoLabel(), fontSize: DeviceType.isTablet ? 32 : 12, color: infoLabelColour(), icon: "gear.badge", iconPosition: .after)
                 }
             }
             .font(manageModelsFont())
-            .foregroundColor(manageModelsColour())
         }
         .popover(isPresented: $showAddModelTablet) {
             AddModelView()
@@ -111,37 +114,23 @@ struct MenuView: View {
         }
     }
     
-    private func manageModelsColour() -> Color {
-        
-        if appState.activeStream != nil {
-            return .gray
+    private func infoLabelColour() -> MetallicText.MetallicColor {
+        if isPromptReady {
+            return .gold
         }
-        
-        if appState.downloadedModels.count >= 1 {
-            if appState.selectedModel != nil {
-                return .blue
-            }
-            else {
-                return .red
-            }
+        else if infoLabel().contains("START HERE") {
+            return .ruby
         }
         else {
-            return .red
+            return .obsidian
         }
     }
     
-    private func manageModelsLabel() -> String {
-        
-        if appState.downloadedModels.isEmpty {
-            return "START HERE"
-        }
-        else {
-            if appState.selectedModel != nil{
-                return "READY"
-            }
-            else {
-                return "SELECT"
-            }
-        }
+    private var isPromptReady: Bool {
+        return !appState.downloadedModels.isEmpty
+    }
+    
+    private func infoLabel() -> String {
+        return isPromptReady ? "READY" : "START HERE"
     }
 }

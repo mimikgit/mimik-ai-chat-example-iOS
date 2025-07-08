@@ -11,7 +11,7 @@ import PhotosUI
 
 struct PhotoPicker: UIViewControllerRepresentable {
 
-    @EnvironmentObject private var appState: StateService
+    @EnvironmentObject private var appState: AppState
     
     @Binding var showImagePicker: Bool
     

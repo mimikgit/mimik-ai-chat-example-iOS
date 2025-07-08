@@ -13,6 +13,7 @@ class EngineService: ObservableObject {
     private let kAIUseCaseDeployment = "kAIUseCaseDeployment"
     @Published var mimOEAccessToken: String = ""
     @Published var mimOEVersion: String = ""
+    var mimOEClientId: String = ""
     
     // mimik Client Library
     public let edgeClient: EdgeClient = {
@@ -21,7 +22,7 @@ class EngineService: ObservableObject {
         return EdgeClient()
     }()
     
-    // This is where we store the AI use case deployment information.
+    // Stored mimik AI use case deployment information.
     public var deployedUseCase: EdgeClient.UseCase? {
                 
         get {
@@ -97,7 +98,7 @@ class EngineService: ObservableObject {
             throw NSError(domain: "mim OE license error", code: 500)
         }
 
-        // Configuring s tartup parameters with the developer mim OE license.
+        // Configuring startup parameters with the developer mim OE license.
         // Sets the console logging out for mim OE to OFF
         let startupParameters = EdgeClient.StartupParameters(license: edgeLicense, logLevel: .off)
 
@@ -129,6 +130,9 @@ class EngineService: ObservableObject {
                 return .failure(NSError.init(domain: "mim OE access token error", code: 500))
             }
             
+            mimOEClientId = authorization.token?.clientId() ?? ""
+            print("✅ mim OE client id: \(mimOEClientId)")
+            
             // Authentication successful, returns the Access Token
             return .success(accessToken)
         case .failure(let error):
@@ -159,6 +163,16 @@ class EngineService: ObservableObject {
 
         let version = info["version"]
         return .success(version.stringValue)
+    }
+    
+    // Returns mim OE Runtime port number portion of the full path url.
+    func mimOEPort() -> Int? {
+        guard let mimOEPort = self.edgeClient.edgeEngineFullPathUrl().port else {
+            print("⚠️Error", #function, #line)
+            return nil
+        }
+        
+        return mimOEPort
     }
     
     @MainActor
