@@ -283,8 +283,8 @@ Want to test without building it yourself? Install the app using TestFlight:
 
 Explore more iOS + mimik AI development concepts here:
 
-- [Understanding the mimik Client Library for iOS](/key-concepts/10-index)
-- [Creating a Simple iOS App Using an Edge Microservice](/tutorials/01-submenu/02-submenu/01-index)
-- [Integrating mimik Client Library into iOS Projects](/tutorials/01-submenu/02-submenu/02-index)
-- [Working with Edge Microservices in iOS](/tutorials/01-submenu/02-submenu/04-index)
-- [AI Language Models in iOS Projects](/tutorials/02-submenu/02-submenu/01-index)
+- [Understanding the mimik Client Library for iOS](https://devdocs.mimik.com/key-concepts/10-index).
+- [Creating a Simple iOS Application that Uses an edge microservice](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/01-index).
+- [Integrating the mimik Client Library into an iOS project](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/02-index).
+- [Working with edge microservices in an iOS project](https://devdocs.mimik.com/tutorials/01-submenu/02-submenu/04-index).
+- [Working with AI language models in an iOS project](https://devdocs.mimik.com/tutorials/02-submenu/02-submenu/01-index).
