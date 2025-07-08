@@ -11,14 +11,15 @@ import Alamofire
 
 struct BottomChatInputView: View {
     
-    @EnvironmentObject private var appState: StateService
+    @EnvironmentObject private var authState: AuthState
+    @EnvironmentObject private var appState: AppState
     @EnvironmentObject private var modelService: ModelService
     @FocusState private var isFocused: Bool
     
-    @State private var showInputOptions: Bool = false
+    @State private var showInputOptions: Bool = false    
     
     @Binding var userInput: String
-    @Binding var question: String
+    @Binding var prompt: String
     @Binding var showImagePicker: Bool
     @Binding var showFileImporter: Bool
     
@@ -35,6 +36,7 @@ struct BottomChatInputView: View {
                     )
                     .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15)
                 }
+                
                 infoBlockView
             }
             
@@ -52,28 +54,42 @@ struct BottomChatInputView: View {
                     .disabled(appState.activeStream != nil)
             }
             .padding()
+            
+            listModelsView
+        }
+        .task {
+            Task {
+                try await Task.sleep(nanoseconds: 1_000_000_000)
+                modelService.reAuthorizeServices()
+            }
         }
     }
     
     private var infoBlockView: some View {
         HStack {
             if appState.activeStream == nil {
-                                
-                if appState.selectedModel?.kind == .vlm, appState.performanceMessage.isEmpty, !showInputOptions {
-                    MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .ruby, icon: showInputOptions ? "xmark" : "plus", iconPosition: .after) {
-                        showInputOptions.toggle()
-                    }
-                }
-                
-                MetallicText(text: appState.infoMessage, fontSize: DeviceType.isTablet ? 25 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 1 : 3, reservesSpace: false))
-                
-                if !appState.performanceMessage.isEmpty {
-                    MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "trash", iconPosition: .after) {
-                        appState.resetContextState()
-                    }
+                 
+                VStack {
+                    HStack {
+                        if appState.selectedModel?.kind == .vlm, !showInputOptions {
+                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .ruby, icon: showInputOptions ? "xmark" : "plus", iconPosition: .after) {
+                                showInputOptions.toggle()
+                            }
+                        }
+                        
+                        MetallicText(text: modelService.infoMessage, fontSize: DeviceType.isTablet ? 25 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 2 : 3, reservesSpace: false))
 
-                    MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "document.on.document", iconPosition: .after) {
-                        pasteboardCopy(from: appState.postedMessages)
+                        Spacer()
+                        
+                        AdaptiveStack(phone:  .vertical, tablet: .horizontal, alignment: .center, spacing: 5) {
+                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "trash", iconPosition: .after) {
+                                appState.resetContextState()
+                            }
+                            
+                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "document.on.document", iconPosition: .after) {
+                                UIPasteboard.general.string = appState.messagesForCopying()
+                            }
+                        }
                     }
                 }
             }
@@ -83,28 +99,40 @@ struct BottomChatInputView: View {
             }
         }
     }
-    
+  
+    private var listModelsView: some View {
+        HStack(spacing: 16) {
+            
+            MetallicText(text: "Models:", fontSize: DeviceType.isTablet ? 21 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 2 : 3, reservesSpace: false))
+
+            let authorizedServices = modelService.configuredServices(sortedFirstBy: .gemini).filter { service in
+                authState.accessToken(serviceKind: service.kind, tokenType: .developerToken) != nil
+            }
+            
+            ForEach(authorizedServices, id: \.modelId) { service in
+                MetallicText(
+                    text: service.kind.rawValue,
+                    fontSize: DeviceType.isTablet ? 21 : 16,
+                    color: .silver,
+                    icon: "list.bullet.rectangle",
+                    iconPosition: .after
+                ) {
+                    Task {
+                        try await modelService.availableModels(configuration: service)
+                    }
+                }
+            }
+            
+            Spacer()
+        }
+    }
+
     private var userInputPrompt: String {
         return appState.activeStream != nil ? "Streaming response" : ">"
     }
     
-    private func pasteboardCopy(from messages: [EdgeClient.AI.Model.Message]) {
-        var result: [String] = []
-
-        for message in messages {
-            if let content = message.content {
-                if message.isUserType {
-                    result.append("Prompt: \(content)")
-                } else if message.isAiType {
-                    result.append("Response: \(content)")
-                }
-            }
-        }
-        UIPasteboard.general.string = result.joined(separator: "\n")
-    }
-    
     private func handleUserInputSubmit() async throws {
-        question = userInput
+        prompt = userInput
         userInput = ""
         
         appState.generalMessage = ""
@@ -117,22 +145,19 @@ struct BottomChatInputView: View {
                     appState.generalMessage = "Attach an image to continue"
                     return
                 }
-                
-                try await modelService.visionAIStream(question: question, image: image)
-            } else {
-                try await modelService.chatAIStream(question: question)
-            }
-            
-            if let lastUsage = appState.lastTokenUsage {
-                var moreMsg = "Tokens: \(lastUsage.totalTokens ?? 0) (prompt: \(lastUsage.promptTokens ?? 0) + completion: \(lastUsage.completionTokens ?? 0)"
-                
-                if lastUsage.totalTokens ?? 0 == 2048 {
-                    moreMsg += " , **limit reached**)"
-                } else {
-                    moreMsg += ")"
+                            
+                if let promptService = modelService.configuredServices(sortedFirstBy: .mimikAI).first(where: { $0.modelId == appState.selectedModel?.id }) {
+                    try await modelService.assistantVisionPrompt(configuration: promptService, prompt: prompt, image: image)
                 }
                 
-                appState.performanceMessage = "Performance: \(lastUsage.tokenPerSecond?.rounded(.awayFromZero) ?? 0) tokens per second. \(moreMsg)"
+            } else {
+                if let promptService = modelService.configuredServices(sortedFirstBy: .mimikAI).first(where: { $0.modelId == appState.selectedModel?.id }) {
+                    try await modelService.assistantPrompt(configuration: promptService, prompt: prompt, isValidation: false)
+                             
+                    if let validateService = modelService.primaryValidateService, authState.accessToken(serviceKind: validateService.kind, tokenType: .developerToken) != nil {                                                
+                        try await modelService.assistantPrompt(configuration: validateService, prompt: "", isValidation: true)
+                    }
+                }
             }
         }
         catch let error as NSError {

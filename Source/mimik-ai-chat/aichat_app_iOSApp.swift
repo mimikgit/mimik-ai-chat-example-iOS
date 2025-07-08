@@ -11,16 +11,21 @@ import SwiftUI
 @main
 struct aichat_app_iOSApp: App {
     
-    @StateObject private var appState : StateService
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    @StateObject private var appState : AppState
     @StateObject private var engineService: EngineService
     @StateObject private var modelService: ModelService
+    @StateObject private var authState: AuthState
 
     init() {
-        let appState = StateService()
+        let appState = AppState()
         _appState = StateObject(wrappedValue: appState)
         let engine = EngineService()
         _engineService = StateObject(wrappedValue: engine)
-        let model = ModelService(engineService: engine, appState: appState)
+        let authState = AuthState()
+        _authState = StateObject(wrappedValue: authState)
+        let model = ModelService(engineService: engine, appState: appState, authState: authState)
         _modelService = StateObject(wrappedValue: model)
     }
 
@@ -30,6 +35,7 @@ struct aichat_app_iOSApp: App {
                 .environmentObject(appState)
                 .environmentObject(engineService)
                 .environmentObject(modelService)
+                .environmentObject(authState)
         }
     }
 }

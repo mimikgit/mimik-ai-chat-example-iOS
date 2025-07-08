@@ -11,18 +11,23 @@ import SwiftUI
 
 struct TopTitleStackView: View {
     
-    @EnvironmentObject private var appState: StateService
+    @EnvironmentObject var authState: AuthState
+    @EnvironmentObject var modelService: ModelService
+    @EnvironmentObject private var appState: AppState
     @State private var showAddModelTablet: Bool = false
     @State private var showAddModelPhone: Bool = false
+    @State private var validationSelections: Set<EdgeClient.AI.ServiceConfiguration> = []
     
     var body: some View {
-        VStack(spacing: 0) {
-            
-            if appState.downloadedModels.count > 0 {
-                haveModelsMenu
-            }
-            else {
-                noModelsMenu
+        
+        ZStack {
+            VStack(spacing: 0) {
+                if appState.downloadedModels.count > 0 {
+                    haveModelsMenu
+                }
+                else {
+                    noModelsMenu
+                }
             }
         }
     }
@@ -31,7 +36,7 @@ struct TopTitleStackView: View {
         VStack(spacing: 0) {
             Image("mimik-ai-logo-white")
             MetallicText(text: "agentix playground", fontSize: 18, color: .amethyst)
-            menuView.disabled(appState.activeStream != nil)
+            menuViewOnDevice.disabled(appState.activeStream != nil)
             
             if !appState.generalMessage.isEmpty {
                 Spacer()
@@ -45,30 +50,34 @@ struct TopTitleStackView: View {
         }
     }
     
-    private var haveModelsMenu: some View {
-        HStack() {
-            menuView
-                .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15)
-                .frame(maxWidth: ScreenSize.screenWidth * 0.3, alignment: .trailing)
-                        
-            VStack(spacing: 0) {
-                Image("mimik-ai-logo-white")
-                MetallicText(text: "agentix playground", fontSize: DeviceType.isTablet ? 18 : 10, color: .amethyst)
-            }
-            .frame(maxWidth: ScreenSize.screenWidth * 0.3, alignment: .center)
-            
-            if let url = URL(string: "https://mimik.ai") {
-                MetallicText(text: DeviceType.isTablet ? "visit mimik.ai" : "mimik.ai", fontSize: DeviceType.isTablet ? 32 : 16, color: .gold) {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    private var haveModelsMenu: some View {        
+        VStack {
+            HStack() {
+                menuViewOnDevice
+                    .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15)
+                
+                Spacer()
+                
+                VStack {
+                    Image("mimik-ai-logo-white")
+                    MetallicText(text: "agentix", fontSize: DeviceType.isTablet ? 18 : 10, color: .amethyst)
+                    MetallicText(text: "playground", fontSize: DeviceType.isTablet ? 18 : 10, color: .amethyst)
                 }
-                .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15)
-                .frame(maxWidth: ScreenSize.screenWidth * 0.3, alignment: .leading)
+             
+                Spacer()
+                
+                menuViewOnline
+                    .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15)
             }
         }
     }
     
-    private var menuView: some View {
-        MenuView(showAddModelTablet: $showAddModelTablet, showAddModelPhone: $showAddModelPhone)
+    private var menuViewOnDevice: some View {
+        MenuViewOnDevice(showAddModelTablet: $showAddModelTablet, showAddModelPhone: $showAddModelPhone)
+    }
+
+    private var menuViewOnline: some View {
+        MenuViewOnline()
     }
     
     private func manageModelsBorderColour() -> Color {
