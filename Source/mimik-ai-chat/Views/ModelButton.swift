@@ -11,6 +11,7 @@ import EdgeCore
 struct ModelButton: View {
     
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var modelService: ModelService
     
     var buttonText: String
     var backgroundColor: Color
@@ -35,18 +36,20 @@ struct ModelButton: View {
                         .foregroundColor(foregroundColor)
                         .font(.system(size: fontSize, weight: .semibold))
                     
-                    if let model = model {
+                    if let model = model, let kind = model.kind {
                         Spacer()
-                        if appState.alreadyDownloadedModel(id: model.id) {
+                        if modelService.alreadyDownloadedModel(id: model.id) {
                             MetallicText(text: "", fontSize: 15, color: .gold, icon: "checkmark.circle.fill", iconPosition: .after)
                         }
                         
                         VStack(alignment: .trailing) {
                             HStack {
-                                ColourText(text: model.kind?.rawValue ?? "", fontSize: DeviceType.isTablet ? 10 : 13, color: model.kind == .vlm ? .gold : foregroundColor)
+                                ColourText(text: modelType(for: model), fontSize: DeviceType.isTablet ? 10 : 13, color: modelTypeColour(kind: kind), icon: kind == .llm ? nil : modelTypeIcon(for: model), iconPosition: .after, spacing: 5)
                             }
-                            HStack {
-                                ColourText(text: model.chatTemplateHint?.rawValue ?? "", fontSize: DeviceType.isTablet ? 10 : 13, color: foregroundColor)
+                            if let hint = model.chatTemplateHint {
+                                HStack {
+                                    ColourText(text: hint.rawValue, fontSize: DeviceType.isTablet ? 10 : 13, color: foregroundColor)
+                                }
                             }
                             HStack {
                                 ColourText(text: AddModelView.ModifiedModel.readableFileSize(model.expectedDownloadSize) , fontSize: DeviceType.isTablet ? 10 : 13, color: foregroundColor)
@@ -59,6 +62,40 @@ struct ModelButton: View {
                 .background(backgroundColor)
                 .cornerRadius(12)
             }
+        }
+    }
+    
+    private func modelTypeIcon(for request: EdgeClient.AI.Model.CreateModelRequest) -> String? {
+        let kind = request.kind ?? .llm
+        switch kind {
+        case .vlm:
+            return "eye.fill"
+        default:
+            return nil
+        }
+    }
+    
+    private func modelTypeColour(kind: EdgeClient.AI.Model.Kind) -> Color {
+        switch kind {
+        case .llm:
+            return foregroundColor
+        case .vlm:
+            return .gold
+        @unknown default:
+            return foregroundColor
+        }
+    }
+    
+    // Returns a human-readable identifier for the given model request.
+    private func modelType(for request: EdgeClient.AI.Model.CreateModelRequest) -> String {
+        let kind = request.kind ?? .llm
+        switch kind {
+        case .llm:
+            return "llm"
+        case .vlm:
+            return "vision"
+        @unknown default:
+            return "unknown"
         }
     }
 }

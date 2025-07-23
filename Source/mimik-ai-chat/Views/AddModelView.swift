@@ -84,14 +84,14 @@ struct AddModelView: View {
     }
     
     private var downloadButton: some View {
-        let isDownloaded = appState.alreadyDownloadedModel(id: modModel.id)
+        let isDownloaded = modelService.alreadyDownloadedModel(id: modModel.id)
         let buttonText = isDownloaded ? "ALREADY DOWNLOADED" : "START DOWNLOAD (\(ModifiedModel.readableFileSize(modModel.expectedDownloadSize)))"
         
         let backgroundColor = isDownloaded ? Color(UIColor.gray) : Color(UIColor.systemRed)
         
         let action: () -> Void = isDownloaded ? {} : {
                 Task {
-                    await nextTask()
+                    await nextDownloadStep()
                 }
             }
 
@@ -154,120 +154,120 @@ struct AddModelView: View {
         }
     }
     
-    private func nextTask() async {
+    private func nextDownloadStep() async {
+
         presentationMode.wrappedValue.dismiss()
-        
-        guard let model = currentPreset() else {
-            appState.generalMessage = "Configuration Error"
-            return
-        }
-        
-        appState.generalMessage = ""
-        
+        appState.downloadMessage = ""
+
         do {
-            let clock = ContinuousClock()
-            
-            let elapsed = try await clock.measure {
-                if let useCase = engineService.deployedUseCase {
-                    // Already have Use Case deployed
-                    try await downloadTask(useCase: useCase, model: model)
-                }
-                else {
-                    // No Deployed Use Case
-                    try await deployTask(model: model)
-                    if let useCase = engineService.deployedUseCase {
-                        try await downloadTask(useCase: useCase, model: model)
-                    }
-                }
+            // Deploy or get the UseCase first
+            let useCase: EdgeClient.UseCase
+            if let existing = engineService.deployedUseCase {
+                useCase = existing
+            } else {
+                useCase = try await deployTask()
             }
-            
-            let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
-            print("Download completed in: \(format)")
-            appState.generalMessage = "Download completed in: \(format)"
-        }
-        
-        catch let error as NSError {
-            if error.localizedDescription.contains("cancelled") {
-                appState.generalMessage = error.localizedDescription
+
+            // Make sure we have a mimik AI service to download from
+            guard let mimikService = modelService.mimikAiConfiguration else {
+                print("⚠️ No mimik ai service is setup")
+                appState.downloadMessage = "No mimik ai service is setup"
                 return
             }
             
-            appState.generalMessage = error.domain
+            let clock = ContinuousClock()
+            let elapsed = try await clock.measure {
+                try await downloadTask(configuration: mimikService, useCase: useCase)
+            }
+
+            let format = elapsed.formatted(.time(pattern: .minuteSecond(padMinuteToLength: 2)))
+            print("Download completed in: \(format)")
+            appState.downloadMessage = "Download completed in: \(format)"
+        }
+        catch let error as NSError {
+            if error.localizedDescription.contains("cancelled") {
+                appState.downloadMessage = error.localizedDescription
+            } else {
+                appState.downloadMessage = error.domain
+            }
         }
     }
     
-    private func deployTask(model: EdgeClient.AI.Model.CreateModelRequest) async throws {
+    private func deployTask() async throws -> EdgeClient.UseCase {
         
-        do {
-            guard case let .success(config) = ConfigService.decodeJsonDataFrom(file: "mimik-ai-use-case-config", type: EdgeClient.UseCase.self) else {
-                throw NSError(domain: "Integration Failed", code: 500)
-            }
-            
-            try await modelService.integrateAI(useCase: config)
+        guard case let .success(config) = ConfigService.decodeJsonDataFrom(file: "mimik-ai-use-case-config", type: EdgeClient.UseCase.self) else {
+            throw NSError(domain: "Integration Failed", code: 500)
         }
         
+        do {
+            try await modelService.integrateAIService(useCase: config)
+            print("✅ mimik AI integration successful")
+            return config
+        }
         catch let error as NSError {
             appState.generalMessage = error.domain
             throw error
         }
     }
-    
-    private func downloadTask(useCase: EdgeClient.UseCase, model: EdgeClient.AI.Model.CreateModelRequest) async throws {
+
+    private func downloadTask(configuration: EdgeClient.AI.ServiceConfiguration, useCase: EdgeClient.UseCase) async throws {
         
         guard let model = currentPreset(), let apiKey = ConfigService.fetchConfig(for: .milmApiKey) else {
             return
         }
         
-        // Calling mimik Client Library to download the AI language model using the mILM edge microservice that was deployed as part of the mimik ai use case
-        switch await engineService.edgeClient.downloadAI(model: model, accessToken: engineService.mimOEAccessToken, apiKey: apiKey, useCase: useCase, downloadHandler: { download in
-            
-            guard case let .success(downloadProgress) = download else {
-                print("⚠️ No model download progress")
-                return
+        let client: any EdgeClient.AI.ServiceInterface = EdgeClient.AI.HybridClient(configuration: configuration, hybridEdgeClient: self.engineService.hybridEdgeClient)
+        let cancellable = await client.downloadAI(model: model, accessToken: engineService.mimOEAccessToken, apiKey: apiKey, useCase: useCase)
+        
+        appState.activeProtocolDownload = cancellable
+
+        defer {
+            appState.newResponse = ""
+            appState.activeProtocolDownload = nil
+            appState.downloadMessage = ""
+        }
+
+        do {
+            for try await chunk in cancellable.stream {
+                switch chunk {
+                case .request(let request):
+                    print("✅ STREAM emmited request:", request)
+                                        
+                case .progress(let progress):
+                    
+                    let percent = String(format: "%.2f", ceil( (progress.size / progress.totalSize) * 10_000) / 100)
+                    let line = "Model download: " + "\(percent)％ Don't lock your device. Keep this app open."
+                    print("✅ STREAM emmited progress:", line)
+                    
+                    if line.contains("100.00") {
+                        appState.justDownloadedModelId = model.id
+                    }
+                    else {
+                        appState.downloadMessage = line
+                        appState.justDownloadedModelId = ""
+                    }
+                    
+                case .completed(let model):
+                    print("✅ STREAM emmited completed:", model)
+                    appState.justDownloadedModelId = model.id ?? ""
+                    
+                    appState.downloadMessage = "Download successful, please wait."
+                    appState.activeProtocolDownload = nil
+                    
+                    Task {
+                        try? await Task.sleep(nanoseconds: 1_000_000_000)
+                        await modelService.updateConfiguredServices()
+                        appState.downloadMessage = "Download successful, model added."
+                        try? await Task.sleep(nanoseconds: 1_000_000_000)
+                        appState.downloadMessage = ""
+                    }
+                    
+                @unknown default:
+                    print("✅ STREAM emmited @unknown:", chunk)
+                }
             }
-            
-            let percent = String(format: "%.2f", ceil( (downloadProgress.size / downloadProgress.totalSize) * 10_000) / 100)
-            let line = "Model download progress: " + "\(percent)％ Don't lock your device. Keep this app open."
-            print("⚠️ Model download progress: " + percent)
-            
-            if line.contains("100.00") {
-                appState.justDownloadedModelId = model.id
-            }
-            else {
-                appState.generalMessage = line
-                appState.justDownloadedModelId = ""
-            }
-            
-        }, requestHandler: { request in
-            // Keeping the reference to the AI language model download request, in case we want to examine its state or cancel it before it ends.
-            DispatchQueue.main.async {
-                print("⚠️ Model download request", request)
-                appState.activeStream = request
-                appState.generalMessage = "Download starting..."
-            }
-        }) {
-            
-        case .success:
-            
-            guard let apiKey = ConfigService.fetchConfig(for: .milmApiKey), case .success = await engineService.edgeClient.aiModel(id: model.id, accessToken: engineService.mimOEAccessToken, apiKey: apiKey, useCase: useCase) else {
-                print("Model download claims success, but IDs don't match")
-                appState.activeStream = nil
-                throw NSError(domain: "Download Failed", code: 500)
-            }
-                        
-            // AI language model download request successful
-            appState.generalMessage = "Download successful, please wait."
-            // Clearing out the AI language model download request reference
-            appState.activeStream = nil
-            
-            Task {
-                try? await Task.sleep(nanoseconds: 1_000_000_000)
-                await modelService.processAvailableAIModels()
-            }
-            
-        case .failure(let error):
-            print("Model download error", error.localizedDescription)
-            appState.activeStream = nil
+        } catch {
+            EdgeClient.Log.logDebug(function: #function, line: #line, items: "Streaming error: \(error)", module: .edgeCore)
             throw error
         }
     }

@@ -16,14 +16,18 @@ class EngineService: ObservableObject {
     var mimOEClientId: String = ""
     
     // mimik Client Library
-    public let edgeClient: EdgeClient = {
-        EdgeClient.setLoggingLevel(module: .edgeCore, level: .debug, privacy: .publicAccess, marker: "⚠️")
-        EdgeClient.setLoggingLevel(module: .edgeEngine, level: .debug, privacy: .publicAccess, marker: "❗️")
-        return EdgeClient()
+    private let _edgeClient = { () -> EdgeClient in
+      EdgeClient.setLoggingLevel(module: .edgeCore,   level: .debug, privacy: .publicAccess, marker: "⚠️")
+      EdgeClient.setLoggingLevel(module: .edgeEngine, level: .debug, privacy: .publicAccess, marker: "❗️")
+      return EdgeClient()
     }()
+
+    // callers who need only the protocol for fetching edge microservices:
+    var hybridEdgeClient: any EdgeClient.AI.HybridEdgeClient { _edgeClient }
+    // callers who need the full class:
+    var edgeClient: EdgeClient { _edgeClient }
     
-    // Stored mimik AI use case deployment information.
-    public var deployedUseCase: EdgeClient.UseCase? {
+    var deployedUseCase: EdgeClient.UseCase? {
                 
         get {
             guard case let .success(loadedConfig) = ConfigService.decodeJsonDataFrom(file: "mimik-ai-use-case-config", type: EdgeClient.UseCase.self), let loadedVersion = loadedConfig.version else {
@@ -41,7 +45,6 @@ class EngineService: ObservableObject {
                     return nil
                 }
             
-                print("✅ Stored mimik ai use case deployment info found, version:", storedVersion)
                 return deployment
             }
             print("⚠️ No stored mimik ai use case deployment found")
@@ -62,7 +65,7 @@ class EngineService: ObservableObject {
     
     // Runs the mim OE startup procedure. Authenticates mim OE using a developer id token, saves the access token from the result.
     @MainActor
-    public func startupProcedure() async throws {
+    func startupProcedure() async throws {
         
         try await startMimOE()
         
@@ -78,7 +81,7 @@ class EngineService: ObservableObject {
     }
     
     // Resets mim OE storage, removing all user data from mim OE storage, including downloaded AI models.
-    public func removeEverything() async throws {
+    func removeEverything() async throws {
         do {
             try await resetMimOE()
             await stateReset()
@@ -161,18 +164,9 @@ class EngineService: ObservableObject {
             return .failure(NSError(domain: "error", code: 500))
         }
 
+        print("✅ mim OE info", info)
         let version = info["version"]
         return .success(version.stringValue)
-    }
-    
-    // Returns mim OE Runtime port number portion of the full path url.
-    func mimOEPort() -> Int? {
-        guard let mimOEPort = self.edgeClient.edgeEngineFullPathUrl().port else {
-            print("⚠️Error", #function, #line)
-            return nil
-        }
-        
-        return mimOEPort
     }
     
     @MainActor

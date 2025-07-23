@@ -6,6 +6,7 @@
     "url": "https://huggingface.co/second-state/Llava-v1.5-7B-GGUF/resolve/main/llava-v1.5-7b-Q4_K_S.gguf?download=true",
     "excludeFromBackup": true,
     "kind" : "vlm",
+    "visionKind" : "vlm",
     "mmprojUrl": "https://huggingface.co/second-state/Llava-v1.5-7B-GGUF/resolve/main/llava-v1.5-7b-mmproj-model-f16.gguf?download=true",
     "chatTemplateHint" : "vicuna"
 }

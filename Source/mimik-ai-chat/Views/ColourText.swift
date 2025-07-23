@@ -15,6 +15,7 @@ struct ColourText: View {
     var lineLimit: LineLimit? = nil
     var icon: String? = nil
     var iconPosition: IconPosition? = nil
+    var spacing: CGFloat? = nil
     var tapAction: (() -> Void)?
     
     enum IconPosition {
@@ -23,7 +24,7 @@ struct ColourText: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: spacing) {
             if iconPosition == .before, let icon = icon {
                 Image(systemName: icon)
                     .font(.system(size: fontSize))

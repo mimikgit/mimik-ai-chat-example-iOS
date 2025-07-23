@@ -54,7 +54,7 @@ struct PhotoPicker: UIViewControllerRepresentable {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { image, error in
                     
                     if let error = error {
-                        print("Photo picker error loading image: \(error.localizedDescription)")
+                        print("⚠️ Photo picker error loading image: \(error.localizedDescription)")
                     }
                     else if let image = image as? UIImage {
                         DispatchQueue.main.async {
