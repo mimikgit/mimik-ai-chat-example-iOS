@@ -10,6 +10,7 @@ import SwiftUI
 struct LineLimit {
     var lineLimit: Int
     var reservesSpace: Bool
+    var minimumScaleFactor: CGFloat = 1.0
 }
 
 struct MetallicText: View {
@@ -76,6 +77,7 @@ struct MetallicText: View {
                 )
                 .shadow(color: Color.black.opacity(0.3), radius: 10, x: 5, y: 5)
                 .lineLimit(lineLimit?.lineLimit ?? 0, reservesSpace: lineLimit?.reservesSpace ?? false)
+                .minimumScaleFactor(lineLimit?.minimumScaleFactor ?? 1.0)
 
             if iconPosition == .after, let icon = icon {
                 Image(systemName: icon)

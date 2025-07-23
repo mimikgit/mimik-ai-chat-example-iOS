@@ -11,7 +11,7 @@ import Combine
 
 extension Publishers {
     
-    /// Emits the keyboard’s height when shown, or 0 when hidden.
+    // Emits the keyboard’s height when shown, or 0 when hidden.
     static var keyboardHeight: AnyPublisher<CGFloat, Never> {
         let willShow = NotificationCenter.default
             .publisher(for: UIResponder.keyboardWillShowNotification)

@@ -51,7 +51,7 @@ struct BottomChatInputView: View {
                     }
                     .focused($isFocused)
                     .foregroundStyle(.white)
-                    .disabled(appState.activeStream != nil)
+                    .disabled(appState.activeProtocolStream != nil)
             }
             .padding()
             
@@ -60,42 +60,31 @@ struct BottomChatInputView: View {
         .task {
             Task {
                 try await Task.sleep(nanoseconds: 1_000_000_000)
-                modelService.reAuthorizeServices()
+                await modelService.updateConfiguredServices()
             }
         }
     }
     
     private var infoBlockView: some View {
         HStack {
-            if appState.activeStream == nil {
-                 
-                VStack {
-                    HStack {
-                        if appState.selectedModel?.kind == .vlm, !showInputOptions {
-                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .ruby, icon: showInputOptions ? "xmark" : "plus", iconPosition: .after) {
-                                showInputOptions.toggle()
-                            }
-                        }
-                        
-                        MetallicText(text: modelService.infoMessage, fontSize: DeviceType.isTablet ? 25 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 2 : 3, reservesSpace: false))
-
-                        Spacer()
-                        
-                        AdaptiveStack(phone:  .vertical, tablet: .horizontal, alignment: .center, spacing: 5) {
-                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "trash", iconPosition: .after) {
-                                appState.resetContextState()
-                            }
-                            
-                            MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "document.on.document", iconPosition: .after) {
-                                UIPasteboard.general.string = appState.messagesForCopying()
-                            }
-                        }
-                    }
+            if modelService.selectedPromptService?.model?.kind == .vlm, !showInputOptions {
+                MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .ruby, icon: showInputOptions ? "xmark" : "plus", iconPosition: .after) {
+                    showInputOptions.toggle()
                 }
             }
-            else {
-                MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .ruby, icon: "xmark", iconPosition: .after) { appState.resetContextState() }
-                MetallicText(text: appState.generalMessage, fontSize: DeviceType.isTablet ? 25 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 1 : 3, reservesSpace: false))
+            
+            MetallicText(text: modelService.infoMessage, fontSize: DeviceType.isTablet ? 25 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 2 : 3, reservesSpace: false))
+
+            Spacer()
+            
+            AdaptiveStack(phone:  .vertical, tablet: .horizontal, alignment: .center, spacing: 5) {
+                MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "trash", iconPosition: .after) {
+                    appState.stateReset()
+                }
+                
+                MetallicText(text: "", fontSize: DeviceType.isTablet ? 25 : 16, color: .silver, icon: "document.on.document", iconPosition: .after) {
+                    UIPasteboard.general.string = appState.messagesForCopying()
+                }
             }
         }
     }
@@ -105,7 +94,7 @@ struct BottomChatInputView: View {
             
             MetallicText(text: "Models:", fontSize: DeviceType.isTablet ? 21 : 16, color: .gold, lineLimit: LineLimit(lineLimit: DeviceType.isTablet ? 2 : 3, reservesSpace: false))
 
-            let authorizedServices = modelService.configuredServices(sortedFirstBy: .gemini).filter { service in
+            let authorizedServices = modelService.configuredServices(uniqueByKindWithPreferred: .gemini).filter { service in
                 authState.accessToken(serviceKind: service.kind, tokenType: .developerToken) != nil
             }
             
@@ -128,7 +117,7 @@ struct BottomChatInputView: View {
     }
 
     private var userInputPrompt: String {
-        return appState.activeStream != nil ? "Streaming response" : ">"
+        return appState.activeProtocolStream != nil ? "Streaming response" : ">"
     }
     
     private func handleUserInputSubmit() async throws {
@@ -139,24 +128,23 @@ struct BottomChatInputView: View {
         showInputOptions = false
         
         do {
-            if appState.selectedModel?.kind == .vlm {
+            guard let promptService = modelService.selectedPromptService else {
+                return
+            }
+            
+            if promptService.model?.kind == .vlm {
                 
                 guard let image = appState.selectedImage else {
                     appState.generalMessage = "Attach an image to continue"
                     return
                 }
-                            
-                if let promptService = modelService.configuredServices(sortedFirstBy: .mimikAI).first(where: { $0.modelId == appState.selectedModel?.id }) {
-                    try await modelService.assistantVisionPrompt(configuration: promptService, prompt: prompt, image: image)
-                }
                 
+                try await modelService.assistantVisionPrompt(configuration: promptService, prompt: prompt, image: image)
             } else {
-                if let promptService = modelService.configuredServices(sortedFirstBy: .mimikAI).first(where: { $0.modelId == appState.selectedModel?.id }) {
-                    try await modelService.assistantPrompt(configuration: promptService, prompt: prompt, isValidation: false)
-                             
-                    if let validateService = modelService.primaryValidateService, authState.accessToken(serviceKind: validateService.kind, tokenType: .developerToken) != nil {                                                
-                        try await modelService.assistantPrompt(configuration: validateService, prompt: "", isValidation: true)
-                    }
+                try await modelService.assistantPrompt(configuration: promptService, prompt: prompt, isValidation: false)
+                
+                if let validateService = modelService.selectedValidateService {
+                    try await modelService.assistantPrompt(configuration: validateService, prompt: "", isValidation: true)
                 }
             }
         }
@@ -168,10 +156,10 @@ struct BottomChatInputView: View {
     }
     
     private func userInputStyle() -> some ShapeStyle {
-        if appState.activeStream != nil {
+        if appState.activeProtocolStream != nil {
             return .gray
         }
         
-        return appState.downloadedModels.isEmpty ? .clear : .gray
+        return modelService.selectedPromptService != nil ? .clear : .gray
     }
 }

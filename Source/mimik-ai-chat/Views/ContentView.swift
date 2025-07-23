@@ -25,86 +25,85 @@ struct ContentView: View {
     
     var body: some View {
         
-        LoadingView(isShowing: $showLoading, text: loadingMessage) {
+        ZStack {
+            Image("Full Background")
+                .resizable()
+                .edgesIgnoringSafeArea([.bottom, .top])
             
-            ZStack {
-                Image("Full Background")
-                    .resizable()
-                    .edgesIgnoringSafeArea([.bottom, .top])
+            VStack() {
                 
-                VStack() {
-                    
-                    TopTitleStackView()
-                        .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15.0)
+                TopTitleStackView()
+                    .customBackground(backgroundColor: Color(UIColor.systemFill), cornerRadius: 15.0)
+                    .padding()
+                    .padding(.top)
+                    .frame(maxWidth: ScreenSize.screenWidth, maxHeight: DeviceType.isTablet ? 200 : 300)
+                    .zIndex(1)
+                
+                if modelService.selectedPromptService != nil {
+                    ChatMessagesView()
+                        .frame(maxWidth: ScreenSize.screenWidth, maxHeight: ScreenSize.screenHeight * 0.7)
+                        .customBackground(backgroundColor: modelService.selectedPromptService != nil ? Color(UIColor.systemFill) : .clear, cornerRadius: 15.0)
                         .padding()
-                        .padding(.top)
-                        .frame(maxWidth: ScreenSize.screenWidth, maxHeight: DeviceType.isTablet ? 200 : 180)
-                        .zIndex(1)
                     
-                    if !appState.downloadedModels.isEmpty {
-                        
-                        if appState.selectedModel == nil {
-                            HStack {
-                                Spacer()
-                                MetallicText(text: "Select a model", fontSize: 32, color: .silver, icon: "arrow.up", iconPosition: .before)
-                                Spacer()
-                                MetallicText(text: "Learn more", fontSize: 32, color: .silver, icon: "arrow.up", iconPosition: .after)
-                                Spacer()
-                            }
-                        }
-                        
-                        ChatMessagesView()
-                            .frame(maxWidth: ScreenSize.screenWidth, maxHeight: ScreenSize.screenHeight * 0.7)
-                            .customBackground(backgroundColor: !appState.downloadedModels.isEmpty ? Color(UIColor.systemFill) : .clear, cornerRadius: 15.0)
-                            .padding()
-                        
-                        BottomChatView()
-                            .customBackground(backgroundColor: !appState.downloadedModels.isEmpty ? Color(UIColor.systemFill) : .clear, cornerRadius: 15.0)
-                            .padding()
-                    }
+                    BottomChatView()
+                        .customBackground(backgroundColor: modelService.selectedPromptService != nil ? Color(UIColor.systemFill) : .clear, cornerRadius: 15.0)
+                        .padding()
                 }
             }
-            .keyboardAdaptive()
-            .edgesIgnoringSafeArea(.all)
-            .task {
-                Task {
-                    await startupTask()
-                }
+        }
+        .keyboardAdaptive()
+        .edgesIgnoringSafeArea(.all)
+        .task {
+            Task {
+                await startupTask()
+                updateConfiguredServices()
             }
-            .onChange(of: appState.selectedModel) { oldModel, newNewModel in
-                Task {
-                    modelService.configuredServices.removeAll()
-                    try await Task.sleep(nanoseconds: 250_000_000)
-                    if let selectedModelId = appState.selectedModel?.id, let milmApiKey = ConfigService.fetchConfig(for: .milmApiKey), let mimOEPort = engineService.mimOEPort() {
-                        authState.saveToken(token: milmApiKey, serviceKind: .mimikAI, tokenType: .developerToken)
-                        modelService.configuredServices.append(EdgeClient.AI.ServiceConfiguration(kind: .mimikAI, modelId: selectedModelId, apiKey: milmApiKey, mimOEPort: mimOEPort, mimOEClientId: engineService.mimOEClientId))
-                        modelService.configuredServices.append(EdgeClient.AI.ServiceConfiguration(kind: .gemini, modelId: "gemini-2.0-flash", apiKey: nil, mimOEPort: nil, mimOEClientId: nil))
-                    }
-                }
+        }
+        .onChange(of: modelService.selectedPromptService) { oldModel, newNewModel in
+            updateConfiguredServices()
+        }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if newPhase == .background {
+                // application went to the background, cancelling active streams
+                appState.activeProtocolStream.map { $0.cancel() }
+                appState.activeProtocolDownload.map { $0.cancel() }
             }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
-                if newPhase == .background {
-                    // Application went to the background, cancelling active stream
-                    appState.activeStream?.cancel()
-                }
-            }
-            .sheet(item: $appState.tokenInputService) { service in
-                TokenInputStackView(tokenInputService: service)
-                    .environmentObject(appState)
-                    .environmentObject(authState)
-                    .environmentObject(modelService)
-            }
+        }
+        .sheet(item: $appState.tokenInputService) { service in
+            TokenInputStackView(tokenInputService: service)
+                .environmentObject(appState)
+                .environmentObject(authState)
+                .environmentObject(modelService)
         }
     }
     
-    func startupTask() async {
+    private func updateConfiguredServices() {
+        Task {
+            await modelService.updateConfiguredServices()
+        }
+    }
+    
+    private func startupTask() async {
         do {
             try await engineService.startupProcedure()
-            await modelService.processAvailableAIModels()
+            await modelService.updateConfiguredServices()
         }
         catch {
             print("Error during startup procedure: \(error)")
             appState.generalMessage = error.localizedDescription
+        }
+    }
+}
+
+extension View {
+    // Applies `transform` to this view if `condition` is `true`.
+    @ViewBuilder
+    func `if`<Content: View>(_ condition: Bool,
+                             transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
         }
     }
 }

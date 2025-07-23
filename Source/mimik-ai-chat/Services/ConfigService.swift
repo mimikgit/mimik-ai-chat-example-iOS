@@ -27,7 +27,7 @@ class ConfigService {
         }
     }
     
-    public static func fetchConfig(for type: ConfigType, ext: String? = "") -> String? {
+    static func fetchConfig(for type: ConfigType, ext: String? = "") -> String? {
         
         guard let filePath = Bundle.main.path(forResource: type.fileName, ofType: ext) else {
             print("⚠️ File not found: \(type.fileName)")
@@ -37,7 +37,6 @@ class ConfigService {
         do {
             let content = try String(contentsOfFile: filePath, encoding: .utf8).replacingOccurrences(of: "\n", with: "")
             
-            // Checks for invalid tokens in the file
             guard !content.contains(type.placeholder) else {
                 print("⚠️ Invalid token in file: \(type.fileName)")
                 return nil
@@ -50,7 +49,7 @@ class ConfigService {
         }
     }
     
-    public static func decodeJsonDataFrom<T: Decodable>(file: String, type: T.Type) -> Result<T, NSError> {
+    static func decodeJsonDataFrom<T: Decodable>(file: String, type: T.Type) -> Result<T, NSError> {
         
         guard let filePath = Bundle.main.path(forResource: file, ofType: "json") else {
             print("⚠️ File not found: \(file)")
@@ -68,40 +67,63 @@ class ConfigService {
         }
     }
     
-    public static func versionBuild() -> String {
+    static func versionBuild() -> String {
         let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString")
         let build = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion")
         let versionBuildString = "\(version ?? "") (\(build ?? ""))"
         return versionBuildString
     }
     
-    public static func tokenExpiration() -> String {
+    static func tokenExpiration() -> String {
         guard let token = ConfigService.fetchConfig(for: .devIdToken), let expiresIn = EdgeClient.Authorization.AccessToken.expiresIn(token: token) else {
             return "Invalid Token"
         }
         return expiresIn.formatted()
     }
-        
+    
     static func modelPresets() -> [EdgeClient.AI.Model.CreateModelRequest] {
-        
         var models: [EdgeClient.AI.Model.CreateModelRequest] = []
         
-        for number in 1...5 {
+        for filename in bundledModelConfigFilenames() {
+            guard case let .success(decoded) = ConfigService.decodeJsonDataFrom(
+                    file: filename,
+                    type: EdgeClient.AI.Model.CreateModelRequest.self)
+            else { continue }
             
-            let filename = "config-ai-model\(number)-download"
-            
-            guard case let .success(decodedModel) = ConfigService.decodeJsonDataFrom(file: filename, type: EdgeClient.AI.Model.CreateModelRequest.self) else {
+            if (decoded.kind == .vlm || decoded.expectedDownloadSize > 2_000_000_000),
+               !ProcessInfo.processInfo.isiOSAppOnMac {
                 continue
             }
             
-            if (decodedModel.kind == .vlm || decodedModel.expectedDownloadSize > 2_000_000_000), !ProcessInfo.processInfo.isiOSAppOnMac {
-                continue
-            }
-            
-            models.append(decodedModel)
+            models.append(decoded)
         }
         
         return models
+    }
+    
+    private static func extractIndex(from filename: String) -> Int {
+        let base = (filename as NSString).deletingPathExtension
+        let afterPrefix = base.replacingOccurrences(of: "config-model-", with: "")
+        let parts = afterPrefix.split(separator: "-", maxSplits: 1)
+        if let idxString = parts.first, let idx = Int(idxString) {
+            return idx
+        }
+        return Int.max
+    }
+    
+    private static func bundledModelConfigFilenames() -> [String] {
+        guard let resourcePath = Bundle.main.resourcePath else { return [] }
+        let allFiles = (try? FileManager.default.contentsOfDirectory(atPath: resourcePath)) ?? []
+        
+        let configs = allFiles.filter {
+            $0.hasPrefix("config-model-") && $0.hasSuffix(".json")
+        }
+        
+        let sorted = configs.sorted {
+            extractIndex(from: $0) < extractIndex(from: $1)
+        }
+        
+        return sorted.map { ($0 as NSString).deletingPathExtension }
     }
 }
 

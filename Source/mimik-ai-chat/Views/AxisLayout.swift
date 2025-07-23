@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-public enum AxisLayout {
-    case vertical, horizontal
-}
 
 /// A container that switches between VStack/HStack depending on device idiom.
 struct AdaptiveStack<Content: View>: View {
+    
+    public enum AxisLayout {
+        case vertical, horizontal
+    }
+    
     private let phoneLayout: AxisLayout
     private let tabletLayout: AxisLayout
     private let alignment: Alignment

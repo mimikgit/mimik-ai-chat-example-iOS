@@ -10,7 +10,7 @@ import Security
 
 struct KeychainService {
     
-    /// Stores a value securely in the Keychain.
+    // Stores a value securely in the Keychain.
     static func save(_ value: String, forKey key: String) {
         guard let data = value.data(using: .utf8) else {
             print("⚠️ Failed to encode value for key: \(key)")
@@ -38,7 +38,7 @@ struct KeychainService {
         }
     }
 
-    /// Retrieves a value from the Keychain.
+    // Retrieves a value from the Keychain.
     static func read(forKey key: String) -> String? {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,
@@ -64,7 +64,7 @@ struct KeychainService {
         }
     }
 
-    /// Deletes a value from the Keychain.
+    // Deletes a value from the Keychain.
     static func delete(forKey key: String) {
         let query: [CFString: Any] = [
             kSecClass: kSecClassGenericPassword,

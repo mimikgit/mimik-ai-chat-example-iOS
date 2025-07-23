@@ -11,25 +11,22 @@ import SwiftUI
 
 class AppState: ObservableObject {
     
-    @Published var selectedModel: EdgeClient.AI.Model?
-    @Published var selectedModelId: String = ""
-    
     // Track which service was selected for token input
     @Published var tokenInputService: EdgeClient.AI.ServiceConfiguration?
     
     // Holds the token input the user types in
     @Published var developerToken: String = ""
     
-    @Published var downloadedModels: [EdgeClient.AI.Model] = []
     @Published var postedMessages: [EdgeClient.AI.Model.Message] = []
     @Published var justDownloadedModelId: String = ""
     @Published var generalMessage: String = ""
+    @Published var downloadMessage: String = ""
     @Published var tokenUsage: [String: EdgeClient.AI.Model.Usage] = [:]
     @Published var newResponse: String = ""
 
-    // Active model response stream
-    @Published var activeStream: DataStreamRequest?    
+    // Active protocol streams
     @Published var activeProtocolStream: EdgeClient.AI.CancellableStream<EdgeClient.AI.Model.CompletionResponse>?
+    @Published var activeProtocolDownload: EdgeClient.AI.CancellableStream<EdgeClient.AI.DownloadAIEvent>?
     
     // Photo Picker selection
     @Published var selectedImage: UIImage?
@@ -37,33 +34,17 @@ class AppState: ObservableObject {
     // File Picker selection
     @Published var selectedFileURL: URL? = nil
         
-    func resetContextState() {
-        print("⚠️ Resets context state and cancels any active streams")
+    func stateReset() {
+        print("⚠️ Clear AppState, reset")
         postedMessages = []
         justDownloadedModelId = ""
         generalMessage = ""
+        downloadMessage = ""
         tokenUsage = [:]
-        activeStream?.cancel()
-        activeStream = nil
         selectedImage = nil
         selectedFileURL = nil
         activeProtocolStream.map { $0.cancel() }
-    }
-    
-    func stateReset() {
-        print("⚠️ Clear AppState, reset")
-        selectedModel = nil
-        downloadedModels.removeAll()
-        resetContextState()
-    }
-    
-    public func alreadyDownloadedModel(id: String) -> Bool {        
-        for model in downloadedModels {
-            if let modelId = model.id, modelId == id {
-                return true
-            }
-        }
-        return false
+        activeProtocolDownload.map { $0.cancel() }
     }
     
     public func messagesForCopying(includePrompt: Bool = true) -> String {

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// A reusable SwiftUI view for entering a token (or other short text).
 struct TokenInputView: View {
     
     @Binding var token: String

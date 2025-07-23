@@ -12,6 +12,7 @@ import SwiftUI
 struct BottomChatView: View {
     
     @EnvironmentObject var appState: AppState
+    @EnvironmentObject var modelService: ModelService
     
     @State private var userInput: String = ""
     @State private var question: String = ""
@@ -21,18 +22,16 @@ struct BottomChatView: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            if !appState.downloadedModels.isEmpty {
-                if appState.selectedModel != nil {
-                    BottomChatInputView(userInput: $userInput, prompt: $question, showImagePicker: $showImagePicker, showFileImporter: $showFileImporter)
-                        .textFieldModifier(borderColor: userInputColour(), lineWidth: appState.downloadedModels.count >= 1 ? 2 : 1)
-                        .fileImporter(
-                            isPresented: $showFileImporter,
-                            allowedContentTypes: FileTypes.allowedContentTypes(for: [.image]),
-                            allowsMultipleSelection: false
-                        ) { result in
-                            handleFileSelection(result: result)
-                        }
-                }
+            if modelService.selectedPromptService != nil {
+                BottomChatInputView(userInput: $userInput, prompt: $question, showImagePicker: $showImagePicker, showFileImporter: $showFileImporter)
+                    .textFieldModifier(borderColor: userInputColour(), lineWidth: 2)
+                    .fileImporter(
+                        isPresented: $showFileImporter,
+                        allowedContentTypes: FileTypes.allowedContentTypes(for: [.image]),
+                        allowsMultipleSelection: false
+                    ) { result in
+                        handleFileSelection(result: result)
+                    }
             }
         }
         .sheet(isPresented: $showImagePicker) {
@@ -57,10 +56,10 @@ struct BottomChatView: View {
     
     private func userInputColour() -> Color {
         
-        if appState.activeStream != nil {
+        if appState.activeProtocolStream != nil {
             return .gray
         }
         
-        return appState.downloadedModels.count >= 1 ? Color(UIColor.white) : .clear
+        return modelService.selectedPromptService != nil ? Color(UIColor.white) : .clear
     }
 }

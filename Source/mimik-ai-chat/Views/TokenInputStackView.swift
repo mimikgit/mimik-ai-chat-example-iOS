@@ -49,13 +49,17 @@ struct TokenInputStackView: View {
         appState.developerToken = ""
         appState.tokenInputService = nil
         authState.deleteServiceToken(serviceKind: tokenInputService.kind)
-        modelService.reAuthorizeServices()
+        Task {
+            await modelService.updateConfiguredServices()
+        }
     }
 
     private func connect() {
         authState.saveToken(token: appState.developerToken, serviceKind: tokenInputService.kind, tokenType: .developerToken)
         appState.developerToken = ""
         appState.tokenInputService = nil
-        modelService.reAuthorizeServices()
+        Task {
+            await modelService.updateConfiguredServices()
+        }
     }
 }
